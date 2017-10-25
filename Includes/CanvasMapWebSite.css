@@ -1,0 +1,179 @@
+@charset "utf-8";
+/* CSS Document */
+/* Styles for the canvas map web pages */
+
+a:link {
+	color: #2A1FFF; 
+	background-color:transparent; 
+	/*text-decoration:none*/
+}
+
+a:visited {
+	color: #2A00AA; 
+	background-color:transparent; 
+	/*text-decoration:none*/
+}
+
+a:hover, a:active, a:focus {
+	color: #2A5FFF; 
+	background-color:transparent; 
+	text-decoration:underline
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "Century Gothic", Arial, "Arial Narrow", sans-serif;
+	font-size: 14px;
+	background-color: #FFF;
+	background-repeat: repeat-x;
+}
+
+.content {
+	padding: 30px 25px 40px 25px;	
+}
+
+#content_wrapper {
+	width: 960px;
+	margin: 0 auto;
+	background-color: #FFF;
+	position: relative;
+	top: 140px;
+	-webkit-box-shadow: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 7px -3px;
+	
+}	
+
+/* ~~ The footer ~~ */
+#footer {
+}
+
+#footerimage {
+	margin: 0px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	background-color: #ffffff;
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+
+#footer_p {
+	color: #CCC;
+	line-height: 2px;
+	margin: 15px;
+}
+
+#footerwrapper {
+	background-color: #CCC;
+	padding-top: 10px;
+}
+
+#footer ul {
+	list-style-type: none;
+	font-size: 12px;
+	font-weight: normal;
+	color: #CCC;
+}
+
+#footer li {
+	font-weight: normal;
+	color: #CCC;
+}
+
+#footer a, #footer a:visited {
+	font-weight: normal;
+	color: #CCC;
+	text-decoration: none;
+}
+
+#footer a:hover, #footer a:active, #footer a:focus {
+	color: #F60;
+	text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing div. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 15px;
+	padding-left: 15px; /* adding the padding to the sides of the elements within the divs, instead of the divs themselves, gets rid of any box model math. A nested div with side padding can also be used as an alternate method. */
+}
+
+h2 {
+	border-bottom:solid 1px black;
+}
+
+#header {
+}
+
+#main_container {
+}
+
+#main_nav_container {
+	background-color: #EFEFEF;	
+} 
+
+#mainnav {
+}
+
+#main_nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#main_nav a {
+	width: 25%;
+	display: block;
+	float: left;	
+	text-align: center;
+	background-color: #EFEFEF;
+	color: #222222;
+	text-transform: uppercase;
+	font-weight: bold;
+	padding: 15px 0px 15px 0px;
+	text-decoration:underlines
+}
+/* styles for the links in the main navigation bar */
+#main_nav a:hover, a:link, #main_nav a:active, #main_nav a:focus, #main_nav {
+	text-decoration: none;
+	background-color: #CCCCCC;
+}
+
+#margin_top {
+	margin-top: 30px;
+}
+
+#masthead {
+	color: #FFFFFF;
+	background-color: #000000;
+}
+
+pre {
+	color: 808080;
+	background-color: #DDD;
+	margin: 20px;
+	padding: 10px;
+	border: 1px solid #000;
+}
+
+
+/* ~~ Element/tag selectors ~~ */
+/* Due to variations between browsers, it's best practices to zero padding and margin on lists. 
+For consistency, you can either specify the amounts you want here, or on the list items 
+(LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list 
+unless you write a more specific selector. */
+ul, ol, dl { 
+}
+
+/* override the settings for hyperlinks for the menu to put them back to having an underline */
+#main_content_container a:hover,
+	#main_content_container  a:link,
+	#main_content_container a:visited, 
+	#main_content_container a:active, 
+	#main_content_container a:focus {
+	text-decoration: underline;
+	background-color: #ffffff;
+}

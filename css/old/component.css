@@ -1,0 +1,102 @@
+/* Vertical Menu (General Styles)
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.cbp-spmenu {
+	background-color: rgba(41, 84, 41, 0.9);
+	position: fixed;
+	height: auto;
+	bottom: 0;
+}
+.cbp-spmenu a {
+	color: #fff;
+	font-size: 1.1em;
+	font-weight: 300;
+}
+.cbp-spmenu a:hover {
+	color: none;
+}
+.cbp-spmenu a:active {
+	background: none;
+}
+/* Vertical Menu
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.cbp-spmenu-vertical {
+	width: 380px;
+	height: auto;
+	top: 120px;
+	z-index: 1;
+	bottom: 0;
+	overflow-y: hidden;
+	display: block;
+}
+.cbp-spmenu-left {
+	left: 380px; /* was negative */
+	height: auto;
+	bottom: 0;
+	overflow-y: hidden;
+}
+.cbp-spmenu-left.cbp-spmenu-open {
+	left: 0px;
+	height: auto;
+	bottom: 0;
+	overflow-y: auto;
+	display: block;
+}
+/* Horizontal Menu
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.cbp-spmenu-horizontal {
+	width: 340px;
+	height: 500px;
+	right: 0;
+	z-index: 1;
+	overflow-y: hidden;
+}
+.cbp-spmenu-bottom {
+	bottom: 500px;/* was negative */
+	z-index: 1;
+	overflow-y:hidden;
+}
+.cbp-spmenu-bottom.cbp-spmenu-open {
+	bottom: 0px;
+	z-index: 1;
+	height: 500px;
+	overflow-y: hidden;
+}
+/* Transitions
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.cbp-spmenu {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+/* Map
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+#map {
+	z-index: -1;
+}
+
+/* Media Queries 
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+@media screen and (max-width: 700px) {
+ .cbp-spmenu-horizontal {
+ font-size: 75%;
+ height: 400px;
+ width: 200px;
+}
+ .cbp-spmenu-bottom {
+ bottom: 400px;/* was negative */
+}
+}
+ @media screen and (max-width: 700px) {
+ .cbp-spmenu-vertical {
+ font-size: 90%;
+ width: 280px;
+}
+ .cbp-spmenu-left,  .cbp-spmenu-push-toleft {
+ left: 280px;/* was negative */
+}
+}

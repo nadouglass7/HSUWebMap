@@ -1,0 +1,187 @@
+/* Zoom button images
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+	.leaflet-bar .leaflet-control-zoom-out {
+	background-image: url("images/zoomout-01.png");
+	background-image: no-repeat;
+	background-size: 100%;
+	background-position: 0 0;
+	opacity: 1;
+	border: 0px;
+	border-radius: 0px;
+	z-index: 1;
+}
+	.leaflet-bar .leaflet-control-zoom-in {
+	background: url("images/zoomin-01.png");
+	background-image: no-repeat;
+	background-size: 100%;
+	background-position: 0 0;
+	opacity: 1;
+	border: 0px;
+	border-radius: 0px;
+	z-index: 1;
+}
+/* Zoom button hover effects
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+	
+	.leaflet-bar .leaflet-control-zoom-out:hover {
+	background-image: url("images/zoomouthover-01.png");
+	background-image: no-repeat;
+	background-size: 100%;
+	background-position: 0 0;
+	opacity: 1;
+	border: 0px;
+	border-radius: 0px;
+	z-index: 1;
+}
+	.leaflet-bar .leaflet-control-zoom-in:hover {
+	background-image: url("images/zoominhover-01.png");
+	background-image: no-repeat;
+	background-size: 100%;
+	background-position: 0 0;
+	opacity: 1;
+	border: 0px;
+	border-radius: 0px;
+	z-index: 1;
+}
+/* Zoom button properties
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+	
+	.leaflet-control-zoom {
+	border-radius: 0px;
+	border: 0px;
+	z-index: 1;
+}
+	.leaflet-control-zoom a {
+	border-radius: 0px !important;
+	border: 0px !important;
+	z-index: 1;
+}
+/* Zoom button location
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+	
+	.leaflet-top .leaflet-control {
+	margin-top: 35px;
+	border-radius: 0px;
+}
+	.leaflet-right .leaflet-control {
+	margin-right: 35px;
+	border-radius: 0px;
+}
+/* Image (remove)
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+	
+	.mapbox-logo-true {
+	background-image: none;
+}
+/* glyph toggle styles
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+	
+/* popup styles
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+	
+	.custom-popup .leaflet-popup-content-wrapper {
+	background:rgba(43, 84, 44, 1);
+	color:#fff;
+	font-size:16px;
+	line-height:24px;
+	-webkit-border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+	border-radius: 0 !important;
+}
+	.custom-popup .leaflet-popup-content-wrapper a {
+	color:rgba(255, 255, 255, 0.5);
+}
+	.custom-popup .leaflet-popup-tip-container {
+	width:30px;
+	height:15px;
+}
+	.custom-popup .leaflet-popup-tip {
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 15px solid rgba(43, 84, 44, 1);
+}
+	.leaflet-popup-close-button {
+	display: none;
+}
+/* popup styles for access icons
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+	
+/* automatic door styles */
+	
+	.door .leaflet-popup-content-wrapper {
+	background: rgba(29, 118, 187, 1);
+	color:#fff;
+	font-size:16px;
+	line-height:24px;
+	-webkit-border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+	border-radius: 0 !important;
+}
+	.door .leaflet-popup-content-wrapper a {
+	color:rgba(255, 255, 255, 0.5);
+}
+	.door .leaflet-popup-tip-container {
+	width:30px;
+	height:15px;
+}
+	.door .leaflet-popup-tip {
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 15px solid rgba(29, 118, 187, 1);
+}
+	.door .leaflet-popup-close-button {
+	display: none;
+}
+/* accessible parking styles */
+
+	.accessibleparking .leaflet-popup-content-wrapper {
+	background: rgba(29, 118, 187, 1);
+	color:#fff;
+	font-size:16px;
+	line-height:24px;
+	-webkit-border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+	border-radius: 0 !important;
+}
+	.accessibleparking .leaflet-popup-content-wrapper a {
+	color:rgba(255, 255, 255, 0.5);
+}
+	.accessibleparking .leaflet-popup-tip-container {
+	width:30px;
+	height:15px;
+}
+	.accessibleparking .leaflet-popup-tip {
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 15px solid rgba(29, 118, 187, 1);
+}
+	.accessibleparking .leaflet-popup-close-button {
+	display: none;
+}
+/* accessible elevator styles */
+
+	.elevators .leaflet-popup-content-wrapper {
+	background: rgba(29, 118, 187, 1);
+	color:#fff;
+	font-size:16px;
+	line-height:24px;
+	-webkit-border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+	border-radius: 0 !important;
+}
+	.elevators .leaflet-popup-content-wrapper a {
+	color:rgba(255, 255, 255, 0.5);
+}
+	.elevators .leaflet-popup-tip-container {
+	width:30px;
+	height:15px;
+}
+	.elevators .leaflet-popup-tip {
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 15px solid rgba(29, 118, 187, 1);
+}
+	.elevators .leaflet-popup-close-button {
+	display: none;
+}

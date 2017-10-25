@@ -1,0 +1,529 @@
+/* General Demo Style */
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+ @font-face {
+ font-family: 'fontawesome';
+ src:url('../fonts/fontawesome.eot');
+ src:url('../fonts/fontawesome.eot?#iefix') format('embedded-opentype'),  url('../fonts/fontawesome.svg#fontawesome') format('svg'),  url('../fonts/fontawesome.woff') format('woff'),  url('../fonts/fontawesome.ttf') format('truetype');
+ font-weight: normal;
+ font-style: normal;
+ font-weight: bold;
+}
+body, html {
+	font-size: 100%;
+	padding: 0;
+	margin: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+/* Reset */
+
+*, *:after, *:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+/* Clearfix
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Clearfix was created by Nicolas Gallagher */
+
+.clearfix:before, .clearfix:after {
+	content: " ";
+	display: table;
+}
+.clearfix:after {
+	clear: both;
+}
+/* Body (Type, Button Fixes)
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+body {
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+}
+button:focus {
+	outline:0;
+}
+/* Topbar Button
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.control button {
+	color: white;
+	cursor: pointer;
+	font-size: 18px;
+	margin-left: 35px;
+	background: none;
+	border: none;
+	font-weight: 400;
+	margin-left: 35px;
+	outline: none;
+	display: inline-block;
+	float: left;
+	padding: 0px 0px 0px 0px;
+	margin-top: 46px;
+	margin-bottom: 46px;
+}
+.control button:hover {
+	background: none;
+	color: #f6f3af;
+}
+.control button.active {
+	background: none;
+	border: none;
+	outline: none;
+}
+/* Footer Button
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.control-footer > button {
+	color: white;
+	cursor: pointer;
+	font-size: 15px;
+	background: none;
+	border: none;
+	line-height: 50px;
+	margin-left: 18px;
+	font-weight: 400;
+	margin:0;
+	padding:0;
+	margin-left: 35px;
+	z-index: 1;
+}
+.control-footer button:hover {
+	background: none;
+	color: #f6f3af;
+}
+.control-footer button.active {
+	background: none;
+}
+/* Topbar
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.topbar {
+	background-color: rgba(41, 84, 41, 1);
+	top: 0;
+	position: fixed;
+	height: 120px;
+	width: 100%;
+	vertical-align: middle;
+	z-index: 2;
+	-moz-box-shadow:    0px 1px 10px 1px #191919;
+	-webkit-box-shadow: 0px 1px 10px 1px #191919;
+	box-shadow:         0px 1px 10px 1px #191919;
+}
+/* Topbar Logo
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.logo {
+	line-height: 120px;
+	margin-right: 35px;
+	float: right;
+}
+.smalllogo {
+	float: right;
+	margin-right: 35px;
+	line-height: 120px;
+	display: none;
+}
+/* Footer
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.footer {
+	bottom: 0;
+	position: fixed;
+	right:0;
+	width: 340px;
+	height: 50px;
+	background-color: rgba(41, 84, 41, 1);
+	z-index: 2;
+}
+/* Zoom Controls
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.zoom-container {
+	background: none;
+	height: 100px;
+	width: 28px;
+	right: 35px;
+	position: fixed;
+	padding-top: 120px;
+	margin-top: 0px;
+	z-index: 1;
+}
+.zoom-controls {
+	margin-top: 35px;
+	margin-right: 35px;
+	float: right;
+	display: none;
+	position: fixed;
+}
+/* Zoom Controls (Leaflet)
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.leaflet-top .leaflet-control {
+	margin-top: 35px !important;
+}
+.leaflet-right .leaflet-control {
+	margin-right: 35px !important;
+}
+/* Search Box
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+#searchbox {
+	margin-left: 35px;
+	margin-bottom: -13px;
+	padding-bottom: 0px;
+	margin-top: -5px;
+}
+input:focus::-webkit-input-placeholder {
+	color: transparent;
+}
+input:focus:-moz-placeholder {
+	color: transparent;
+}
+input:focus::-moz-placeholder {
+	color: transparent;
+}
+#searchbox input {
+	outline: none;
+}
+#searchbox input[type="text"] {
+	border-width: 0px;
+	border-style: none;
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+	font-size: 12px;
+	color: black;
+	width: 241px;
+	padding: 8px 15px 8px 8px;
+}
+#button-submit {
+	background: #FFF;
+	border-width: 0px;
+	padding: 8px 10px 8px 8px;
+	width: 65px;
+	cursor: pointer;
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+	font-size: 12px;
+	color: rgba(41, 84, 41, 1);
+}
+#button-submit:hover {
+	background: #f6f3af;
+}
+#button-submit:active {
+	background: #f6f3af;
+}
+#button-submit::-moz-focus-inner {
+	border: 0;
+}
+
+/* Clear selection
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.clear-selection {
+	margin-left: 35px;
+	margin-top: 12px;
+	margin-bottom: 25px;
+	font-size: 15px;
+}
+
+.clear-selection a:link {
+	font-size: 15px;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.clear-selection a:hover {
+	font-size: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	color: #f6f3af;
+}
+
+/* Boxes
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.box {
+	background-color: white;
+	margin-left: 35px;
+	width: 290px;
+	height: 285px;
+	overflow-y: scroll;
+	margin-top: -5px;
+}
+.boxtext ul {
+	list-style-type: none;
+	padding-left: 12px;
+	padding-top: 18px;
+	line-height: 4px;
+}
+.boxtext ul li a {
+	color: black;
+	text-decoration: none;
+	background-color: transparent;
+	line-height: 6px;
+	font-size: 15px;
+}
+.boxtext ul li a:hover {
+	color: green;
+	text-decoration: none;
+}
+/* Glyphs
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+#glyphs ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+#glyphs li {
+	margin: 0 0 0 0;
+}
+#glyphs a {
+	display: block;
+	font-weight: 400;
+	color: #fff;
+	font-size: 16px;
+	background-color: transparent;
+	width: 100%;
+	padding: 6px 35px;
+	text-decoration: none;
+}
+#glyphs a:hover {
+	background-color: rgba(255,255,255,0.4);
+	color: #fff;
+}
+#glyphs a.selected {
+	background-color: rgba(246,243,175,0.4);
+	color: #fff;
+}
+
+#glyphs-access ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+#glyphs-access li {
+	margin: 0 0 0 0;
+}
+#glyphs-access a {
+	display: block;
+	font-weight: 400;
+	color: #fff;
+	font-size: 16px;
+	background-color: transparent;
+	width: 100%;
+	padding: 6px 35px;
+	text-decoration: none;
+}
+#glyphs-access a:hover {
+	background-color: rgba(255,255,255,0.4);
+	color: #fff;
+}
+#glyphs-access a.selected {
+	background-color: rgba(246,243,175,0.4);
+	color: #fff;
+}
+/* Legend
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+#legend {
+	display: block;
+	font-weight: 400;
+	color: #fff;
+	font-size: 16px;
+	width: 100%;
+	padding: 6px 35px;
+	text-decoration: none;
+}
+#legend ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	padding-bottom: 35px;
+}
+
+#legend li {
+	margin: 0 0 .7em 0;
+}
+
+/* line breaks
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.break1 {
+	margin-left: 35px;
+	margin-right: 35px;
+}
+.break2 {
+	margin-left: 35px;
+	margin-right: 35px;
+}
+.break3 {
+	margin-left: 35px;
+	margin-right: 35px;
+}
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-width: 0;
+  border-top: 1px dotted #E1E1E1; }
+
+/* Media Queries
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+@media screen and (max-width: 700px) {
+.logo {
+ display: none;
+}
+ .smalllogo {
+ margin-right: 35px;
+ float: right;
+ display: inline;
+ line-height: 120px;
+}
+ @media screen and (max-width: 700px) {
+.footer {
+ width: 200px;
+ height: 40px;
+}
+ .control-footer button {
+ color: white;
+ cursor: pointer;
+ font-size: 13px;
+ background: none;
+ border: none;
+ line-height: 40px;
+ margin-left: 14px;
+}
+ @media screen and (max-width: 700px) {
+.box {
+ background-color: white;
+ margin-left: 35px;
+ width: 200px;
+ height: 200px;
+ overflow: auto;
+}
+ #searchbox input[type="text"] {
+ border-width: 0px;
+ border-style: none;
+ font-family: 'Lato', Calibri, Arial, sans-serif;
+ font-size: 12px;
+ color: black;
+ width: 212px;
+ padding: 8px 15px 8px 8px;
+}
+#button-submit {
+	background: #FFF;
+	border-width: 0px;
+	padding: 8px 10px 8px 8px;
+	width: 65px;
+	cursor: pointer;
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+	font-size: 12px;
+	color: rgba(41, 84, 41, 1);
+}
+#button-submit:hover {
+	background: #f6f3af;
+}
+#button-submit:active {
+	background: #f6f3af;
+}
+#button-submit::-moz-focus-inner {
+	border: 0;
+}
+}
+
+@media screen and (max-width: 700px) {
+#glyphs ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+#glyphs li {
+	margin: 0 0 0 0;
+}
+#glyphs a {
+	display: block;
+	font-weight: 400;
+	color: #fff;
+	font-size: 14px;
+	background-color: transparent;
+	width: 100%;
+	padding: 6px 35px;
+	text-decoration: none;
+}
+#glyphs a:hover {
+	background-color: rgba(255,255,255,0.4);
+	color: #fff;
+}
+#glyphs a.selected {
+	background-color: rgba(246,243,175,0.4);
+	color: #fff;
+}
+
+#glyphs-access ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+#glyphs-access li {
+	margin: 0 0 0 0;
+}
+#glyphs-access a {
+	display: block;
+	font-weight: 400;
+	color: #fff;
+	font-size: 14px;
+	background-color: transparent;
+	width: 100%;
+	padding: 6px 35px;
+	text-decoration: none;
+}
+#glyphs-access a:hover {
+	background-color: rgba(255,255,255,0.4);
+	color: #fff;
+}
+#glyphs-access a.selected {
+	background-color: rgba(246,243,175,0.4);
+	color: #fff;
+}
+}
+
+@media screen and (max-width: 700px) {
+#legend {
+	display: block;
+	font-weight: 400;
+	color: #fff;
+	font-size: 14px;
+	width: 100%;
+	padding: 6px 35px;
+	text-decoration: none;
+}
+#legend ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	padding-bottom: 35px;
+}
+
+#legend li {
+	margin: 0 0 .7em 0;
+}
+}
+
+@media screen and (max-width: 700px) {
+.clear-selection {
+	margin-left: 35px;
+	margin-top: 12px;
+	margin-bottom: 25px;
+	font-size: 14px;
+}
+
+.clear-selection a:link {
+	font-size: 14px;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.clear-selection a:hover {
+	font-size: 14px;
+	text-decoration: none;
+	font-weight: 600;
+	color: #f6f3af;
+}
+}
