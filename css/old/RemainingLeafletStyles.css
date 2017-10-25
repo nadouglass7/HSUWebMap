@@ -1,0 +1,139 @@
+/* THESE CSS STYLES NEED TO BE MOVED TO A SEPERATE FILE. FOR NOW THEY ARE IN THE HTML MARKUP BECAUSE CERTAIN MAPBOX CONTROL PROPERTIES 
+ARE NOT ENACTED WHEN THESE STYLES ARE IN THEIR OWN STYLESHEET–––––––––––––––––––––––––––––––––––––––––––––––––– */
+#map {
+	position:absolute;
+	top:120px;
+	bottom:0;
+	width:100%;
+	z-index: 1;
+}
+/* Zoom button images
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */	
+.leaflet-bar .leaflet-control-zoom-out {
+	background-image: url("../images/zoomout-01.png");
+	background-image: no-repeat;
+	background-size: 100%;
+	background-position: 0 0;
+	opacity: 1;
+	border: 0px;
+	border-radius: 0px;
+	z-index: 1;
+}
+.leaflet-bar .leaflet-control-zoom-in {
+	background: url("../images/zoomin-01.png");
+	background-image: no-repeat;
+	background-size: 100%;
+	background-position: 0 0;
+	opacity: 1;
+	border: 0px;
+	border-radius: 0px;
+	z-index: 1;
+}
+/* Zoom button hover effects
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+	
+.leaflet-bar .leaflet-control-zoom-out:hover {
+	background-image: url("../images/zoomout-01.png");
+	background-image: no-repeat;
+	background-size: 100%;
+	background-position: 0 0;
+	opacity: .85;
+	border: 0px;
+	border-radius: 0px;
+	z-index: 1;
+}
+.leaflet-bar .leaflet-control-zoom-in:hover {
+	background-image: url("../images/zoomin-01.png");
+	background-image: no-repeat;
+	background-size: 100%;
+	background-position: 0 0;
+	opacity: .85;
+	border: 0px;
+	border-radius: 0px;
+	z-index: 1;
+}
+/* Zoom button properties
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+	
+.leaflet-control-zoom {
+	border-radius: 0px;
+	border: 0px;
+	z-index: 1;
+}
+.leaflet-control-zoom a {
+	border-radius: 0px !important;
+	border: 0px !important;
+	z-index: 1;
+}
+/* Zoom button location
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+	
+.leaflet-top .leaflet-control {
+	margin-top: 35px;
+	border-radius: 0px;
+}
+.leaflet-right .leaflet-control {
+	margin-right: 35px;
+	border-radius: 0px;
+}
+/* Removes Mapbox image
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+	
+.mapbox-logo-true {
+	background-image: none;
+}
+/* glyph toggle styles
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */
+	
+/* popup styles   SHOWS THE "X" BUTTON NOW ON CHROME, COMPARED TO THE INTERNAL STYLES OF THE INTERACTIVEMAP_2016.HTML
+	–––––––––––––––––––––––––––––––––––––––––––––––––– */	
+.custom-popup .leaflet-popup-content-wrapper {
+	background:rgba(43, 84, 44, 0.9);
+	color:#fff;
+	font-size:16px;
+	line-height:24px;
+	-webkit-border-radius: 5px !important;
+	-moz-border-radius: 5px !important;
+	border-radius: 5px !important;
+/* 	width:auto !important;
+	maxWidth: auto !important; */
+/* 	width: 520px;
+	height: 400px; */
+}
+.custom-popup .leaflet-popup-content-wrapper a {
+	color:rgba(255, 255, 255, 0.5);
+}
+.custom-popup .leaflet-popup-tip-container {
+/* 	width:30px;
+	height:15px; */
+}
+.custom-popup .leaflet-popup-tip {
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 15px solid rgba(43, 84, 44, 0.9);
+}
+.leaflet-popup-close-button {
+	display: none;
+} 
+.PopUpTitle {
+	color: #f6f3af; 
+	border-width: 0; 
+	border-bottom: 1px solid #E1E1E1;
+}
+.PopUpContent {
+	font-size: 12px;
+}
+.PopupPicture {
+	width: auto;
+	height: 150px;
+	margin: 0 auto; 
+	display:block; 
+}
+a.ResourceLink {
+	color: #FFFFFF; 
+	border-bottom: 1px solid #FFFFFF;
+}
+a.ResourceLink:hover {
+	color: #f6f3af; 
+	border-bottom: 1px solid #f6f3af;
+}

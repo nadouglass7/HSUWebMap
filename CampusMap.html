@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<!---------------------------------------------------------------------------
+ This is the HSU Web Map.  It contains:
+ - Raster tiled background
+ - Point layer for all the point data in the legend/menu
+ - Polyline layer for the polyline data (bus routes, accessible routes)
+ - Polygon layer for the buildings
+ 
+ The web page contains two "sliding" DIVs: the MenuBox and the InfoBox.
+ These are controlled by the MenuButtons and InfoButtons respectively.
+----------------------------------------------------------------------------->
+<html>
+<!---------------------------------------------------------------------------
+ 1. HTML Header
+----------------------------------------------------------------------------->
+<head>
+<!---------------------------------------------------------------------------
+ 1.1 Title and metadata tags
+----------------------------------------------------------------------------->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Humboldt State University Map</title>
+
+ <!-- This is the icon for the Campus Map Tab -->
+<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon"/>                                                     
+
+
+<!---------------------------------------------------------------------------
+ 1.2 Style sheets
+----------------------------------------------------------------------------->
+
+<!--- Main styles for menu, footter, basically everything except the MenuBox and InfoBox --->
+<link rel="stylesheet" type="text/css" href="css/Main.css"/>
+
+<!-- Menu and Info Box styles -->
+<link rel="stylesheet" type="text/css" href="css/SlideBoxes.css"/>
+
+<!-- Styles for the map and its contents -->
+<link rel="stylesheet" type="text/css" href="css/CanvasMap_HSU.css">
+
+<!---------------------------------------------------------------------------
+ 1.3 JavaScript includes
+----------------------------------------------------------------------------->
+<script src="js/SearchUtil.js"></script> <!-- search utility -->
+<script src='js/BuildingPhraseList.js'></script> <!--- building phrase list -->
+<script src='Building_Images/buildinghtml.js'></script> <!--- HTML for info popups -->
+
+<script src="Includes/jquery-2.1.0.js"></script>
+
+<script src="Includes/CMUtilities.js"></script>
+<script src="Includes/CMDialog.js"></script>
+<script src="Includes/CMView.js"></script>
+<script src="Includes/CMScene.js"></script>
+<script src="Includes/CMLayer.js"></script>
+<script src="Includes/CMLayerGeoJSON.js"></script>
+<script src="Includes/CMTile.js"></script>
+<script src="Includes/CMLayerPyramid.js"></script>
+<script src="Includes/CMLayerPyramidOpenFormat.js"></script>
+<script src="Includes/CMProjector.js"></script>
+<script src="Includes/CanvasMap.js"></script>
+<script src="Includes/CMScaleBar.js"></script>
+<script src="Includes/CMProjectorUTM.js"></script>
+
+<script>
+//****************************************************************
+// 2. JavaScript code
+//**************************************************************** 
+//****************************************************************
+// 2.1 Global variables
+//**************************************************************** 
+
+// paths for each of the data sets
+var ThePointFilePath="Spatial_Data/Points_Dec9_2016.js";
+//var ThePolylineFilePath="Spatial_Data/Polyline_test.js";
+var ThePolylineFilePath="Spatial_Data/Polylines_Nov29_2016.js";
+var TheBuildingOverlayFilePath="Spatial_Data/BuildingOverlay_Nov12.js";
+//"Spatial_Data/Buildings_Nov122016_3.js";
+// global for the canvas map object
+var TheCanvasMap=null;
+var TileFolderPath="Spatial_Data/Tiles7/";
+//var BuildingNamesFilePath="Spatial_Data/BuildingNames8.js";
+var BuildingNamesFilePath="Spatial_Data/BuildingLabels_Dec20_2016.js";
+
+var Layer_Buildings=null;
+var Layer_Polylines=null;
+var Layer_Points=null;
+var Layer_BuildingsEAP=null;
+
+// status flag for the info box to indicate when it is open and when it is closed
+var InfoOpen=false;
+var MenuOpen=false;
+
+// these contain the entries for the accordian and the accordian can only be udpate
+// once all the entries are recieved
+
+var ReceivedPoints=false;
+var ReceivedPolylines=false;
+
+var Types=[];
+var NumTypes=0;
+
+var Subtypes=[]; // array indexed first by TypeIndex
+var NumSubtypes=[];
+var Entries=[]; // indexed by TypeIndex and then SubtypeIndex
+var NumNamedEntries=[]; // indexed by TypeIndex and then SubtypeIndex
+
+/**
+* This is the text at the top of the accordion.  Because the accordion is a single div (I tried making it two) we have to have
+* this as a variable so we can put it together with the other data
+*/
+var CurrentHTML=" \
+	<h3 style='color: #f6f3af; margin-left: 35px; margin-right: 18px; margin-top: 35px; margin-bottom: 25px;'>SEARCH...</h3> \
+	<h5 style='color: white; margin-left: 35px; margin-right: 35px; margin-top: -20px;'>Search for services, buildings, departments, and/or event spaces by their abbreviation, partial or full name. Ex. KBR is Kate Buchanan Room</h5> \
+	  	 <form id='searchbox' method='get'  > \
+			<input id='SearchText'  type='text' size='15' placeholder='TYPE HERE' onkeypress='EnterPressed()'  />  <!-- onkeypress='classSearch()' --> \
+			<input id='SearchButton' type='button' value='SEARCH' onClick='DoSearch()'/> <!-- onclick='classSearch()' --> \
+	 	 </form> \
+	  	<div  id='SearchResultsContainer' class='SearchResultsContainer' style='margin-top: 24px; margin-bottom: 25px;' > </div> \
+	 	  <div id='SearchResults' class='ResultStyles'></div> \
+		 <div class='break3'> <hr /> </div> \
+";
+/*
+	<h3 style='color: #f6f3af; margin-left: 35px; margin-right: 18px; margin-top: 35px; margin-bottom: 25px;'>Search for Services and Buildings</h3> \
+	<h3 style='color: #f6f3af; margin-left: 35px; margin-right: 18px; margin-top: 35px; margin-bottom: 25px;'>FIND CLASSES / SPRING 2016</h3> \
+	  	<h5 style='color: white; margin-left: 35px; margin-right: 35px; margin-top: 20px;'> \
+			Search for class buildings by department abbreviation and class number. Ex: Geography 105 is GEOG 105 \
+		</h5> \
+*/
+//****************************************************************
+// 2.2 Global Functions
+//**************************************************************** 
+/**
+* Updates the contents of the accordion (within the MenuBox)
+* This is called after the Points and Polylines are recieved and processed
+*/
+function UpdateAccordion()
+{
+	if (ReceivedPoints&&ReceivedPolylines)
+	{
+		//****************************************************************
+		// Create the HTML for the accordion from the arrays
+		
+		var TheHTML="";
+		
+		for (var TypeIndex=0;TypeIndex<NumTypes;TypeIndex++)
+		{
+			 var TypeName=Types[TypeIndex];
+			 
+			TheHTML+="<a class='accordion-title' href='#'>"+TypeName+
+				"<img class='arrowimage' src='images/arrow-01.png' alt='arrow'></a>";
+			TheHTML+="<div id='accordion' class='accordion-content'>";
+
+			var TheNumSubtypes=NumSubtypes[TypeIndex];
+			
+			for (var SubtypeIndex=0;SubtypeIndex<TheNumSubtypes;SubtypeIndex++)
+			{
+				var SubtypeName=Subtypes[TypeIndex][SubtypeIndex];
+				
+				if (SubtypeName==="AccessiblePath")
+				{
+					var test=12;
+				}
+				var TheNumNamedEntries=NumNamedEntries[TypeIndex][SubtypeIndex];
+				
+				if (TheNumNamedEntries==0) // no named entries, just show one checkbox for all entries
+				{
+					// get the legend icon from the first entry
+					var LegendIconFilePath=Entries[TypeIndex][SubtypeIndex][0].LegendIconFilePath;
+					var LayerName=Entries[TypeIndex][SubtypeIndex][0].LayerName;
+						
+					TheHTML+=
+						"\t\t<div class='CheckBoxHeight'>"
+						+"<input type='checkbox' name='"+SubtypeName+"' id='"+SubtypeName+"' "
+							+"onclick='EntryChanged(this,\""+LayerName+"\","+TypeIndex+","+SubtypeIndex+","+(-1)+")'>"
+						+"<span class='CheckboxText'>"+SubtypeName+"</span>";
+						
+					if (LegendIconFilePath!="")
+					{
+						TheHTML+="<img class='CheckBoxImages' src='"+LegendIconFilePath+"' alt='"+SubtypeName+"'>"
+						+"</img>";
+					}
+					TheHTML+="</input>"
+						+"</div>";
+				}
+				else // have named entires, show each entry
+				{
+					var MenuSubtypeIconFilePath=Entries[TypeIndex][SubtypeIndex][0].MenuSubtypeIconFilePath;
+					
+					TheHTML+="\t\t<div class='CheckBoxTitle'><strong>"+SubtypeName+"</strong>";
+					
+					if (MenuSubtypeIconFilePath!="")
+					{
+						TheHTML+="<img class='CheckBoxImages' src='"+MenuSubtypeIconFilePath+"' alt='"+SubtypeName+"'></img>";
+					}
+					
+					TheHTML+="</div>";
+					
+					// add the entries below the subtype line
+					
+					var NumEntries=Entries[TypeIndex][SubtypeIndex].length;
+					
+					for (var EntryIndex=0;EntryIndex<NumEntries;EntryIndex++)
+					{
+						// get the legend icon 
+						var LegendIconFilePath=Entries[TypeIndex][SubtypeIndex][EntryIndex].LegendIconFilePath;
+						var LayerName=Entries[TypeIndex][SubtypeIndex][EntryIndex].LayerName;
+						
+						EntryName=Entries[TypeIndex][SubtypeIndex][EntryIndex].Name;
+						
+						var EntryID="Entry_"+TypeIndex+"_"+SubtypeIndex+"_"+EntryIndex;
+						
+						TheHTML+=
+							"<div class='CheckBoxHeight'>"
+							+"<input type='checkbox' name='"+EntryName+"' id='"+EntryID+"' "
+								+"onclick='EntryChanged(this,\""+LayerName+"\","+TypeIndex+","+SubtypeIndex+","+EntryIndex+")'>"
+							+"<span class='CheckboxText'>"+EntryName+"</span>";
+						
+						if (LegendIconFilePath!="")
+						{
+							TheHTML+="<img class='CheckBoxImages' src='"+LegendIconFilePath+"' alt='"+EntryName+"'></img>";
+						}
+						TheHTML+="</input>"
+							+"</div>";
+					}
+				}
+			}
+			TheHTML+="</div>";
+		}
+		// set the HTML into the accordion
+		var AccordionELement=document.getElementById("AccordionContainer");
+		
+		AccordionELement.innerHTML=CurrentHTML+TheHTML;
+		
+		/**
+		* jQuery accordion control.  This relies on style definitions 
+		*/
+		jQuery(".accordion .accordion-content").slideUp();
+		jQuery(".accordion .accordion-title").click(function(){
+			jQuery(this).next(".accordion .accordion-content").slideToggle("fast");
+		});
+	}
+}	
+
+//****************************************************************
+// 2.3 OnLoad Function
+//**************************************************************** 
+function  AddToEntries(LayerType,TheLayer,FeautureIndex,Name,Type,Subtype,LegendIconFilePath,MenuSubtypeIconFilePath)
+{
+	
+	// see if the type already exists
+	 
+	 if (Subtype==="AccessiblePath")
+	 {
+		 var j=12;
+	 }
+	var TypeIndex=Types.indexOf(Type);
+	var SubtypeIndex=0;
+	
+	if (TypeIndex==-1) // add to the array
+	{
+		TypeIndex=NumTypes;
+		Types[NumTypes]=Type;
+		NumTypes+=1;
+		
+		Subtypes[TypeIndex]=[];
+		NumSubtypes[TypeIndex]=0;
+		
+		Entries[TypeIndex]=[];
+		NumNamedEntries[TypeIndex]=[];
+	}
+	var SubtypeIndex=Subtypes[TypeIndex].indexOf(Subtype);
+	
+	if (SubtypeIndex==-1) // // have to allocate the array the first time
+	{
+		SubtypeIndex=NumSubtypes[TypeIndex];
+		Subtypes[TypeIndex].push(Subtype);
+		NumSubtypes[TypeIndex]+=1;
+		
+		Entries[TypeIndex][SubtypeIndex]=[];
+		NumNamedEntries[TypeIndex][SubtypeIndex]=0;
+	}
+	Entries[TypeIndex][SubtypeIndex].push({
+		Name:Name,
+		FeatureIndex:FeautureIndex,
+		LegendIconFilePath:LegendIconFilePath,
+		MenuSubtypeIconFilePath:MenuSubtypeIconFilePath,
+		TheLayer:TheLayer,
+		LayerName:LayerType
+	});
+	if ((Name!="")&&(Name!==undefined)) NumNamedEntries[TypeIndex][SubtypeIndex]+=1;
+}
+/**
+* Initialize the map for use.
+* Called after the specified information has loaded.
+*/
+function OnLoad()
+{
+	//***************************************************************************
+	// 2.3.1 Initialize the map and its main elements
+	//***************************************************************************
+	
+	TheCanvasMap=new CanvasMap(); // creates the CanvasMap object
+	
+	TheCanvasMap.SetHorizontalMargin(0);
+	TheCanvasMap.SetMapBottomOffset(0);
+	TheCanvasMap.SetMapRightOffset(0);
+	
+	TheCanvasMap.SetImageFolder("CanvasMapImages/");
+	
+	TheCanvasMap.SimpleMap(); // turn off all the map elements except the canvas container
+	
+	// initialize the map
+	TheCanvasMap.Initialize(); // sets up the view, scene, and event handlers for the map
+	
+	TheCanvasMap.TheScene.IncrementRepaintBlocks();
+	
+	//***************************************************************************
+	// 2.3.2 Setup the projector
+	//***************************************************************************
+	
+	var TheProjector=new CMProjectorUTM();
+	TheProjector.SetDatum(CMProjector.WGS_84);
+	TheProjector.SetZone(10);
+	TheCanvasMap.SetProjector(TheProjector);
+	
+	//***************************************************************************
+	// 2.3.3 Add layers to the map
+	//***************************************************************************
+	
+	// get the container to add items to the map
+	var TheCanvasElement=TheCanvasMap.GetElement(CanvasMap.CANVAS_CONTAINER);
+	
+	//***************************************************************************
+	// add the coordinate element and make it stick to the bottom right corner
+	// This was left for debugging and in case we want to turn it on in the future
+	
+//	TheCanvasMap.SetCoordinateUnits(CanvasMap.COORDINATES_UNITS_METERS);
+/*	
+	var CoordinateBox=document.createElement("DIV");
+	CoordinateBox.className="CM_InfoBox";
+	CoordinateBox.style.zIndex=9999; // make the element appear on top of everything
+	
+	TheCanvasElement.appendChild(CoordinateBox); // add the element to the CanvasContainer
+	
+	CMUtilities.AbsolutePosition(CoordinateBox,100,60,400,30); // give the coordinate a starting position
+	
+	// make the coordinate stick to the bottom and right side of the document window
+	TheCanvasMap.AddBottomSticky(CoordinateBox,true,140);
+	TheCanvasMap.AddRightSticky(CoordinateBox,true,400);
+	
+	// replace the default coordinate element with the one we created
+	TheCanvasMap.SetElement(CanvasMap.MAP_COORDINATES,CoordinateBox);
+*/	
+	//*****************************************************
+	// add the background layers to the map
+	
+	var Layer_Campus=new CMLayerPyramid();
+	
+	TheCanvasMap.AddBackground(Layer_Campus);
+	
+	Layer_Campus.SetURL(TileFolderPath,TheCanvasMap.GetView(),false); 
+	
+	Layer_Campus.SetName("Campus");
+	
+	Checked=""; // reset the checked flag so only the first layer is selected
+	
+	//*****************************************************
+	// Add the forgound layers to the map
+
+	// get the name and URL for the layer
+	var URL=TheBuildingOverlayFilePath;
+	
+	// create and add the layer
+	Layer_Buildings=new CMLayerGeoJSON();
+	Layer_Buildings.SetName("Buildings");
+	Layer_Buildings.SetHTMLAttribute("HTML");
+	
+	Layer_Buildings.SetStyle({ 
+		fillStyle:"rgba(0,0,255,0.0)" ,
+		strokeStyle:"rgba(0,0,255,0.0)" 
+	}); 
+	Layer_Buildings.SetProperty(CMLayer.MOUSE_OVER_STYLE,{
+		fillStyle:"rgba(229,240,211,0.5)",
+		strokeStyle:"rgba(182,83,0,0.65)",
+		lineWidth:2
+	}); 
+	
+	Layer_Buildings.SetProperty(CMLayer.SELECTED_STYLE,{
+		fillStyle:"rgba(229,240,211,0.65)",
+		strokeStyle:"rgba(37,85,27,0.8)",
+		lineWidth:2
+	}); 
+	
+	TheCanvasMap.AddLayer(Layer_Buildings);
+
+	Layer_Buildings.ShowInfoWindow=function(FeatureIndex,TheView,RefX,RefY) 
+	{
+		var TheFeatures=this.TheData.features;
+	
+		var TheFeature=TheFeatures[FeatureIndex];
+		
+		var Properties=TheFeature.properties;
+		
+		var TheHTML=this.GetFeatureProperty(CMLayer.INFO,FeatureIndex,null);
+		
+		if (TheHTML!=null)
+		{
+		//	var TheHTML=Properties[this.GetHTMLAttribute()];
+			
+			var InfoWindow=TheView.CreateInfoWindow("CMLayerGeoJSON.InfoWindow",RefX,RefY,this.GetInfoWindowWidth(),30,TheHTML);
+			
+			CanvasMap.SetPopupWindow(InfoWindow);
+		}
+	};
+	
+	Layer_Buildings.SetURL(URL,TheCanvasMap.GetView(),false);
+	
+	//*****************************************************
+	// Add the forgound layers to the map
+
+	// create and add the layer
+	Layer_BuildingsEAP=new CMLayerGeoJSON();
+	Layer_BuildingsEAP.SetName("Buildings");
+	Layer_BuildingsEAP.SetHTMLAttribute("HTML");
+	
+	Layer_BuildingsEAP.SetStyle({ 
+		fillStyle:"rgba(0,0,255,0.0)" ,
+		strokeStyle:"rgba(0,0,255,0.0)" 
+	}); 
+	Layer_BuildingsEAP.SetProperty(CMLayer.FEATURE_STLE,{fillStyle:"rgba(0,0,0,0)",strokeStyle:"rgba(0,0,0,0)",lineWidth:2}); 
+	
+	TheCanvasMap.AddLayer(Layer_BuildingsEAP);
+
+	Layer_BuildingsEAP.SetURL(URL,TheCanvasMap.GetView(),false);
+	
+	//*****************************************************
+	// Add the forgound layers to the map
+
+	// get the name and URL for the layer
+	var URL=ThePolylineFilePath; //
+	
+	// create and add the layer
+	Layer_Polylines=new CMLayerGeoJSON();
+	Layer_Polylines.SetName("Polylines");
+	Layer_Polylines.SetHTMLAttribute("TYPE");
+	
+	Layer_Polylines.MouseMove=function() 
+	{
+		return(false);
+	}
+	
+	Layer_Polylines.OnLoad=function()
+	{
+		var NumFeatures=this.GetNumAttributeRows();
+		
+		var Types=[];
+		var NumTypes=0;
+		
+		var Subtypes=[]; // array indexed first by TypeIndex
+		var NumSubtypes=[];
+		var Entries=[]; // indexed by TypeIndex and then SubtypeIndex
+		var NumNamedEntries=[]; // indexed by TypeIndex and then SubtypeIndex
+		
+		for (var j=0;j<NumFeatures;j++)
+		{
+			var Name=this.GetAttributeCellByHeading("NAME",j);
+			var Type=this.GetAttributeCellByHeading("TYPE",j);
+			var Subtype=this.GetAttributeCellByHeading("SUBTYPE",j);
+			
+			// setup the legend icon file path
+			var MapIconFileName=this.GetAttributeCellByHeading("ICON",j);
+			
+			var MapIconFilePath="";
+			if (MapIconFileName!="") MapIconFilePath="images/"+MapIconFileName;
+			
+			// set the icon for the point into the layer
+			this.SetFeatureIconImage(j,MapIconFilePath,0,0);
+	
+			// prevent all points from painting		
+			this.SetFeatureProperty(CMLayer.ZOOM_RANGE,j,[1000,-1000]);
+			
+			// setup the style (this is temporary until it's in the file
+			var StrokeStyle=null;
+			if (Type==="BUS ROUTES & STOPS")
+			{
+				if (Subtype=="Red") StrokeStyle={strokeStyle:"rgba(255,0,0,1)",lineWidth:2};
+				else if (Subtype=="Gold")  StrokeStyle={strokeStyle:"rgba(218,165,32,1)",lineWidth:2};
+			}
+			else  StrokeStyle={strokeStyle:"rgba(0,0,255,1)",lineWidth:2};
+			
+			if (StrokeStyle!=null)
+			{
+				this.SetFeatureProperty(CMLayer.FEATURE_STYLE,j,StrokeStyle); 
+			}
+			// setup the icon for the menu
+			var MenuIconFileName=this.GetAttributeCellByHeading("MenuIcon",j);
+			if (MenuIconFileName==undefined) MenuIconFileName=MapIconFileName;
+			
+			var MenuIconFilePath="";
+			if (MenuIconFileName!="")  MenuIconFilePath="images/"+ MenuIconFileName;
+			
+			AddToEntries("Polyline",this,j,Name,Type,Subtype,MenuIconFilePath);
+		}
+		ReceivedPolylines=true;
+		UpdateAccordion();
+	}			
+	
+	TheCanvasMap.AddLayer(Layer_Polylines);
+	Layer_Polylines.SetURL(URL,TheCanvasMap.GetView(),false);
+	
+	//*****************************************************
+	// Add the forgound layers to the map
+
+	// get the name and URL for the layer
+	var URL=ThePointFilePath;
+	
+	// create and add the layer
+	Layer_Points=new CMLayerGeoJSON();
+	Layer_Points.SetName("Points");
+	Layer_Points.SetHTMLAttribute("Name");
+	
+	Layer_Points.SetStyle({ 
+		fillStyle:"rgba(0,0,255,0.1)" 
+	}); 
+	
+	Layer_Points.MouseMove=function() 
+	{
+		return(false);
+	}
+	
+	Layer_Points.OnLoad=function()
+	{
+		var NumFeatures=this.GetNumAttributeRows();
+		
+		for (var j=0;j<NumFeatures;j++)
+		{
+			var Name=this.GetAttributeCellByHeading("NAME",j);
+			var Type=this.GetAttributeCellByHeading("TYPE",j);
+			var Subtype=this.GetAttributeCellByHeading("SUBTYPE",j);
+			if (Subtype=="Faculty & Staff")
+			{
+				var thing="hi";
+			}
+			
+			// setup the map icon file path
+			var MapIconFileName=this.GetAttributeCellByHeading("ICON",j);
+			if (MapIconFileName=="FS6.png")
+			{
+				var Test="hi";
+			}
+			
+			var MapIconFilePath="";
+			if (MapIconFileName!="") MapIconFilePath="images/"+MapIconFileName;
+			
+			// setup the icon for the menu
+			var MenuIconFileName=this.GetAttributeCellByHeading("MenuIcon",j);
+			var MenuIconFilePath="";
+			if (MenuIconFileName!="")  MenuIconFilePath="images/"+ MenuIconFileName;
+			
+			// setup the icon for the menu
+			var MenuSubtypeIconFileName=this.GetAttributeCellByHeading("MenuSubtypeIcon",j);
+			var MenuSubtypeIconFilePath="";
+			if (MenuSubtypeIconFileName!="")  MenuSubtypeIconFilePath="images/"+ MenuSubtypeIconFileName;
+			
+			// set the icon for the point into the layer
+			
+			this.SetFeatureIconImage(j,MapIconFilePath,-9,-9);
+	
+			// prevent all points from painting		
+			this.SetFeatureProperty(CMLayer.ZOOM_RANGE,j,[1000,-1000]);
+			
+			AddToEntries("Points",this,j,Name,Type,Subtype,MenuIconFilePath,MenuSubtypeIconFilePath);
+		}
+		ReceivedPoints=true;
+		
+		UpdateAccordion();
+		
+	}
+	
+	TheCanvasMap.AddLayer(Layer_Points);
+	
+	Layer_Points.SetURL(URL,TheCanvasMap.GetView(),false);
+	
+	//*****************************************************
+	// Add the forgound building name layers to the map
+    //*****************************************************
+	
+	// get the name and URL for the layer
+	var URL=BuildingNamesFilePath;
+	
+	//*****************************************************
+	// Add a white halo for the labels for the top step
+	
+	// create and add the layer
+	var Layer_BuildingLabels=new CMLayerGeoJSON();
+	Layer_BuildingLabels.SetName("BuildingLabels");
+	
+	// make the points invisible
+	Layer_BuildingLabels.SetStyle({ 
+		fillStyle:"rgba(0,0,255,0.0)", 
+		strokeStyle:"rgba(0,0,255,0.0)" 
+	}); 
+	
+	// write out the labels with a wide line to make a white halo
+	Layer_BuildingLabels.SetPropertyAttribute(CMLayer.LABEL,"Name"); 
+	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_FONT,"bold 9px Lato");
+	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_STYLE,{
+		fillStyle:"rgba(255,255,255,1)",
+		strokeStyle:"rgba(255,255,255,0.6)",
+        lineWidth:1.5,
+	}); 
+	// make this layer only appear on the top step
+	Layer_BuildingLabels.SetProperty(CMLayer.ZOOM_RANGE,[0,0]);
+	
+	Layer_BuildingLabels.MouseMove=function()  { return(false); }
+	
+	TheCanvasMap.AddLayer(Layer_BuildingLabels);
+	
+	Layer_BuildingLabels.SetURL(URL,TheCanvasMap.GetView(),false);
+
+	//*****************************************************
+	// Add the labels for the top step
+	
+	// create and add the layer
+	var Layer_BuildingLabels=new CMLayerGeoJSON();
+	Layer_BuildingLabels.SetName("BuildingLabels");
+	
+	// make the points transparent
+	Layer_BuildingLabels.SetStyle({ 
+		fillStyle:"rgba(0,0,255,0.0)", 
+		strokeStyle:"rgba(0,0,255,0.0)" 
+	}); 
+	
+	// setup the labels as black
+	Layer_BuildingLabels.SetPropertyAttribute(CMLayer.LABEL,"Name"); 
+	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_FONT,"bold 9px Lato");
+	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_STYLE,{
+		fillStyle:"rgba(0,0,0,1)",
+		strokeStyle:"rgba(0,0,0,1)",
+		lineWidth:0.5		
+	}); 
+	Layer_BuildingLabels.SetProperty(CMLayer.ZOOM_RANGE,[0,0]);
+	
+	Layer_BuildingLabels.MouseMove=function()  { return(false); }
+	
+	TheCanvasMap.AddLayer(Layer_BuildingLabels);
+	
+	Layer_BuildingLabels.SetURL(URL,TheCanvasMap.GetView(),false);
+
+	//*****************************************************
+	// Add the labels for when we are more zoomed in (steps 1 and 2)
+	
+	// create and add the layer
+	Layer_BuildingLabels=new CMLayerGeoJSON();
+	Layer_BuildingLabels.SetName("BuildingLabels");
+	Layer_BuildingLabels.SetHTMLAttribute("Name");
+	
+	Layer_BuildingLabels.SetStyle({ 
+		fillStyle:"rgba(0,0,255,0.0)", 
+		strokeStyle:"rgba(0,0,255,0.0)" 
+	}); 
+	
+	Layer_BuildingLabels.SetPropertyAttribute(CMLayer.LABEL,"Labels_2"); 
+	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_FONT,"bold 11px Lato");
+	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_STYLE,{
+		fillStyle:"rgba(255,255,255,1)",
+		strokeStyle:"rgba(255,255,255,0.6)",
+        lineWidth:1.5,
+	}); 
+	Layer_BuildingLabels.SetProperty(CMLayer.ZOOM_RANGE,[1,2]);
+	
+	Layer_BuildingLabels.MouseMove=function()  { return(false); }
+	
+	TheCanvasMap.AddLayer(Layer_BuildingLabels);
+	
+	Layer_BuildingLabels.SetURL(URL,TheCanvasMap.GetView(),false);
+	
+	//*****************************************************
+	// Add the labels for when we are more zoomed in (steps 1 and 2)
+	
+	// create and add the layer
+	Layer_BuildingLabels=new CMLayerGeoJSON();
+	Layer_BuildingLabels.SetName("BuildingLabels");
+	Layer_BuildingLabels.SetHTMLAttribute("Name");
+	
+	Layer_BuildingLabels.SetStyle({ 
+		fillStyle:"rgba(0,0,255,0.0)", 
+		strokeStyle:"rgba(0,0,255,0.0)" 
+	}); 
+	
+	Layer_BuildingLabels.SetPropertyAttribute(CMLayer.LABEL,"Labels_2"); 
+	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_FONT,"bold 11px Lato");
+	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_STYLE,{
+		fillStyle:"rgba(0,0,0,1)",
+		strokeStyle:"rgba(0,0,0,1)",		
+		lineWidth:0.5			
+	}); 
+	Layer_BuildingLabels.SetProperty(CMLayer.ZOOM_RANGE,[1,2]);
+	
+	Layer_BuildingLabels.MouseMove=function()  { return(false); }
+	
+	TheCanvasMap.AddLayer(Layer_BuildingLabels);
+	
+	Layer_BuildingLabels.SetURL(URL,TheCanvasMap.GetView(),false);
+	
+	//***************************************************************************
+	// 2.3.4 Add Map Elements
+	//************************************************************************
+	// Make the zoom buttons stick to the right side of the map
+//	var ZoomButtons=document.getElementById("ZoomButtons");
+	
+//	TheCanvasMap.AddRightSticky(ZoomButtons,true,40);
+
+	//****************************************************************************
+	// add a scale bar
+/*	
+	// create the scale bar and give it an initial position
+	var TheScaleBar=new CMScaleBar(10,380,200,40);
+//	TheScaleBar.SetUnits(CMScaleBar.UNITS_ENGLISH);
+	TheScaleBar.SetBackgroundStyle({
+		fillStyle:"#ffffff",
+		strokeStyle:"#000000",
+		lineWidth:"2",
+		shadowBlur:"20",
+		shadowColor:"black"
+	});
+	
+	TheCanvasMap.GetScene().AddMapElement(TheScaleBar);
+	
+	// make the scale bar stick to the bottom of the container
+	TheScaleBar.SetBottomSticky({MoveFlag:true,Offset:10});
+*/	
+	//***************************************************************************
+	// 2.3.5 Start the map
+	//***************************************************************************
+	
+	TheCanvasMap.StartMap(false);
+	
+	//***************************************************************************
+	// 2.3.6 Position and size the map
+	//***************************************************************************
+	
+	// add the resize function to the window
+	window.addEventListener("resize", function() {
+		TheCanvasMap.Resize();
+		ResizeElements();
+	});
+	
+	// resize the elements to make them fit the window the first time
+	ResizeElements();
+	
+	// call the resize function to setup the map for the first time
+	TheCanvasMap.Resize();
+	
+	// limit the bounds of the map
+	var TheBounds = 
+	{
+		XMin: 408016, // left side (usually wester most edge)
+		XMax: 410572, // right side (usually eastern most edge)
+		YMin: 4524761, // bottom side (usually southern most edge)
+		YMax: 4526248 // top side (usually northern most edge)
+	}
+	TheCanvasMap.TheView.SetMaxBounds(TheBounds)
+
+	// This is the zoom range that limits the map zoom 
+	TheCanvasMap.TheView.SetZoomRange(0,2); // 1 to 4 pixels per meter
+	TheCanvasMap.TheView.ZoomTo(0); // start at 1 pixel per meter
+
+	// get view and then position us off the coast of the US
+	var TheView=TheCanvasMap.GetView();
+	
+	var TheCoordinate=TheProjector.ProjectFromGeographic(-124.0778,40.8755);
+	TheView.SetRefCenter(TheCoordinate.Easting,TheCoordinate.Northing);
+	
+	TheCanvasMap.TheScene.DecrementRepaintBlocks();
+}
+//***************************************************************************
+// 2.4 Other Event handlers and their support functions
+//***************************************************************************
+/**
+* Function for when the user checks a box to zoom into a feature in the accordion
+*
+* Note: This is old code from when the buildings were in the accordian
+*
+* @param TheButton - name of the button that was pressed which matches the name of the feature in buildings
+*/
+/*
+function ZoomTo(TheButton)
+{
+	var ID=TheButton.id;
+	
+	ID=ID.toLowerCase();
+	
+	var NumRows=Layer_Buildings.GetNumAttributeRows();
+	
+	for (var i=0;i<NumRows;i++)
+	{
+		var Value=Layer_Buildings.GetAttributeCellByHeading("Name",i);
+		
+		if (Value=="Alder")
+		{
+			Layer_Buildings.SetFeatureProperty(CMLayer.FEATURE_STYLE,i,{fillStyle:"rgba(255,0,0,1)"} );
+			
+			var TheBounds=Layer_Buildings.FeatureBounds[i];
+			
+			TheCanvasMap.ZoomToBounds(TheBounds);
+			
+			Layer_Buildings.Repaint();
+		}
+	}
+	var TheAttributeValues=Layer_Buildings.GetAttributeArrayByHeading("name");
+	
+	var j=12;
+}*/
+/**
+* Called when one of the checkboxes in the menu is checked.  In other words,
+* when the user makes a set of features visible or not
+*/
+function EntryChanged(TheCheckBox,LayerName,TypeIndex,SubtypeIndex,EntryIndex)
+{
+	// get the correct layer
+	var TheLayer=Layer_Points;
+	
+	if (LayerName=="Polyline")
+	{
+		TheLayer=Layer_Polylines;
+	}
+	// 
+	
+	var ZoomRange=[-1000,1000];
+	
+	if (TheCheckBox.checked) // making visible
+	{
+		var FeatureBounds=null;
+		
+		if (EntryIndex!=-1) // a specific entry was checked
+		{
+			var FeatureIndex=Entries[TypeIndex][SubtypeIndex][EntryIndex].FeatureIndex;
+
+			TheLayer.SetFeatureProperty(CMLayer.ZOOM_RANGE,FeatureIndex,[-1000,1000]);
+			
+			FeatureBounds=TheLayer.FeatureBounds[FeatureIndex];
+		}
+		else // a subtype was checked 
+		{
+			var EntriesForSubtype=Entries[TypeIndex][SubtypeIndex];
+			
+//			var FirstFeatureIndex=EntriesForSubtype[0].FeatureIndex;
+			
+//			FeatureBounds=null; //TheLayer.FeatureBounds[0]; // start with the firest features bounds
+			
+//			FeatureBounds=CMUtilities.CloneBounds(FeatureBounds);
+			
+			for (var i=0;i<EntriesForSubtype.length;i++) // go through each of the entries in the sub type
+			{
+				var FeatureIndex=EntriesForSubtype[i].FeatureIndex;
+
+				// make the feature visible
+				TheLayer.SetFeatureProperty(CMLayer.ZOOM_RANGE,FeatureIndex,[-1000,1000]);
+				
+				// get the features bounds
+				var NewBounds=TheLayer.FeatureBounds[FeatureIndex];
+				
+				if (FeatureBounds==null)
+				{
+					FeatureBounds=NewBounds;
+				}
+				else
+				{
+					// add the features bounds to the overall bounds
+					FeatureBounds=CMUtilities.AddToBounds(FeatureBounds,NewBounds);
+				}
+				if (LayerName!="Polyline") // must be points 
+				{
+					var EAPID=TheLayer.GetAttributeCellByHeading("EAP_GRP",FeatureIndex);
+					var EAPCOLOR=TheLayer.GetAttributeCellByHeading("EAP_COLOR",FeatureIndex);
+					
+					if (EAPID!="") // clicked on an EAP entry
+					{
+						EAPID=parseInt(EAPID);// convert to int to match the values in the Buildings layer
+						
+						// get the color as a 0-255 formated RGBA string
+						
+						var RGBColor=CMUtilities.GetRGBFromHex(EAPCOLOR);
+						
+						// setup the colors for the EAP outline and fill
+						var StokeColor="rgba("+RGBColor.Red+","+RGBColor.Green+","+RGBColor.Blue+",0.8)";
+						var FillColor="rgba(229,240,211,0.5)";
+						
+						// get all the EAP values from the buildings
+						
+						var TheArray=Layer_BuildingsEAP.GetAttributeArrayByHeading("EAP_GRP");
+						
+						for (var j=0;j<TheArray.length;j++) // for each building
+						{
+							if (TheArray[j]===EAPID) // if the buildings EAP matches the 
+							{
+								Layer_Buildings.SetFeatureProperty(CMLayer.FEATURE_STYLE,j,{
+									strokeStyle:StokeColor,
+									fillStyle:FillColor,
+									lineWidth:3});
+							}
+						}
+					}
+				}
+			}
+		}
+		// zoom to the bounds for the selected features
+		TheCanvasMap.GetView().ZoomToBounds(FeatureBounds);
+	}
+	else // hiding
+	{
+		if (EntryIndex!=-1) // a entry was hidden (unchecked)
+		{
+			var FeatureIndex=Entries[TypeIndex][SubtypeIndex][EntryIndex].FeatureIndex;
+	
+			TheLayer.SetFeatureProperty(CMLayer.ZOOM_RANGE,FeatureIndex,[1000,-1000]);
+			
+			TheLayer.Repaint();
+		}
+		else // one subtype was hidden
+		{
+			var EntriesForSubtype=Entries[TypeIndex][SubtypeIndex];
+			
+			for (var i=0;i<EntriesForSubtype.length;i++)
+			{
+				var FeatureIndex=EntriesForSubtype[i].FeatureIndex;
+
+				// make the feature hidden
+				TheLayer.SetFeatureProperty(CMLayer.ZOOM_RANGE,FeatureIndex,[1000,-1000]);
+				
+				if (LayerName!="Polyline")
+				{
+					var EAPID=TheLayer.GetAttributeCellByHeading("EAP_GRP",FeatureIndex);
+					
+					if (EAPID!="") // chlicked on an EAP entry
+					{
+						var NumBuildings=Layer_Buildings.GetNumAttributeRows();
+						
+						for (var j=0;j<NumBuildings;j++)
+						{
+							Layer_Buildings.SetFeatureProperty(CMLayer.FEATURE_STYLE,j,{
+								strokeStyle:"rgba(0,0,0,0)"
+							});
+						}
+					}
+				}
+
+			}
+			
+			TheLayer.Repaint();
+		}
+	}
+}
+//********************************************************************
+//
+//********************************************************************
+
+// left edge of the MenuBox when off the screen, same as in the CSS file
+var MENU_BOX_MIN_LEFT=-380; 
+
+// top of the menu box to put it right under the header
+var MENU_BOX_TOP=120;
+
+// current MenuBox position, changes from -380 to 0 as it "slides" into the page
+var MenuBoxPosition=MENU_BOX_MIN_LEFT;
+
+// ID for the interval function that repeatedly calls CloseMenuBox()
+var IntervalID=0;
+
+/**
+* Resize the MenuBox, InfoBox
+*/
+ResizeElements=function()
+{
+	var AccordionContainer=document.getElementById("AccordionContainer");
+	var TheMenuBox=document.getElementById("MenuBox");
+	
+	// find the available height
+	var DocumentHeight=$(window).height(); 
+
+	TheMenuBox.style.height=(DocumentHeight-MENU_BOX_TOP)+"px";
+	AccordionContainer.style.height=(DocumentHeight-MENU_BOX_TOP)+"px";
+		
+}
+/**
+* Called to open the menu box (i.e. move it on to the screen)
+*/
+OpenMenuBox=function()
+{
+	var TheMenuBox=document.getElementById("MenuBox");
+	
+	TheMenuBox.style.left="0px";
+	
+	// this kludge from: http://stackoverflow.com/questions/3485365/how-can-i-force-webkit-to-redraw-repaint-to-propagate-style-changes
+	TheMenuBox.style.display='none';
+	TheMenuBox.offsetHeight; // no need to store this anywhere, the reference is enough
+	TheMenuBox.style.display='block';
+}
+/**
+* Called to close the menu box (i.e. move it off the window to the left.
+* This is setup as an interval function so the box moves off gradually.
+*/
+CloseMenuBox=function()
+{
+	var TheMenuBox=document.getElementById("MenuBox");
+	
+	MenuBoxPosition-=10;
+	if (MenuBoxPosition<MENU_BOX_MIN_LEFT) MenuBoxPosition=MENU_BOX_MIN_LEFT;
+	
+	TheMenuBox.style.left=MenuBoxPosition+"px";
+	
+	// this is required to get FireFox to redraw the MenuBox when it slides in
+	TheMenuBox.style.display='none';
+	TheMenuBox.offsetHeight; // no need to store this anywhere, the reference is enough
+	TheMenuBox.style.display='block';
+	
+	if (MenuBoxPosition==MENU_BOX_MIN_LEFT)
+	{
+		clearInterval(IntervalID);
+	}
+}
+/**
+* Opens or closes the MenuBox when the MenuButton is clicked on.
+*/
+function MenuButton_OnClick() 
+{
+	var TheMenuBox=document.getElementById("MenuBox");
+	var MenuButton=document.getElementById("MenuButton");
+
+	if (MenuOpen)  // closing info
+	{
+		MenuOpen=false;
+		
+		MenuButton.innerHTML = "&#x2630; Menu";
+		
+		IntervalID=setInterval(CloseMenuBox,10);
+	} 
+	else // opening the menu
+	{
+		MenuOpen=true;
+		
+		MenuButton.innerHTML ="&#x2715; Close Menu";
+		
+		OpenMenuBox();
+//		IntervalID=setInterval(OpenMenuBox,10);
+	}
+};
+/**
+* Function to manage the opening and closing of the InfoBox
+* Call when the "Info" button is pressed.  Uses the "InfoOpen" 
+* global variable to track if the InfoBox is visible or not.
+*/
+function InfoButton_OnClick()
+{
+	var TheInfoBox=document.getElementById("SlideBox-s4");
+	var InfoButton=document.getElementById("InfoButton");
+	
+	if (InfoOpen)  // closing the InfoBox
+	{
+		InfoOpen=false;
+		
+		TheInfoBox.style.bottom="-500px"; // this and the "transition" style makes the menu slide
+		
+		// swap the text back to the original
+		InfoButton.innerHTML = "&#x2630; Info. | Give Feedback"; // 
+	} 
+	else // open the InfoBox
+	{
+		InfoOpen=true;
+		
+		TheInfoBox.style.bottom="0px"; // this and the "transition" style makes the menu slide
+		
+		InfoButton.innerHTML = "&#x2715; Close";
+	}
+}
+/**
+* Does search when button clicked
+*/
+function DoSearch()
+{
+	var SearchPhraseElement=document.getElementById("SearchText");
+
+	var Element=document.getElementById("SearchResultsContainer");
+	
+	Element.innerHTML="";
+	
+	var SearchPhrase = SearchPhraseElement.value;
+	SearchPhrase=SearchPhrase.toLowerCase();
+	
+	var Result=SearchPhrases(SearchPhrase);
+	
+	// add partial mateches to exact matches=
+	
+	var NumFeatuers=Layer_Buildings.GetNumAttributeRows();
+	var BuildingNames=[];
+	
+	for ( var i=0;i<NumFeatuers;i++)
+	{
+		var Name=Layer_Buildings.GetAttributeCellByHeading("Name",i);
+		
+		BuildingNames.push(Name);
+	}
+	
+	var output = "";
+	output="<input type='button' value='Close' onclick='CloseSearch()'>";
+	
+	for (var i=0;i<Result.length;i++)
+	{
+		var index = Result[i];
+		var BuildingName=BuildingPhraseList[index][0];
+		
+//		var Index=Names.indexOf(" ");
+//		var ShortName=Names.sub(0,Index);
+		
+		var FeatureIndex=BuildingNames.indexOf(BuildingName);
+		
+//		var BuildingName="Alder";
+//		var FeatureIndex=0;
+		
+		var Names=BuildingName;
+		var Link="<a href='#' onclick='ClickedOnBuilding("+FeatureIndex+")'>"+Names+"</a>";
+		
+		output+=Link;
+//		output+=Result[i]+", "+BuildingPhraseList[index][0];
+	}
+	Element.innerHTML=output;
+	Element.style.visibility="visible";
+
+}
+
+
+function EnterPressed()
+{
+//	alert("hi");
+		if (event.keyCode == 13) {
+			document.getElementById("SearchButton").click();
+			event.preventDefault();
+		}
+/*	document.getElementById("SearchText")
+    .addEventListener("keyup", function(event) {
+		event.preventDefault();
+		if (event.keyCode == 13) {
+			document.getElementById("SearchButton").click();
+		}
+	});
+*/}
+
+function CloseSearch()
+{
+	var Element=document.getElementById("SearchResultsContainer");
+	Element.innerHTML="";
+	Element.style.visibility="hidden";
+}
+
+/**
+* Zooms the map to the specified building when clicked on.
+* @param FeatureIndex - index to the feature clicked on in Layer_Buildings
+*/
+function ClickedOnBuilding(FeatureIndex)
+{
+	var FeatureBounds=Layer_Buildings.FeatureBounds[FeatureIndex];
+	
+	var TheView=TheCanvasMap.GetView();
+	
+	TheView.ZoomToBounds(FeatureBounds);
+
+	Layer_Buildings.SetSelectedFeature(FeatureIndex);
+}
+
+</script>
+</head>
+<!---------------------------------------------------------------------------
+ 3. Body of the HTML page
+----------------------------------------------------------------------------->
+
+<!--- Call OnLoad() after the body of the HTML has been loaded (and converted to the DOM) -->
+<body onLoad="OnLoad()">
+
+<!-- Top bar with the HSU logo and menu button --->
+<div class="topbar">
+  <div class="logo"><a href="http://www.humboldt.edu/"><img src="images/logo3.png" alt="logo" style="width: 460px; height: auto;"></a></div>
+  <div class="smalllogo"><a href="http://www.humboldt.edu/"><img src="images/smalllogo.png" alt="logo" style="width: 50px; height: auto; vertical-align: middle;"></a></div>
+  <div class="control"> 
+    <!-- Button to open and close the menu, the text is replaced when clicked -->
+    <button id="MenuButton" onClick="MenuButton_OnClick()">&#x2630; Menu</button>
+  </div>
+</div>
+ 
+<!-- Vertical Menu containg layers and markers that can be toggled on and off --->
+<nav class="MenuBox" id="MenuBox" > <!-- DIVS specifying IDs and classes for vertical and horizontal menus  -->
+	<div id="AccordionContainer" class="accordion"> <!--- style="border:solid 2px blue" --->
+	</div> <!-- **************** Debugging text ****************	 -->
+</nav>
+
+<!-- Map container, CanvasMap will put its elements into this container --->
+<div id="MapContainer_0" style="z-index:0;"> <!--- ;border:solid 2px yellow--->
+</div>
+
+
+<!--- Icons for zooming in and out of the map --->
+<div id="ZoomButtons" class="zoom-container">
+	<div style="width: 28px; height: 28px;"><img class="BackgroundZoomIn" onClick="TheCanvasMap.ZoomIn();" src="images/zoomin-01.png" alt="zoomin" style="width: 28px; height: auto"></div>
+	<div style="width: 28px; height: 28px;"><img class="BackgroundZoomOut" onClick="TheCanvasMap.ZoomOut();" src="images/zoomout-01.png" alt="zoomout" style="width: 28px; height: auto"></div>
+</div>
+
+<!-- Footer at the bottom of the page with the Info button –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<div class="footer">
+  <div class="control-footer">
+    <button id="InfoButton"  onclick="InfoButton_OnClick()">&#x2630; Info | Give Feedback</button>
+  </div>
+</div>
+
+<!-- InfoBox content, hidden on load by its style –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<nav class="SlideBox SlideBox-horizontal SlideBox-bottom" id="SlideBox-s4" style="">
+	<p style="color: white; margin-left: 22px; margin-right: 22px; margin-top: 24px; line-height: normal; font-size: 15px;"><strong style="color: #f6f3af;">ABOUT THE MAP</strong><br>
+		This version of the campus map was updated and completed by Jordan Adnir, Colby Peffer, and Joshua Rodriguez in Fall 2016 under the guidance and direction of Professor James Graham. 
+		Original design and development was by Jordan Adair, Dylan Hills, Monique Gil, and Aaron Taveras in Fall 2015. Please note that the map undergoes periodic updates as buildings and spaces on campus change.<br>
+		<br>
+		<strong style="color: #f6f3af;">BROWSER REQUIREMENTS</strong><br>
+		The map will run on any relatively newer version of Chrome, Firefox and Safari, as long as Javascript is enabled (it is by default.) The map  also runs on Internet Explorer back to  version 8.<br>
+		<br>
+		<strong style="color: #f6f3af;">GIVE FEEDBACK</strong><br>
+		If you have trouble using the map or if you have any suggestions for improvements, please fill the following 
+		<a class="SurveyLink" href="https://docs.google.com/forms/d/1w-HHtasBZhwJLU2Qe1B5F5vmQ52vp44T6p6epwCT3rA/viewform?usp=send_form" target="_blank">form.</a>
+	</p>
+</nav>
+
+</body>
+</html>
