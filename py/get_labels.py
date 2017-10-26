@@ -11,6 +11,25 @@
 
 # -*- coding: utf-8 -*-
 
+
+## TO DO:
+# [x] Figure out where all labels and search names come from
+    # - BuildingLabels_Dec_20_2016.js
+        # - For labels ON THE MAP
+    # - BuildingNames8.js
+        # - Points for buildings with coordinates. Has building name and Abbreviations
+    # - Buildings_Nov122016_3.js
+        # - Polygons for buildings with coordinates. Has building name and html descrip.
+    # - BuildingOverlay_Dec11.js
+        # - Polygons for building design. Has coordinates and opacity settings. No labels.
+    # - BuildingPhraseList.js
+        # - js file with lists for each building and search terms. First item is the main building name.
+        
+# [] Run script to print all names
+# [] Run script to print all lat longs
+# [] Test write into a .CSV
+
+
 import time
 import sys
 import logging
