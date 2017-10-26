@@ -26,12 +26,11 @@ logging.basicConfig(level=logging.INFO)
 logging.info("\t Starting script...")
 
 bldng_label_path = os.path.expanduser("~/HSUWebMap/Spatial_Data/BuildingLabels_Dec20_2016.js")
+bldng_name_path = os.path.expanduser("~/HSUWebMap/Spatial_Data/BuildingNames8.js")
 bldng_phrase_list_path = os.path.expanduser("~/HSUWebMap/js/BuildingPhraseList.js")
 
-fdata = open(bldng_label_path, 'r')
-#print(fdata)
+fdata = open(bldng_name_path, 'r')
 data = geojson.load(fdata)
-#print(data)
 
 for feature in data['features']:
     #print(feature)
@@ -39,10 +38,10 @@ for feature in data['features']:
     #print(props)
     #print("\t\t\t BREAK ****************")
     name = props['Name']
-    label_2 = props['Labels_2']
+    #label_2 = props['Labels_2']
     print(name)
-    if name == "":
-        print(label_2)
+    #if name == "":
+        #print(label_2)
         
     print("\t\t BREAK ****************")
     
