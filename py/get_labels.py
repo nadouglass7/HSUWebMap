@@ -32,20 +32,6 @@
 # [-] Run script to print all lat longs
 # [] Test write into a master.CSV for each .js
 
-def write_csv(csv_name,file_path):
-    if os.path.exists(file_path) and os.access(file_path, os.R_OK):
-        logging.info("\t" + csv_name + " already exists" )
-        csv = open(file_path, "a")
-        csv.write(bldng_name + "," + label_1 + "," + label_2 + "," + abbr + "," + bldng_phrase_list + "," + info_description + "," + image + "\n")
-     
-    else:
-        logging.info("\t" + "CREATED : " + csv_name)
-        time.sleep(0.05)
-        csv = open(file_path, "w")
-        logging.info("\t Appending to : " + csv_name)
-        csv.write("bldng_name" + "," + "label_1" + "," + "label_2" + "," + "abbr" + "," + "bldng_phrase_list" + "," + "info_description" + "," + "image" + "\n")
-        csv.write(bldng_name + "," + label_1 + "," + label_2 + "," + abbr + "," + bldng_phrase_list + "," + info_description + "," + image + "\n")
-    return()
 
 import time
 import sys
@@ -55,6 +41,21 @@ import csv
 import pprint
 import geojson
 import json
+
+def write_csv(csv_class,file_path):
+    if os.path.exists(file_path) and os.access(file_path, os.R_OK):
+        logging.info("\t" + csv_class + " already exists" )
+        csv = open(file_path, "a")
+        csv.write(id + "," + name + "," + type + "," + label_1 + "," + label_2 + "," + abbr + "," + bldng_phrase_list + "," + info_description + "," + image + "\n")
+     
+    else:
+        logging.info("\t" + "CREATED : " + csv_class)
+        time.sleep(0.05)
+        csv = open(file_path, "w")
+        logging.info("\t Appending to : " + csv_class)
+        csv.write("id" + "," + "name" + "," + "type" + "," + "label_1" + "," + "label_2" + "," + "abbr" + "," + "bldng_phrase_list" + "," + "info_description" + "," + "image" + "\n")
+        csv.write(id + "," + name + "," + type + "," + label_1 + "," + label_2 + "," + abbr + "," + bldng_phrase_list + "," + info_description + "," + image + "\n")
+    return()
 
 # set up logging
 logging.basicConfig(level=logging.INFO)
@@ -71,7 +72,7 @@ bldng_phrase_list_path = os.path.expanduser("~/HSUWebMap/js/BuildingPhraseList.j
 #---------------#
 #     DATA
 #---------------#
-
+'''
 # BuildingNames8.js
 fdata = open(bldng_name_path, 'r')
 data = geojson.load(fdata)
@@ -124,7 +125,7 @@ for feature in data['features']:
     ## WRITE TO CSV   
     function = write_csv(csv_name,file_path)
     
-    
+'''    
     
     
     
@@ -132,7 +133,7 @@ for feature in data['features']:
 # BuildingLabels_Dec20_2016.js
 fdata = open(bldng_path, 'r')
 data = geojson.load(fdata)
-
+print("Hello")
 # Filler Variables
 bldng_name = ""
 label_1 = ""
@@ -151,53 +152,3 @@ for feature in data['features']:
     ## WRITE TO CSV   
     function = write_csv(csv_name,file_path)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-##---------
-'''
-## pseudo-names for master csv
-bldng_name = "Something"
-abbreviation = "smt"
-bldng_phrase_list = "smt, this, that, more of that"
-info_description = "Something abouth Something for something and more something"
-image = "link to something"
-
-## WRITE TO CSV
-csv_name = "master.csv"
-file_path = os.path.expanduser("~/HSUWebMap/" + csv_name)
-logging.info("\t Starting .csv writing...")
-
-if os.path.exists(file_path) and os.access(file_path, os.R_OK):
-    logging.info("\t" + csv_name + " already exists" )
-    #csv = open(file_path, "a")
-    #csv.write(bldng_name + "," + abbreviation + "," + bldng_phrase_list + "," + info_description + "," + image)
-     
-else:
-    logging.info("\t" + csv_name + " does NOT exist")
-    time.sleep(0.05)
-    csv = open(file_path, "w")
-    logging.info("\t CREATED : " + csv_name)
-    csv.write("bldng_name"               + "," + "abbreviation"      + "," + "bldng_phrase_list" + ","   + "info_description"    + "," + "image" + "\n")
-    csv.write(bldng_name + "," + abbreviation + "," + "\"" + bldng_phrase_list + "\"" + "," + info_description + "," + image)
-'''
