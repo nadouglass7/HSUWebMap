@@ -64,8 +64,6 @@ with open(id_sheet, 'r') as inf:
             logging.info("\tid taken")
             pass
 logging.info("\t--------------------------------------\r")
-print(fresh_id_list)
-
 
 # Buildings_Nov122016_3.js
 fdata = open(bldng_path, 'r+')
@@ -75,20 +73,17 @@ for feature in data['features']:
     props = feature['properties']
 
     name = props['Name']
-
-    logging.info("\tname: " + name)
     
     if not props.has_key("id"):
         logging.info("\t\tDoes NOT have id property \t") 
         fresh_id = fresh_id_list[count]
         props['id'] = fresh_id
         used_id_list.append(fresh_id)
+        logging.info("\tname: " + name + "\tid: " + id)
         count+=1
-        print(feature)
 
     else:
-        logging.info("\tHas id property: \t" + props[id])
-print('used_id_list -------' + str(used_id_list))       
+        logging.info("\tHas id property: \t" + props[id])       
 
 with open(id_sheet, 'r') as inf, open(temp, 'w') as outf:
     reader = csv.DictReader(inf, delimiter=',')
