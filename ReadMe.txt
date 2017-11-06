@@ -6,4 +6,16 @@ This is the main folder for the HSU Web Map
 - images - all other images for the web site including the icons
 - Includes - the CanvasMap JavaScript files
 - js - other JavaScript libraries including the BuildingPhrase list, jQuery, and SearchUtil
+- py - Include python scripts used for data management 
 - SpatialData - contains all GeoJSON files used to display spatial data
+- master.csv:
+	- This is used as an easy way to keep track of every feature being placed on the map. Data that is stored in this .csv is what will appear on the map, once you run the csv_to_map.py script, so be sure not to edit this unless you intend to make changes to the HSU web map. The .csv is broken down as follows:
+		- id: the hard identifier for this feature. This id SHOULD not be reused for any other feature and no duplicate codes should exist in this project. See id_sheet for more info. Source: https://www.random.org/strings/?mode=advanced,
+		- name: the official and unabbreviated name of the feature (Ex. Natural Resources, instead of NATURAL RESOURCES or NR)
+		- class: the feature classification. (Building, Road, POI, Area,``` this needs to be explicitly cleared up)
+		- label_1: what appears in this location at the first zoom level. If left blank, then no label will appear
+		- label_2: what appears in this location at the second zoom level. If left blank, then no label will appear
+		- abbr: the official abbreviated code for this feature, if one exists. There should only be one.
+		- bldng_phrase_list: a list of many search terms used for each building. These are any search items that could possibly be associated with a particular `building`. Each feature can have as many search phrases, but the first term MUST be the building name itself. 
+		- info_description: 
+		- image:
