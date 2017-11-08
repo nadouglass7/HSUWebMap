@@ -33,7 +33,8 @@ logging.info("\t Starting script...")
 #inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/BuildingLabels_Dec20_2016.js")
 #inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/BuildingNames8.js")
 #inpath = os.path.expanduser("~/HSUWebMap/js/BuildingPhraseList.js")
-inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/Points_Dec9_2016.js")
+#inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/Points_Dec9_2016.js")
+inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/Polylines_Nov29_2016.js")
 
 outpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/temp.js")
 
@@ -76,8 +77,10 @@ for feature in data['features']:
     props = feature['properties']
     if props.has_key('Name'):
         name = props['Name']
-    else:
+    elif props.has_key('NAME'):
         name = props['NAME']
+    else:
+        name = 'NULL'
     print(feature)
     if not props.has_key("id"):
         logging.info("\t\tDoes NOT have id property \t") 
