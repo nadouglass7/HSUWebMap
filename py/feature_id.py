@@ -34,7 +34,8 @@ logging.info("\t Starting script...")
 #inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/BuildingNames8.js")
 #inpath = os.path.expanduser("~/HSUWebMap/js/BuildingPhraseList.js")
 #inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/Points_Dec9_2016.js")
-inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/Polylines_Nov29_2016.js")
+#inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/Polylines_Nov29_2016.js")
+inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/Points_Nov_13.js")
 
 outpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/temp.js")
 
@@ -81,8 +82,8 @@ for feature in data['features']:
         name = props['NAME']
     else:
         name = 'NULL'
-    print(feature)
-    if not props.has_key("id"):
+    #print(feature)
+    if not props.has_key("ID"):
         logging.info("\t\tDoes NOT have id property \t") 
         fresh_id = fresh_id_list[count]
         props['id'] = fresh_id
@@ -92,14 +93,16 @@ for feature in data['features']:
         count+=1
 
     else:
-        if props['id'] = null:
-            props['id'] = fresh_id
+        null = None
+        if props['ID'] == null:
+            fresh_id = fresh_id_list[count]
+            props['ID'] = fresh_id
             used_id_list.append(fresh_id)
             name_list.append(name)
-            logging.info("\tname: " + name + "\tid: " + props['id'])
+            logging.info("\tname: " + name + "\tID: " + props['ID'])
             count+=1
         else:
-            logging.info("\tHas id property already: \t" + props[id])  
+            logging.info("\tHas id property already: \t" + props['ID'])  
  
 geojson.dump(data,out)
 os.remove(inpath)
