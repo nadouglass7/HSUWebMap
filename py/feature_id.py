@@ -92,7 +92,15 @@ for feature in data['features']:
         count+=1
 
     else:
-        logging.info("\tHas id property: \t" + props[id])    
+        if props['id'] = null:
+            props['id'] = fresh_id
+            used_id_list.append(fresh_id)
+            name_list.append(name)
+            logging.info("\tname: " + name + "\tid: " + props['id'])
+            count+=1
+        else:
+            logging.info("\tHas id property already: \t" + props[id])  
+ 
 geojson.dump(data,out)
 os.remove(inpath)
 os.rename(outpath, inpath)
