@@ -32,10 +32,11 @@ logging.info("\t Starting script...")
 #inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/Buildings_Nov122016_3.js")
 #inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/BuildingLabels_Dec20_2016.js")
 #inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/BuildingNames8.js")
+inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/BuildingOverlay_Dec11.js")
 #inpath = os.path.expanduser("~/HSUWebMap/js/BuildingPhraseList.js")
 #inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/Points_Dec9_2016.js")
 #inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/Polylines_Nov29_2016.js")
-inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/Points_Nov_13.js")
+#inpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/Points_Nov_13.js")
 
 outpath = os.path.expanduser("~/HSUWebMap/Spatial_Data/temp.js")
 
@@ -54,7 +55,7 @@ name_list = []
 count = 0
 id_count = 0
 
-
+##--------- checks id_sheet.csv for free or 'available' ID's ------#
 with open(id_sheet, 'r') as inf:
     reader = csv.DictReader(inf, delimiter=',')
 
@@ -69,6 +70,7 @@ with open(id_sheet, 'r') as inf:
             logging.info("\tid taken")
             pass
 
+##---------- loads selected .js file and checks for ID property -----#
 fdata = open(inpath, 'r+')
 data = json.load(fdata)
 
@@ -95,6 +97,7 @@ for feature in data['features']:
     else:
         null = None
         if props['ID'] == null:
+            print('HELLO')
             fresh_id = fresh_id_list[count]
             props['ID'] = fresh_id
             used_id_list.append(fresh_id)
@@ -103,11 +106,15 @@ for feature in data['features']:
             count+=1
         else:
             logging.info("\tHas id property already: \t" + props['ID'])  
- 
+            pass
+
+# writes results to existing .js file (comment this out during first run of this script)
 geojson.dump(data,out)
 os.remove(inpath)
 os.rename(outpath, inpath)
 
+
+##-------- Update id_sheet.csv to reflect id usage-----#
 with open(id_sheet, 'r') as inf, open(temp, 'w') as outf:
     reader = csv.DictReader(inf, delimiter=',')
     writer = csv.DictReader(outf, delimiter=',')
