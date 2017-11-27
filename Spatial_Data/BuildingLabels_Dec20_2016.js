@@ -1,216 +1,111 @@
 {
 "type": "FeatureCollection",
-                                                                                
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
-{ "type": "Feature", "properties": { "Name": "NATURAL <br> RESOURCES", "Labels_2": "NATURAL <br> RESOURCES", "X": 409151.98313322617, "Y": 4525278.8987850416 }, "geometry": { "type": "Point", "coordinates": [ 409151.98313322617, 4525278.8987850416 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "GIST HALL", "Labels_2": "GIST HALL", "X": 409065.61640973389, "Y": 4525501.9060562765 }, "geometry": { "type": "Point", "coordinates": [ 409065.61640973389, 4525501.9060562765 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "WILDLIFE <br> & FISHERIES", "Labels_2": "WILDLIFE <br> & FISHERIES", "X": 409278.80485694436, "Y": 4525400.0412692139 }, "geometry": { "type": "Point", "coordinates": [ 409278.80485694436, 4525400.0412692139 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "DENNIS K. WALKER <br> GREENHOUSE", "X": 409211.4682639378, "Y": 4525374.2443426196 }, "geometry": { "type": "Point", "coordinates": [ 409211.4682639378, 4525374.2443426196 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "SCIENCE A", "Labels_2": "SCIENCE A", "X": 409222.25005633471, "Y": 4525490.7935340516 }, "geometry": { "type": "Point", "coordinates": [ 409222.25005633471, 4525490.7935340516 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "STUDENT & <br> BUSINESS SERVICES", "Labels_2": "STUDENT & <br> BUSINESS SERVICES", "X": 409057.14972613385, "Y": 4525395.5433435515 }, "geometry": { "type": "Point", "coordinates": [ 409057.14972613385, 4525395.5433435515 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "JOLLY<br> GIANT<br> COMMONS", "Labels_2": "JOLLY<br> GIANT<br> COMMONS", "X": 409117.16616561334, "Y": 4525863.2614664892 }, "geometry": { "type": "Point", "coordinates": [ 409117.16616561334, 4525863.2614664892 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "CYPRESS HALL", "X": 409138.00214478525, "Y": 4525809.4186504707 }, "geometry": { "type": "Point", "coordinates": [ 409138.00214478525, 4525809.4186504707 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "REDWOOD <br> HALL", "Labels_2": "REDWOOD <br> HALL", "X": 409057.43635865377, "Y": 4525778.1316087293 }, "geometry": { "type": "Point", "coordinates": [ 409057.43635865377, 4525778.1316087293 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "SUNSET <br> HALL", "Labels_2": "SUNSET <br> HALL", "X": 409003.6596886004, "Y": 4525836.0093286512 }, "geometry": { "type": "Point", "coordinates": [ 409003.6596886004, 4525836.0093286512 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "THE <br> HILL", "X": 409028.0675499161, "Y": 4525806.3759360509 }, "geometry": { "type": "Point", "coordinates": [ 409028.0675499161, 4525806.3759360509 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "CREEKSIDE <br> LOUNGE", "X": 409358.99581593933, "Y": 4525807.6988553647 }, "geometry": { "type": "Point", "coordinates": [ 409358.99581593933, 4525807.6988553647 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "JUNIPER", "X": 409408.7375820895, "Y": 4525818.8113775896 }, "geometry": { "type": "Point", "coordinates": [ 409408.7375820895, 4525818.8113775896 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "LAUREL", "X": 409385.98336991441, "Y": 4525779.1237982148 }, "geometry": { "type": "Point", "coordinates": [ 409385.98336991441, 4525779.1237982148 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "WILLOW", "X": 409433.0792974396, "Y": 4525741.5528897392 }, "geometry": { "type": "Point", "coordinates": [ 409433.0792974396, 4525741.5528897392 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "FERN", "X": 409479.11688951479, "Y": 4525751.0779087897 }, "geometry": { "type": "Point", "coordinates": [ 409479.11688951479, 4525751.0779087897 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "FOUNDERS <br> HALL", "Labels_2": "FOUNDERS <br> HALL", "X": 409230.40805876383, "Y": 4525687.0486140642 }, "geometry": { "type": "Point", "coordinates": [ 409230.40805876383, 4525687.0486140642 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "VAN MATRE <br> HALL", "Labels_2": "VAN MATRE <br> HALL", "X": 409236.75807146385, "Y": 4525602.910945789 }, "geometry": { "type": "Point", "coordinates": [ 409236.75807146385, 4525602.910945789 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "MUSIC B", "Labels_2": "MUSIC B", "X": 409139.92037778842, "Y": 4525626.723493414 }, "geometry": { "type": "Point", "coordinates": [ 409139.92037778842, 4525626.723493414 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "ART B", "Labels_2": "ART B", "X": 409152.09123546351, "Y": 4525589.1525849393 }, "geometry": { "type": "Point", "coordinates": [ 409152.09123546351, 4525589.1525849393 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "MUSIC A", "Labels_2": "MUSIC A", "X": 409100.49738227576, "Y": 4525639.8203946082 }, "geometry": { "type": "Point", "coordinates": [ 409100.49738227576, 4525639.8203946082 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "SIEMENS HALL", "Labels_2": "SIEMENS HALL", "X": 409066.89523173816, "Y": 4525669.5860791393 }, "geometry": { "type": "Point", "coordinates": [ 409066.89523173816, 4525669.5860791393 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "LIBRARY", "Labels_2": "LIBRARY", "X": 408987.52007298783, "Y": 4525627.7818288645 }, "geometry": { "type": "Point", "coordinates": [ 408987.52007298783, 4525627.7818288645 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "HAGOPIAN <br> HOUSE", "X": 408962.45075201587, "Y": 4525751.4747845847 }, "geometry": { "type": "Point", "coordinates": [ 408962.45075201587, 4525751.4747845847 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "BRERO <br> HOUSE", "X": 408982.22839573782, "Y": 4525730.2022420382 }, "geometry": { "type": "Point", "coordinates": [ 408982.22839573782, 4525730.2022420382 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "LITTLE <br> APARTMENTS", "X": 408931.17693946813, "Y": 4525697.7378021087 }, "geometry": { "type": "Point", "coordinates": [ 408931.17693946813, 4525697.7378021087 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "STUDENT<br> HEALTH<br> CENTER", "Labels_2": "STUDENT<br> HEALTH<br> CENTER", "X": 409010.27428516292, "Y": 4525731.4987029647 }, "geometry": { "type": "Point", "coordinates": [ 409010.27428516292, 4525731.4987029647 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "NELSON HALL<br> WEST", "X": 409047.84519363806, "Y": 4525742.0820574649 }, "geometry": { "type": "Point", "coordinates": [ 409047.84519363806, 4525742.0820574649 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "NELSON HALL<br> EAST", "X": 409071.12857353815, "Y": 4525716.6820066646 }, "geometry": { "type": "Point", "coordinates": [ 409071.12857353815, 4525716.6820066646 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "UNIVERSITY <br> CENTER", "X": 409122.45784286334, "Y": 4525742.0820574649 }, "geometry": { "type": "Point", "coordinates": [ 409122.45784286334, 4525742.0820574649 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "BOOKSTORE", "X": 409151.5620677385, "Y": 4525712.4486648645 }, "geometry": { "type": "Point", "coordinates": [ 409151.5620677385, 4525712.4486648645 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "UC QUAD", "X": 409119.28283651336, "Y": 4525687.577781789 }, "geometry": { "type": "Point", "coordinates": [ 409119.28283651336, 4525687.577781789 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "THEATRE <br> ARTS", "Labels_2": "THEATRE <br> ARTS", "X": 409066.23377208191, "Y": 4525575.7910998808 }, "geometry": { "type": "Point", "coordinates": [ 409066.23377208191, 4525575.7910998808 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "STUDENT <br> RECREATION <br> CENTER", "Labels_2": "STUDENT<br> RECREATION<br> CENTER", "X": 409416.93968182709, "Y": 4525521.1545322752 }, "geometry": { "type": "Point", "coordinates": [ 409416.93968182709, 4525521.1545322752 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "RECREATION &<br>WELLNESS CENTER", "Labels_2": "RECREATION & <br> WELLNESS <br> CENTER", "X": 409299.1998630141, "Y": 4525515.0691034375 }, "geometry": { "type": "Point", "coordinates": [ 409299.1998630141, 4525515.0691034375 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "FORBES GYM", "Labels_2": "FORBES GYM", "X": 409343.64995191427, "Y": 4525464.2690018378 }, "geometry": { "type": "Point", "coordinates": [ 409343.64995191427, 4525464.2690018378 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "KINESIOLOGY <br> & ATHLETICS", "Labels_2": "KINESIOLOGY <br> & ATHLETICS", "X": 409423.0251106646, "Y": 4525416.1147388611 }, "geometry": { "type": "Point", "coordinates": [ 409423.0251106646, 4525416.1147388611 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "MARINE WILDLIFE <br> CARE CENTER", "X": 409399.21256303933, "Y": 4525281.8384286435 }, "geometry": { "type": "Point", "coordinates": [ 409399.21256303933, 4525281.8384286435 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "BOAT <br> FACILITY", "X": 409427.72147422383, "Y": 4525215.5601710863 }, "geometry": { "type": "Point", "coordinates": [ 409427.72147422383, 4525215.5601710863 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "NATIVE AMERICAN <br> FORUM", "X": 409267.44979951397, "Y": 4525186.4559462117 }, "geometry": { "type": "Point", "coordinates": [ 409267.44979951397, 4525186.4559462117 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "BEHAVIORAL & <br> SOCIAL SCIENCES", "Labels_2": "BEHAVIORAL <br> & SOCIAL SCIENCES", "X": 409227.03461451695, "Y": 4525222.7700813394 }, "geometry": { "type": "Point", "coordinates": [ 409227.03461451695, 4525222.7700813394 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "SCHATZ ENERGY<br> RESEARCH CENTER", "Labels_2": "SCHATZ ENERGY<br> RESEARCH CENTER", "X": 409142.69850834465, "Y": 4525190.9538718741 }, "geometry": { "type": "Point", "coordinates": [ 409142.69850834465, 4525190.9538718741 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "FORESTRY", "Labels_2": "FORESTRY", "X": 409219.82470426377, "Y": 4525281.8384286426 }, "geometry": { "type": "Point", "coordinates": [ 409219.82470426377, 4525281.8384286426 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "BUCK <br> HOUSE", "X": 409197.59965981363, "Y": 4525156.8225536104 }, "geometry": { "type": "Point", "coordinates": [ 409197.59965981363, 4525156.8225536104 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "JENSEN <br> HOUSE", "X": 409148.91622911347, "Y": 4525161.9819389302 }, "geometry": { "type": "Point", "coordinates": [ 409148.91622911347, 4525161.9819389302 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "SHIPPING & <br> RECEIVING", "X": 409035.14516823797, "Y": 4525189.8955364246 }, "geometry": { "type": "Point", "coordinates": [ 409035.14516823797, 4525189.8955364246 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "FACILITIES <br> MANAGEMENT", "Labels_2": "", "X": 409029.85349098797, "Y": 4525117.6641419614 }, "geometry": { "type": "Point", "coordinates": [ 409029.85349098797, 4525117.6641419614 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "MARKETING & <br> COMMUNICATION", "X": 409090.4431955007, "Y": 4525123.8818627289 }, "geometry": { "type": "Point", "coordinates": [ 409090.4431955007, 4525123.8818627289 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "TODDLER <br> CENTER", "X": 409135.68703598838, "Y": 4525126.8584311819 }, "geometry": { "type": "Point", "coordinates": [ 409135.68703598838, 4525126.8584311819 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "BIAOCCHI <br> HOUSE", "X": 409172.59648480732, "Y": 4525096.7620168235 }, "geometry": { "type": "Point", "coordinates": [ 409172.59648480732, 4525096.7620168235 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "MARY WARREN <br> HOUSE", "X": 409168.69387283549, "Y": 4525054.3624528581 }, "geometry": { "type": "Point", "coordinates": [ 409168.69387283549, 4525054.3624528581 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "WALTER WARREN <br> HOUSE", "X": 409092.22913657257, "Y": 4525060.1171518676 }, "geometry": { "type": "Point", "coordinates": [ 409092.22913657257, 4525060.1171518676 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "TRINITY <br> ANNEX", "X": 409012.65553992544, "Y": 4525034.5848091356 }, "geometry": { "type": "Point", "coordinates": [ 409012.65553992544, 4525034.5848091356 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "HARRY <br> GRIFFITH <br> HALL", "Labels_2": "HARRY <br> GRIFFITH <br> HALL", "X": 409093.61820185074, "Y": 4525301.5499263993 }, "geometry": { "type": "Point", "coordinates": [ 409093.61820185074, 4525301.5499263993 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "CHILD <br> DEVELOPMENT <br> LAB", "X": 409043.66476861056, "Y": 4525345.8412649827 }, "geometry": { "type": "Point", "coordinates": [ 409043.66476861056, 4525345.8412649827 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "COMMUNITY <br> SERVICES", "X": 408991.75341478782, "Y": 4525313.4562002122 }, "geometry": { "type": "Point", "coordinates": [ 408991.75341478782, 4525313.4562002122 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "COLLEGE <br> CREEK <br> COMPLEX", "Labels_2": "COLLEGE <br> CREEK <br> FIELD", "X": 408929.31162323756, "Y": 4525229.8476996617 }, "geometry": { "type": "Point", "coordinates": [ 408929.31162323756, 4525229.8476996617 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "COLLEGE CREEK <br> COMPLEX", "X": 408945.318946919, "Y": 4525285.6748946505 }, "geometry": { "type": "Point", "coordinates": [ 408945.318946919, 4525285.6748946505 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "DEL NORTE", "X": 408894.38655338745, "Y": 4525332.5062383115 }, "geometry": { "type": "Point", "coordinates": [ 408894.38655338745, 4525332.5062383115 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "SHASTA", "X": 408945.55707239511, "Y": 4525332.8237389475 }, "geometry": { "type": "Point", "coordinates": [ 408945.55707239511, 4525332.8237389475 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "TRINITY", "X": 408989.63674388785, "Y": 4525275.289978046 }, "geometry": { "type": "Point", "coordinates": [ 408989.63674388785, 4525275.289978046 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "MENDOCINO", "X": 408991.75341478782, "Y": 4525226.1435255865 }, "geometry": { "type": "Point", "coordinates": [ 408991.75341478782, 4525226.1435255865 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "PARKING <br> SERVICES", "X": 408996.05290255352, "Y": 4525449.1877216771 }, "geometry": { "type": "Point", "coordinates": [ 408996.05290255352, 4525449.1877216771 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "CAMPUS <br> APARTMENTS", "Labels_2": "CAMPUS <br> APARTMENTS", "X": 408948.36166133767, "Y": 4525501.8399103126 }, "geometry": { "type": "Point", "coordinates": [ 408948.36166133767, 4525501.8399103126 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "WARREN <br> HOUSE", "X": 409005.44562967226, "Y": 4525496.4159411304 }, "geometry": { "type": "Point", "coordinates": [ 409005.44562967226, 4525496.4159411304 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "BRET HARTE <br> HOUSE", "X": 409030.97797240363, "Y": 4525525.2555821436 }, "geometry": { "type": "Point", "coordinates": [ 409030.97797240363, 4525525.2555821436 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "TELONICHER <br> HOUSE", "X": 409028.26598781301, "Y": 4525568.7796275262 }, "geometry": { "type": "Point", "coordinates": [ 409028.26598781301, 4525568.7796275262 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "BALABANIS <br> HOUSE", "X": 408978.32578376587, "Y": 4525535.786019871 }, "geometry": { "type": "Point", "coordinates": [ 408978.32578376587, 4525535.786019871 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "HADLEY <br> HOUSE", "X": 408941.07237592572, "Y": 4525569.626295886 }, "geometry": { "type": "Point", "coordinates": [ 408941.07237592572, 4525569.626295886 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "WAGNER <br> HOUSE", "X": 408895.37874287181, "Y": 4525524.1311007282 }, "geometry": { "type": "Point", "coordinates": [ 408895.37874287181, 4525524.1311007282 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "SCULPTURE <br> LAB", "X": 408942.27623250015, "Y": 4525458.5804487942 }, "geometry": { "type": "Point", "coordinates": [ 408942.27623250015, 4525458.5804487942 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "CERAMICS <br> LAB", "X": 408877.58547811856, "Y": 4525465.9887969447 }, "geometry": { "type": "Point", "coordinates": [ 408877.58547811856, 4525465.9887969447 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "JENKINS <br> HALL", "Labels_2": "JENKINS <br> HALL", "X": 409145.74122276343, "Y": 4525509.2482584622 }, "geometry": { "type": "Point", "coordinates": [ 409145.74122276343, 4525509.2482584622 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "SCIENCE D", "Labels_2": "SCIENCE D", "X": 409153.14957091352, "Y": 4525394.6834459994 }, "geometry": { "type": "Point", "coordinates": [ 409153.14957091352, 4525394.6834459994 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "SCIENCE C", "X": 409189.13297621364, "Y": 4525445.4835476 }, "geometry": { "type": "Point", "coordinates": [ 409189.13297621364, 4525445.4835476 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "SCIENCE B", "Labels_2": "SCIENCE B", "X": 409226.50544679194, "Y": 4525434.1725874795 }, "geometry": { "type": "Point", "coordinates": [ 409226.50544679194, 4525434.1725874795 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "EXPERIMENTAL <br> HOUSE", "X": 409162.41000610101, "Y": 4525482.7898722133 }, "geometry": { "type": "Point", "coordinates": [ 409162.41000610101, 4525482.7898722133 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "BROOKINS <br> HOUSE", "X": 409133.25286445342, "Y": 4525454.6513784351 }, "geometry": { "type": "Point", "coordinates": [ 409133.25286445342, 4525454.6513784351 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "REDWOOD <br> BOWL", "Labels_2": "REDWOOD <br> BOWL", "X": 409322.15251308604, "Y": 4525629.1708941413 }, "geometry": { "type": "Point", "coordinates": [ 409322.15251308604, 4525629.1708941413 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "UPPER <br> PLAYING <br> FIELD", "X": 409443.00119228347, "Y": 4525612.1713809753 }, "geometry": { "type": "Point", "coordinates": [ 409443.00119228347, 4525612.1713809753 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "LIBRARY <br> CIRCLE", "X": 408974.29087986279, "Y": 4525685.461110888 }, "geometry": { "type": "Point", "coordinates": [ 408974.29087986279, 4525685.461110888 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "ALDER", "X": 409114.52032698831, "Y": 4525962.7449987894 }, "geometry": { "type": "Point", "coordinates": [ 409114.52032698831, 4525962.7449987894 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "CHINQUAPIN", "X": 409151.56206773844, "Y": 4525929.7381619429 }, "geometry": { "type": "Point", "coordinates": [ 409151.56206773844, 4525929.7381619429 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "HEMLOCK", "X": 409172.19960901357, "Y": 4525954.2783151893 }, "geometry": { "type": "Point", "coordinates": [ 409172.19960901357, 4525954.2783151893 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "MADRONE", "X": 409196.54132436367, "Y": 4525935.7574448148 }, "geometry": { "type": "Point", "coordinates": [ 409196.54132436367, 4525935.7574448148 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "MAPLE", "X": 409193.36631801364, "Y": 4525908.7698908392 }, "geometry": { "type": "Point", "coordinates": [ 409193.36631801364, 4525908.7698908392 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "TAN OAK", "X": 409213.93771332316, "Y": 4525882.7745263474 }, "geometry": { "type": "Point", "coordinates": [ 409213.93771332316, 4525882.7745263474 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "PEPPERWOOD", "X": 409183.37827720417, "Y": 4525870.9343985012 }, "geometry": { "type": "Point", "coordinates": [ 409183.37827720417, 4525870.9343985012 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "CEDAR", "X": 409117.69533333834, "Y": 4525933.111606189 }, "geometry": { "type": "Point", "coordinates": [ 409117.69533333834, 4525933.111606189 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "CANYON<br>COMPLEX", "Labels_2": "CANYON<br>COMPLEX", "X": 409151.99533851241, "Y": 4525907.3133860733 }, "geometry": { "type": "Point", "coordinates": [ 409151.99533851241, 4525907.3133860733 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "FEUERWERKER <br> HOUSE", "X": 408905.66776252311, "Y": 4525757.8896497302 }, "geometry": { "type": "Point", "coordinates": [ 408905.66776252311, 4525757.8896497302 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "REDWOOD <br> SCIENCE <br> LAB", "X": 409518.85938474018, "Y": 4525206.5762554388 }, "geometry": { "type": "Point", "coordinates": [ 409518.85938474018, 4525206.5762554388 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "FISH <br> HATCHERY", "X": 409299.8500925547, "Y": 4525325.5728475964 }, "geometry": { "type": "Point", "coordinates": [ 409299.8500925547, 4525325.5728475964 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "WILDLIFE <br> GAME PENS", "X": 409271.60576523276, "Y": 4525349.120811359 }, "geometry": { "type": "Point", "coordinates": [ 409271.60576523276, 4525349.120811359 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "CAMPUS EVENTS <br> FIELD", "Labels_2": "CAMPUS EVENTS FIELD", "X": 409179.06755932292, "Y": 4525344.7551776264 }, "geometry": { "type": "Point", "coordinates": [ 409179.06755932292, 4525344.7551776264 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "EAST <br> BLEACHERS", "X": 409396.22476447077, "Y": 4525655.6412160639 }, "geometry": { "type": "Point", "coordinates": [ 409396.22476447077, 4525655.6412160639 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "WEST <br> BLEACHERS", "X": 409277.95577793272, "Y": 4525613.5062359599 }, "geometry": { "type": "Point", "coordinates": [ 409277.95577793272, 4525613.5062359599 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "CREEKVIEW <br> COMPLEX", "Labels_2": "CREEKVIEW <br> COMPLEX", "X": 409446.34488554497, "Y": 4525785.3402254637 }, "geometry": { "type": "Point", "coordinates": [ 409446.34488554497, 4525785.3402254637 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "UNIVERSITY <br> CENTER", "Labels_2": "", "X": 409139.37997994741, "Y": 4525720.1996785123 }, "geometry": { "type": "Point", "coordinates": [ 409139.37997994741, 4525720.1996785123 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "FACILITIES <br> MANAGEMENT", "X": 409022.30162079027, "Y": 4525161.7292907359 }, "geometry": { "type": "Point", "coordinates": [ 409022.30162079027, 4525161.7292907359 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "NELSON <br> HALL", "Labels_2": "", "X": 409058.41731802147, "Y": 4525719.4059269205 }, "geometry": { "type": "Point", "coordinates": [ 409058.41731802147, 4525719.4059269205 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "WILDLIFE <br> FISHERIES", "Labels_2": "", "X": 409286.09281944216, "Y": 4525333.3877729522 }, "geometry": { "type": "Point", "coordinates": [ 409286.09281944216, 4525333.3877729522 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "ART A", "Labels_2": "ART A", "X": 409155.90962157527, "Y": 4525546.7587830257 }, "geometry": { "type": "Point", "coordinates": [ 409155.90962157527, 4525546.7587830257 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "", "Labels_2": "REDWOOD <br>PLAZA", "X": 409359.03065281769, "Y": 4525502.6857261434 }, "geometry": { "type": "Point", "coordinates": [ 409359.03065281769, 4525502.6857261434 ] } }
-,
-{ "type": "Feature", "properties": { "Name": "CYPRESS HALL", "Labels_2": "", "X": 409151.12274093379, "Y": 4525798.8195973365 }, "geometry": { "type": "Point", "coordinates": [ 409151.12274093379, 4525798.8195973365 ] } }
-
+{ "type": "Feature", "properties": { "Y": 4525278.8987849997, "X": 409151.98313299997, "Labels_2": "NATURAL <br> RESOURCES", "Name": "NATURAL <br> RESOURCES", "ID": "422778" }, "geometry": { "type": "Point", "coordinates": [ 409151.983133226167411, 4525278.898785041645169 ] } },
+{ "type": "Feature", "properties": { "Y": 4525501.9060559999, "X": 409065.61641000002, "Labels_2": "GIST HALL", "Name": "GIST HALL", "ID": "294814" }, "geometry": { "type": "Point", "coordinates": [ 409065.616409733891487, 4525501.906056276522577 ] } },
+{ "type": "Feature", "properties": { "Y": 4525400.0412689997, "X": 409278.80485700001, "Labels_2": "WILDLIFE <br> & FISHERIES", "Name": "WILDLIFE <br> & FISHERIES", "ID": "242978" }, "geometry": { "type": "Point", "coordinates": [ 409278.804856944363564, 4525400.041269213892519 ] } },
+{ "type": "Feature", "properties": { "Y": 4525374.2443430005, "X": 409211.46826400002, "Labels_2": "DENNIS K. WALKER <br> GREENHOUSE", "Name": "Campus_Events_Field", "ID": "792697" }, "geometry": { "type": "Point", "coordinates": [ 409211.468263937800657, 4525374.244342619553208 ] } },
+{ "type": "Feature", "properties": { "Y": 4525490.7935340004, "X": 409222.25005600002, "Labels_2": "SCIENCE A", "Name": "SCIENCE A", "ID": "363395" }, "geometry": { "type": "Point", "coordinates": [ 409222.250056334713008, 4525490.793534051626921 ] } },
+{ "type": "Feature", "properties": { "Y": 4525395.5433440004, "X": 409057.14972599997, "Labels_2": "STUDENT & <br> BUSINESS SERVICES", "Name": "STUDENT & <br> BUSINESS SERVICES", "ID": "207735" }, "geometry": { "type": "Point", "coordinates": [ 409057.1497261338518, 4525395.543343551456928 ] } },
+{ "type": "Feature", "properties": { "Y": 4525863.2614660002, "X": 409117.16616600001, "Labels_2": "JOLLY<br> GIANT<br> COMMONS", "Name": "JOLLY<br> GIANT<br> COMMONS", "ID": "284311" }, "geometry": { "type": "Point", "coordinates": [ 409117.166165613336489, 4525863.261466489173472 ] } },
+{ "type": "Feature", "properties": { "Y": 4525809.4186500004, "X": 409138.00214499998, "Labels_2": "CYPRESS HALL", "Name": null, "ID": "214732" }, "geometry": { "type": "Point", "coordinates": [ 409138.002144785248674, 4525809.418650470674038 ] } },
+{ "type": "Feature", "properties": { "Y": 4525778.1316090003, "X": 409057.43635899998, "Labels_2": "REDWOOD <br> HALL", "Name": "REDWOOD <br> HALL", "ID": "555564" }, "geometry": { "type": "Point", "coordinates": [ 409057.436358653765637, 4525778.131608729250729 ] } },
+{ "type": "Feature", "properties": { "Y": 4525836.0093289996, "X": 409003.65968899999, "Labels_2": "SUNSET <br> HALL", "Name": "SUNSET <br> HALL", "ID": "563391" }, "geometry": { "type": "Point", "coordinates": [ 409003.659688600397203, 4525836.009328651241958 ] } },
+{ "type": "Feature", "properties": { "Y": 4525806.3759359997, "X": 409028.06754999998, "Labels_2": "THE <br> HILL", "Name": null, "ID": "3459484" }, "geometry": { "type": "Point", "coordinates": [ 409028.067549916100688, 4525806.375936050899327 ] } },
+{ "type": "Feature", "properties": { "Y": 4525807.6988549996, "X": 409358.99581599998, "Labels_2": "CREEKSIDE <br> LOUNGE", "Name": null, "ID": "224357" }, "geometry": { "type": "Point", "coordinates": [ 409358.995815939328168, 4525807.698855364695191 ] } },
+{ "type": "Feature", "properties": { "Y": 4525818.8113780003, "X": 409408.73758199997, "Labels_2": "JUNIPER", "Name": null, "ID": "613851" }, "geometry": { "type": "Point", "coordinates": [ 409408.737582089495845, 4525818.811377589590847 ] } },
+{ "type": "Feature", "properties": { "Y": 4525779.1237979997, "X": 409385.98336999997, "Labels_2": "LAUREL", "Name": null, "ID": "607957" }, "geometry": { "type": "Point", "coordinates": [ 409385.983369914407376, 4525779.123798214830458 ] } },
+{ "type": "Feature", "properties": { "Y": 4525741.5528899999, "X": 409433.07929700002, "Labels_2": "WILLOW", "Name": null, "ID": "606841" }, "geometry": { "type": "Point", "coordinates": [ 409433.079297439602669, 4525741.55288973916322 ] } },
+{ "type": "Feature", "properties": { "Y": 4525751.0779090002, "X": 409479.11689, "Labels_2": "FERN", "Name": null, "ID": "611841" }, "geometry": { "type": "Point", "coordinates": [ 409479.116889514785726, 4525751.077908789739013 ] } },
+{ "type": "Feature", "properties": { "Y": 4525687.048614, "X": 409230.40805899998, "Labels_2": "FOUNDERS <br> HALL", "Name": "FOUNDERS <br> HALL", "ID": "733299" }, "geometry": { "type": "Point", "coordinates": [ 409230.408058763830923, 4525687.048614064231515 ] } },
+{ "type": "Feature", "properties": { "Y": 4525602.9109460004, "X": 409236.75807099999, "Labels_2": "VAN MATRE <br> HALL", "Name": "VAN MATRE <br> HALL", "ID": "600543" }, "geometry": { "type": "Point", "coordinates": [ 409236.758071463846136, 4525602.910945788957179 ] } },
+{ "type": "Feature", "properties": { "Y": 4525626.7234929996, "X": 409139.92037800001, "Labels_2": "MUSIC B", "Name": "MUSIC B", "ID": "654304" }, "geometry": { "type": "Point", "coordinates": [ 409139.920377788424958, 4525626.723493413999677 ] } },
+{ "type": "Feature", "properties": { "Y": 4525589.1525849998, "X": 409152.091235, "Labels_2": "ART B", "Name": "ART B", "ID": "655894" }, "geometry": { "type": "Point", "coordinates": [ 409152.091235463507473, 4525589.152584939263761 ] } },
+{ "type": "Feature", "properties": { "Y": 4525639.8203950003, "X": 409100.49738199997, "Labels_2": "MUSIC A", "Name": "MUSIC A", "ID": "679820" }, "geometry": { "type": "Point", "coordinates": [ 409100.497382275760174, 4525639.820394608192146 ] } },
+{ "type": "Feature", "properties": { "Y": 4525669.5860789996, "X": 409066.89523199998, "Labels_2": "SIEMENS HALL", "Name": "SIEMENS HALL", "ID": "743201" }, "geometry": { "type": "Point", "coordinates": [ 409066.895231738162693, 4525669.586079139262438 ] } },
+{ "type": "Feature", "properties": { "Y": 4525627.7818290005, "X": 408987.52007299999, "Labels_2": "LIBRARY", "Name": "LIBRARY", "ID": "564679" }, "geometry": { "type": "Point", "coordinates": [ 408987.520072987827007, 4525627.781828864477575 ] } },
+{ "type": "Feature", "properties": { "Y": 4525751.4747850001, "X": 408962.45075199998, "Labels_2": "HAGOPIAN <br> HOUSE", "Name": null, "ID": "570724" }, "geometry": { "type": "Point", "coordinates": [ 408959.086671346623916, 4525740.901959625072777 ] } },
+{ "type": "Feature", "properties": { "Y": 4525730.202242, "X": 408982.22839599999, "Labels_2": "BRERO <br> HOUSE", "Name": null, "ID": "591950" }, "geometry": { "type": "Point", "coordinates": [ 408962.620611265534535, 4525724.531363195739686 ] } },
+{ "type": "Feature", "properties": { "Y": 4525697.7378019998, "X": 408931.17693900003, "Labels_2": "LITTLE <br> APARTMENTS", "Name": null, "ID": "206958" }, "geometry": { "type": "Point", "coordinates": [ 408931.176939468132332, 4525697.737802108749747 ] } },
+{ "type": "Feature", "properties": { "Y": 4525731.4987030001, "X": 409010.27428499999, "Labels_2": "STUDENT<br> HEALTH<br> CENTER", "Name": "STUDENT<br> HEALTH<br> CENTER", "ID": "630305" }, "geometry": { "type": "Point", "coordinates": [ 409010.274285162915476, 4525731.498702964745462 ] } },
+{ "type": "Feature", "properties": { "Y": 4525742.0820570001, "X": 409047.84519399999, "Labels_2": "NELSON HALL<br> WEST", "Name": null, "ID": "246891" }, "geometry": { "type": "Point", "coordinates": [ 409047.845193638058845, 4525742.08205746486783 ] } },
+{ "type": "Feature", "properties": { "Y": 4525716.6820069999, "X": 409071.12857399997, "Labels_2": "NELSON HALL<br> EAST", "Name": "", "ID": "101834" }, "geometry": { "type": "Point", "coordinates": [ 409071.128573538153432, 4525716.682006664574146 ] } },
+{ "type": "Feature", "properties": { "Y": 4525742.0820570001, "X": 409122.45784300001, "Labels_2": "UNIVERSITY <br> CENTER", "Name": null, "ID": "112722" }, "geometry": { "type": "Point", "coordinates": [ 409122.457842863339465, 4525742.08205746486783 ] } },
+{ "type": "Feature", "properties": { "Y": 4525712.4486649996, "X": 409151.56206800003, "Labels_2": "BOOKSTORE", "Name": null, "ID": "3458211" }, "geometry": { "type": "Point", "coordinates": [ 409151.562067738501355, 4525712.448664864525199 ] } },
+{ "type": "Feature", "properties": { "Y": 4525687.5777820004, "X": 409119.28283699998, "Labels_2": "UC QUAD", "Name": null, "ID": "3487712" }, "geometry": { "type": "Point", "coordinates": [ 409119.282836513360962, 4525687.577781789004803 ] } },
+{ "type": "Feature", "properties": { "Y": 4525575.7911, "X": 409066.23377200001, "Labels_2": "THEATRE <br> ARTS", "Name": "THEATRE <br> ARTS", "ID": "738923" }, "geometry": { "type": "Point", "coordinates": [ 409066.233772081905045, 4525575.791099880822003 ] } },
+{ "type": "Feature", "properties": { "Y": 4525521.1545320004, "X": 409416.93968200003, "Labels_2": "STUDENT<br> RECREATION<br> CENTER", "Name": "STUDENT <br> RECREATION <br> CENTER", "ID": "191859" }, "geometry": { "type": "Point", "coordinates": [ 409416.939681827090681, 4525521.154532275162637 ] } },
+{ "type": "Feature", "properties": { "Y": 4525515.0691029998, "X": 409299.19986300002, "Labels_2": "RECREATION & <br> WELLNESS <br> CENTER", "Name": "RECREATION &<br>WELLNESS CENTER", "ID": "297810" }, "geometry": { "type": "Point", "coordinates": [ 409299.199863014102448, 4525515.06910343747586 ] } },
+{ "type": "Feature", "properties": { "Y": 4525464.2690019999, "X": 409343.64995200001, "Labels_2": "FORBES GYM", "Name": "FORBES GYM", "ID": "113542" }, "geometry": { "type": "Point", "coordinates": [ 409343.649951914267149, 4525464.269001837819815 ] } },
+{ "type": "Feature", "properties": { "Y": 4525416.1147389999, "X": 409423.025111, "Labels_2": "KINESIOLOGY <br> & ATHLETICS", "Name": "KINESIOLOGY <br> & ATHLETICS", "ID": "178654" }, "geometry": { "type": "Point", "coordinates": [ 409423.025110664602835, 4525416.114738861098886 ] } },
+{ "type": "Feature", "properties": { "Y": 4525281.8384290002, "X": 409399.21256299998, "Labels_2": "MARINE WILDLIFE <br> CARE CENTER", "Name": null, "ID": "304896" }, "geometry": { "type": "Point", "coordinates": [ 409399.212563039327506, 4525281.838428643532097 ] } },
+{ "type": "Feature", "properties": { "Y": 4525215.5601709997, "X": 409427.72147400002, "Labels_2": "BOAT <br> FACILITY", "Name": null, "ID": "311187" }, "geometry": { "type": "Point", "coordinates": [ 409427.721474223828409, 4525215.560171086341143 ] } },
+{ "type": "Feature", "properties": { "Y": 4525186.4559460003, "X": 409267.4498, "Labels_2": "NATIVE AMERICAN <br> FORUM", "Name": null, "ID": "762344" }, "geometry": { "type": "Point", "coordinates": [ 409267.449799513968173, 4525186.455946211703122 ] } },
+{ "type": "Feature", "properties": { "Y": 4525222.7700810004, "X": 409227.03461500001, "Labels_2": "BEHAVIORAL <br> & SOCIAL SCIENCES", "Name": "BEHAVIORAL & <br> SOCIAL SCIENCES", "ID": "759052" }, "geometry": { "type": "Point", "coordinates": [ 409227.034614516946021, 4525222.770081339403987 ] } },
+{ "type": "Feature", "properties": { "Y": 4525190.9538719999, "X": 409142.698508, "Labels_2": "SCHATZ ENERGY<br> RESEARCH CENTER", "Name": "SCHATZ ENERGY<br> RESEARCH CENTER", "ID": "159275" }, "geometry": { "type": "Point", "coordinates": [ 409142.698508344648872, 4525190.953871874138713 ] } },
+{ "type": "Feature", "properties": { "Y": 4525281.8384290002, "X": 409219.82470400003, "Labels_2": "FORESTRY", "Name": "FORESTRY", "ID": "422772" }, "geometry": { "type": "Point", "coordinates": [ 409219.824704263766762, 4525281.838428642600775 ] } },
+{ "type": "Feature", "properties": { "Y": 4525156.8225539997, "X": 409197.59966000001, "Labels_2": "BUCK <br> HOUSE", "Name": null, "ID": "200037" }, "geometry": { "type": "Point", "coordinates": [ 409197.599659813626204, 4525156.822553610429168 ] } },
+{ "type": "Feature", "properties": { "Y": 4525161.9819390001, "X": 409148.91622900002, "Labels_2": "JENSEN <br> HOUSE", "Name": null, "ID": "434211" }, "geometry": { "type": "Point", "coordinates": [ 409148.916229113470763, 4525161.981938930228353 ] } },
+{ "type": "Feature", "properties": { "Y": 4525189.8955359999, "X": 409035.14516800002, "Labels_2": "SHIPPING & <br> RECEIVING", "Name": null, "ID": "260649" }, "geometry": { "type": "Point", "coordinates": [ 409035.145168237970211, 4525189.895536424592137 ] } },
+{ "type": "Feature", "properties": { "Y": 4525117.6641419996, "X": 409029.85349100002, "Labels_2": null, "Name": "FACILITIES <br> MANAGEMENT", "ID": "508750" }, "geometry": { "type": "Point", "coordinates": [ 409029.853490987967234, 4525117.664141961373389 ] } },
+{ "type": "Feature", "properties": { "Y": 4525123.8818629999, "X": 409090.44319600001, "Labels_2": "MARKETING & <br> COMMUNICATION", "Name": null, "ID": "481086" }, "geometry": { "type": "Point", "coordinates": [ 409090.443195500702132, 4525123.881862728856504 ] } },
+{ "type": "Feature", "properties": { "Y": 4525126.8584310003, "X": 409135.68703600002, "Labels_2": "TODDLER <br> CENTER", "Name": null, "ID": "471210" }, "geometry": { "type": "Point", "coordinates": [ 409135.68703598837601, 4525126.858431181870401 ] } },
+{ "type": "Feature", "properties": { "Y": 4525096.7620169995, "X": 409172.59648499999, "Labels_2": "BIAOCCHI <br> HOUSE", "Name": null, "ID": "457708" }, "geometry": { "type": "Point", "coordinates": [ 409172.596484807319939, 4525096.762016823515296 ] } },
+{ "type": "Feature", "properties": { "Y": 4525054.3624529997, "X": 409168.69387299998, "Labels_2": "MARY WARREN <br> HOUSE", "Name": null, "ID": "466162" }, "geometry": { "type": "Point", "coordinates": [ 409168.693872835487127, 4525054.362452858127654 ] } },
+{ "type": "Feature", "properties": { "Y": 4525060.1171519998, "X": 409092.22913699999, "Labels_2": "WALTER WARREN <br> HOUSE", "Name": null, "ID": "478430" }, "geometry": { "type": "Point", "coordinates": [ 409092.229136572568677, 4525060.117151867598295 ] } },
+{ "type": "Feature", "properties": { "Y": 4525034.5848089997, "X": 409012.65554000001, "Labels_2": "TRINITY <br> ANNEX", "Name": null, "ID": "516927" }, "geometry": { "type": "Point", "coordinates": [ 409012.655539925443009, 4525034.584809135645628 ] } },
+{ "type": "Feature", "properties": { "Y": 4525301.5499259997, "X": 409093.61820199998, "Labels_2": "HARRY <br> GRIFFITH <br> HALL", "Name": "HARRY <br> GRIFFITH <br> HALL", "ID": "422212" }, "geometry": { "type": "Point", "coordinates": [ 409093.618201850738842, 4525301.549926399253309 ] } },
+{ "type": "Feature", "properties": { "Y": 4525345.8412650004, "X": 409043.66476900002, "Labels_2": "CHILD <br> DEVELOPMENT <br> LAB", "Name": null, "ID": "421062" }, "geometry": { "type": "Point", "coordinates": [ 409043.664768610557076, 4525345.841264982707798 ] } },
+{ "type": "Feature", "properties": { "Y": 4525313.4562, "X": 408991.75341499998, "Labels_2": "COMMUNITY <br> SERVICES", "Name": null, "ID": "125981" }, "geometry": { "type": "Point", "coordinates": [ 408991.753414787817746, 4525313.456200212240219 ] } },
+{ "type": "Feature", "properties": { "Y": 4525229.8476999998, "X": 408929.31162300002, "Labels_2": "COLLEGE <br> CREEK <br> FIELD", "Name": "COLLEGE <br> CREEK <br> COMPLEX", "ID": "2734059" }, "geometry": { "type": "Point", "coordinates": [ 408929.311623237561435, 4525229.847699661739171 ] } },
+{ "type": "Feature", "properties": { "Y": 4525285.6748949997, "X": 408945.31894700002, "Labels_2": "COLLEGE CREEK <br> COMPLEX", "Name": null, "ID": "3489465" }, "geometry": { "type": "Point", "coordinates": [ 408945.318946918996517, 4525285.67489465046674 ] } },
+{ "type": "Feature", "properties": { "Y": 4525332.5062379995, "X": 408894.38655300002, "Labels_2": "DEL NORTE", "Name": null, "ID": "153743" }, "geometry": { "type": "Point", "coordinates": [ 408894.386553387448657, 4525332.50623831152916 ] } },
+{ "type": "Feature", "properties": { "Y": 4525332.8237389997, "X": 408945.557072, "Labels_2": "SHASTA", "Name": null, "ID": "153144" }, "geometry": { "type": "Point", "coordinates": [ 408945.557072395109572, 4525332.823738947510719 ] } },
+{ "type": "Feature", "properties": { "Y": 4525275.2899780003, "X": 408989.63674400002, "Labels_2": "TRINITY", "Name": null, "ID": "147024" }, "geometry": { "type": "Point", "coordinates": [ 408989.63674388785148, 4525275.289978045970201 ] } },
+{ "type": "Feature", "properties": { "Y": 4525226.143526, "X": 408991.75341499998, "Labels_2": "MENDOCINO", "Name": null, "ID": "127757" }, "geometry": { "type": "Point", "coordinates": [ 408991.753414787817746, 4525226.143525586463511 ] } },
+{ "type": "Feature", "properties": { "Y": 4525449.1877220003, "X": 408996.05290299997, "Labels_2": "PARKING <br> SERVICES", "Name": null, "ID": "119803" }, "geometry": { "type": "Point", "coordinates": [ 408996.052902553521562, 4525449.1877216771245 ] } },
+{ "type": "Feature", "properties": { "Y": 4525501.8399099996, "X": 408948.361661, "Labels_2": "CAMPUS <br> APARTMENTS", "Name": "CAMPUS <br> APARTMENTS", "ID": "178291" }, "geometry": { "type": "Point", "coordinates": [ 408948.361661337665282, 4525501.83991031255573 ] } },
+{ "type": "Feature", "properties": { "Y": 4525496.415941, "X": 409005.44562999997, "Labels_2": "WARREN <br> HOUSE", "Name": null, "ID": "521946" }, "geometry": { "type": "Point", "coordinates": [ 409005.445629672263749, 4525496.415941130369902 ] } },
+{ "type": "Feature", "properties": { "Y": 4525525.2555820001, "X": 409030.97797200002, "Labels_2": "BRET HARTE <br> HOUSE", "Name": null, "ID": "538046" }, "geometry": { "type": "Point", "coordinates": [ 409030.97797240363434, 4525525.255582143552601 ] } },
+{ "type": "Feature", "properties": { "Y": 4525568.7796280002, "X": 409028.26598800003, "Labels_2": "TELONICHER <br> HOUSE", "Name": null, "ID": "548845" }, "geometry": { "type": "Point", "coordinates": [ 409028.265987813007087, 4525568.779627526178956 ] } },
+{ "type": "Feature", "properties": { "Y": 4525535.7860200005, "X": 408978.32578399999, "Labels_2": "BALABANIS <br> HOUSE", "Name": null, "ID": "542674" }, "geometry": { "type": "Point", "coordinates": [ 408978.325783765874803, 4525535.786019871011376 ] } },
+{ "type": "Feature", "properties": { "Y": 4525569.6262959996, "X": 408941.072376, "Labels_2": "HADLEY <br> HOUSE", "Name": null, "ID": "303976" }, "geometry": { "type": "Point", "coordinates": [ 408941.072375925723463, 4525569.626295886002481 ] } },
+{ "type": "Feature", "properties": { "Y": 4525524.1311010001, "X": 408895.37874299998, "Labels_2": "WAGNER <br> HOUSE", "Name": null, "ID": "405352" }, "geometry": { "type": "Point", "coordinates": [ 408895.378742871806026, 4525524.131100728176534 ] } },
+{ "type": "Feature", "properties": { "Y": 4525458.580449, "X": 408942.27623299998, "Labels_2": "SCULPTURE <br> LAB", "Name": null, "ID": "416926" }, "geometry": { "type": "Point", "coordinates": [ 408942.276232500153128, 4525458.580448794178665 ] } },
+{ "type": "Feature", "properties": { "Y": 4525465.9887969997, "X": 408877.58547799999, "Labels_2": "CERAMICS <br> LAB", "Name": null, "ID": "416926" }, "geometry": { "type": "Point", "coordinates": [ 408877.585478118562605, 4525465.988796944729984 ] } },
+{ "type": "Feature", "properties": { "Y": 4525509.2482580002, "X": 409145.74122299999, "Labels_2": "JENKINS <br> HALL", "Name": "JENKINS <br> HALL", "ID": "404865" }, "geometry": { "type": "Point", "coordinates": [ 409145.741222763434052, 4525509.248258462175727 ] } },
+{ "type": "Feature", "properties": { "Y": 4525394.6834460003, "X": 409153.14957100002, "Labels_2": "SCIENCE D", "Name": "SCIENCE D", "ID": "782598" }, "geometry": { "type": "Point", "coordinates": [ 409153.14957091351971, 4525394.68344599939883 ] } },
+{ "type": "Feature", "properties": { "Y": 4525445.4835480005, "X": 409189.13297600002, "Labels_2": "SCIENCE C", "Name": null, "ID": "359149" }, "geometry": { "type": "Point", "coordinates": [ 409189.132976213644724, 4525445.483547599986196 ] } },
+{ "type": "Feature", "properties": { "Y": 4525434.1725869998, "X": 409226.50544699997, "Labels_2": "SCIENCE B", "Name": "SCIENCE B", "ID": "400542" }, "geometry": { "type": "Point", "coordinates": [ 409226.505446791939903, 4525434.17258747946471 ] } },
+{ "type": "Feature", "properties": { "Y": 4525482.789872, "X": 409162.41000600002, "Labels_2": "EXPERIMENTAL <br> HOUSE", "Name": null, "ID": "279294" }, "geometry": { "type": "Point", "coordinates": [ 409162.410006101010367, 4525482.78987221326679 ] } },
+{ "type": "Feature", "properties": { "Y": 4525454.6513780002, "X": 409133.25286399998, "Labels_2": "BROOKINS <br> HOUSE", "Name": null, "ID": "358151" }, "geometry": { "type": "Point", "coordinates": [ 409133.252864453417715, 4525454.651378435082734 ] } },
+{ "type": "Feature", "properties": { "Y": 4525629.1708939997, "X": 409322.15251300001, "Labels_2": "REDWOOD <br> BOWL", "Name": "REDWOOD <br> BOWL", "ID": "2197567" }, "geometry": { "type": "Point", "coordinates": [ 409322.152513086039107, 4525629.170894141308963 ] } },
+{ "type": "Feature", "properties": { "Y": 4525612.1713810004, "X": 409443.001192, "Labels_2": "UPPER <br> PLAYING <br> FIELD", "Name": "Upper_Playing_Field", "ID": "2735420" }, "geometry": { "type": "Point", "coordinates": [ 409443.00119228346739, 4525612.171380975283682 ] } },
+{ "type": "Feature", "properties": { "Y": 4525685.4611109998, "X": 408974.29088, "Labels_2": "LIBRARY <br> CIRCLE", "Name": null, "ID": "3494797" }, "geometry": { "type": "Point", "coordinates": [ 408974.290879862790462, 4525685.461110888049006 ] } },
+{ "type": "Feature", "properties": { "Y": 4525962.7449989999, "X": 409114.52032700001, "Labels_2": "ALDER", "Name": null, "ID": "711482" }, "geometry": { "type": "Point", "coordinates": [ 409114.520326988305897, 4525962.744998789392412 ] } },
+{ "type": "Feature", "properties": { "Y": 4525929.7381619997, "X": 409151.56206800003, "Labels_2": "CHINQUAPIN", "Name": null, "ID": "693280" }, "geometry": { "type": "Point", "coordinates": [ 409151.562067738443147, 4525929.738161942921579 ] } },
+{ "type": "Feature", "properties": { "Y": 4525954.2783150002, "X": 409172.199609, "Labels_2": "HEMLOCK", "Name": null, "ID": "119725" }, "geometry": { "type": "Point", "coordinates": [ 409172.19960901356535, 4525954.278315189294517 ] } },
+{ "type": "Feature", "properties": { "Y": 4525935.7574450001, "X": 409196.54132399999, "Labels_2": "MADRONE", "Name": null, "ID": "698832" }, "geometry": { "type": "Point", "coordinates": [ 409196.541324363672175, 4525935.757444814778864 ] } },
+{ "type": "Feature", "properties": { "Y": 4525908.7698910004, "X": 409193.36631800001, "Labels_2": "MAPLE", "Name": null, "ID": "719991" }, "geometry": { "type": "Point", "coordinates": [ 409193.366318013635464, 4525908.769890839233994 ] } },
+{ "type": "Feature", "properties": { "Y": 4525882.774526, "X": 409213.93771299999, "Labels_2": "TAN OAK", "Name": null, "ID": "728723" }, "geometry": { "type": "Point", "coordinates": [ 409213.937713323161006, 4525882.774526347406209 ] } },
+{ "type": "Feature", "properties": { "Y": 4525870.9343990004, "X": 409183.37827699998, "Labels_2": "PEPPERWOOD", "Name": null, "ID": "702038" }, "geometry": { "type": "Point", "coordinates": [ 409183.378277204174083, 4525870.934398501180112 ] } },
+{ "type": "Feature", "properties": { "Y": 4525933.111606, "X": 409117.69533299998, "Labels_2": "CEDAR", "Name": null, "ID": "730186" }, "geometry": { "type": "Point", "coordinates": [ 409117.695333338342607, 4525933.11160618904978 ] } },
+{ "type": "Feature", "properties": { "Y": 4525907.3133859998, "X": 409151.99533900002, "Labels_2": "CANYON<br>COMPLEX", "Name": "CANYON<br>COMPLEX", "ID": "3496669" }, "geometry": { "type": "Point", "coordinates": [ 409151.995338512409944, 4525907.313386073336005 ] } },
+{ "type": "Feature", "properties": { "Y": 4525757.8896500003, "X": 408905.667763, "Labels_2": "FEUERWERKER <br> HOUSE", "Name": null, "ID": "594381" }, "geometry": { "type": "Point", "coordinates": [ 408905.667762523109559, 4525757.889649730175734 ] } },
+{ "type": "Feature", "properties": { "Y": 4525206.5762550002, "X": 409518.85938500002, "Labels_2": "REDWOOD <br> SCIENCE <br> LAB", "Name": null, "ID": "3499958" }, "geometry": { "type": "Point", "coordinates": [ 409518.859384740178939, 4525206.57625543884933 ] } },
+{ "type": "Feature", "properties": { "Y": 4525325.5728479996, "X": 409299.85009299999, "Labels_2": "FISH <br> HATCHERY", "Name": null, "ID": "223940" }, "geometry": { "type": "Point", "coordinates": [ 409299.850092554697767, 4525325.572847596369684 ] } },
+{ "type": "Feature", "properties": { "Y": 4525349.1208109995, "X": 409271.60576499999, "Labels_2": "WILDLIFE <br> GAME PENS", "Name": null, "ID": "744859" }, "geometry": { "type": "Point", "coordinates": [ 409271.605765232758131, 4525349.120811359025538 ] } },
+{ "type": "Feature", "properties": { "Y": 4525344.7551779998, "X": 409179.06755899999, "Labels_2": "CAMPUS EVENTS FIELD", "Name": "CAMPUS EVENTS <br> FIELD", "ID": "2720355" }, "geometry": { "type": "Point", "coordinates": [ 409179.067559322924353, 4525344.755177626386285 ] } },
+{ "type": "Feature", "properties": { "Y": 4525655.6412159996, "X": 409396.22476399998, "Labels_2": "EAST <br> BLEACHERS", "Name": null, "ID": "318953" }, "geometry": { "type": "Point", "coordinates": [ 409396.224764470767695, 4525655.64121606387198 ] } },
+{ "type": "Feature", "properties": { "Y": 4525613.506236, "X": 409277.955778, "Labels_2": "WEST <br> BLEACHERS", "Name": null, "ID": "599510" }, "geometry": { "type": "Point", "coordinates": [ 409277.955777932715137, 4525613.506235959939659 ] } },
+{ "type": "Feature", "properties": { "Y": 4525785.3402249999, "X": 409446.34488599998, "Labels_2": "CREEKVIEW <br> COMPLEX", "Name": "CREEKVIEW <br> COMPLEX", "ID": "3516691" }, "geometry": { "type": "Point", "coordinates": [ 409446.344885544967838, 4525785.340225463733077 ] } },
+{ "type": "Feature", "properties": { "Y": 4525720.1996790003, "X": 409139.37998000003, "Labels_2": null, "Name": "UNIVERSITY <br> CENTER", "ID": "112722" }, "geometry": { "type": "Point", "coordinates": [ 409139.379979947407264, 4525720.19967851229012 ] } },
+{ "type": "Feature", "properties": { "Y": 4525161.7292910004, "X": 409022.30162099999, "Labels_2": "FACILITIES <br> MANAGEMENT", "Name": null, "ID": "508750" }, "geometry": { "type": "Point", "coordinates": [ 409022.301620790269226, 4525161.729290735907853 ] } },
+{ "type": "Feature", "properties": { "Y": 4525719.4059269996, "X": 409058.41731799999, "Labels_2": null, "Name": "NELSON <br> HALL", "ID": "101834" }, "geometry": { "type": "Point", "coordinates": [ 409058.417318021471146, 4525719.405926920473576 ] } },
+{ "type": "Feature", "properties": { "Y": 4525333.3877729997, "X": 409286.09281900001, "Labels_2": null, "Name": "WILDLIFE <br> FISHERIES", "ID": "744859" }, "geometry": { "type": "Point", "coordinates": [ 409286.092819442157634, 4525333.387772952206433 ] } },
+{ "type": "Feature", "properties": { "Y": 4525546.7587829996, "X": 409155.90962200001, "Labels_2": "ART A", "Name": "ART A", "ID": "661042" }, "geometry": { "type": "Point", "coordinates": [ 409155.909621575265191, 4525546.758783025667071 ] } },
+{ "type": "Feature", "properties": { "Y": 4525502.685726, "X": 409359.03065299999, "Labels_2": "REDWOOD <br>PLAZA", "Name": null, "ID": "3529270" }, "geometry": { "type": "Point", "coordinates": [ 409359.030652817687951, 4525502.685726143419743 ] } },
+{ "type": "Feature", "properties": { "Y": 4525798.8195970003, "X": 409151.12274100003, "Labels_2": null, "Name": "CYPRESS HALL", "ID": "214732" }, "geometry": { "type": "Point", "coordinates": [ 409151.122740933788009, 4525798.81959733646363 ] } }
 ]
 }
