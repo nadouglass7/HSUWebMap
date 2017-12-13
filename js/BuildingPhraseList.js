@@ -59,7 +59,7 @@ var BuildingPhraseList = [
 	["Mendocino Residence Hall", "Dorms"," College Creek Complex"],															// Mendocino Res Hall
 	["Music A", "MUSA"],																							// Music A
 	["Music B", "MUSB", "Fulkerson Recital Hall"],																							// Music B
-	["Hello","NR","NR203"],                                                							// Natural Resources
+	["Natural Resources","NR","NR203"],                                                							// Natural Resources
 	["Nelson Hall East", "NHE", "Goodwin Forum"],																			// Nelson Hall East
 	["Nelson Hall West", "NHW"],																							// Nelson Hall West
 	["Parking Lot", "Cars", "General Parking", "Student Parking","Staff Parking", "Resident Parking"],						// Parking Lots

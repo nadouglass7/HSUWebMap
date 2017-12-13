@@ -1,0 +1,25 @@
+{ 
+	"Title":"Untitled",
+	"Bounds":{
+		"XMin":-1.3815808E7,
+		"XMax":-1.3809664E7,
+		"YMin":4993024.0,
+		"YMax":4995072.0
+	},
+	"OriginalBounds":{
+		"XMin":-1.3813807946620947E7,
+		"XMax":-1.381045424352715E7,
+		"YMin":4993044.965402924,
+		"YMax":4994975.957220124
+	},
+	"TopZoomLevel":-3,
+	"TileRefWidth":2048.0,
+	"MinColumn":-6746,
+	"MaxColumn":-6744,
+	"NumColumns":3,
+	"MinRow":2438,
+	"MaxRow":2438,
+	"NumRows":1,
+	"MinPixelValues":15.0,
+	"MaxPixelValues":255.0
+}

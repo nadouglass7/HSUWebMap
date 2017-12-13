@@ -37,28 +37,63 @@
 <!-- Styles for the map and its contents -->
 <link rel="stylesheet" type="text/css" href="css/CanvasMap_HSU.css">
 
-<!---------------------------------------------------------------------------
- 1.3 JavaScript includes
+<!-----------------------------------------------------------------------------
+ 1.3 JavaScript includes 
 ----------------------------------------------------------------------------->
+
 <script src="js/SearchUtil.js"></script> <!-- search utility -->
 <script src='js/BuildingPhraseList.js'></script> <!--- building phrase list -->
 <script src='Building_Images/buildinghtml.js'></script> <!--- HTML for info popups -->
 
-<script src="Includes/jquery-2.1.0.js"></script>
+<script src="CanvasMap/lib/jquery-2.1.0.js"></script>
+<script src="CanvasMap/lib/hammer.js"></script>
+<!--
+<script src="CanvasMap/js/CanvasMap.js"></script>
+-->
+<script src="CanvasMap/js/CMBase.js"></script>
+<script src="CanvasMap/js/CMItem.js"></script>
+<script src="CanvasMap/js/CMItemRect.js"></script>
 
-<script src="Includes/CMUtilities.js"></script>
-<script src="Includes/CMDialog.js"></script>
-<script src="Includes/CMView.js"></script>
-<script src="Includes/CMScene.js"></script>
-<script src="Includes/CMLayer.js"></script>
-<script src="Includes/CMLayerGeoJSON.js"></script>
-<script src="Includes/CMTile.js"></script>
-<script src="Includes/CMLayerPyramid.js"></script>
-<script src="Includes/CMLayerPyramidOpenFormat.js"></script>
-<script src="Includes/CMProjector.js"></script>
-<script src="Includes/CanvasMap.js"></script>
-<script src="Includes/CMScaleBar.js"></script>
-<script src="Includes/CMProjectorUTM.js"></script>
+<script src="CanvasMap/js/CMDataset.js"></script>
+<script src="CanvasMap/js/CMDatasetGeoJSON.js"></script>
+
+<script src="CanvasMap/js/CMUtilities.js"></script>
+<script src="CanvasMap/js/CMDialog.js"></script>
+<script src="CanvasMap/js/CMView.js"></script>
+<script src="CanvasMap/js/CMScene.js"></script>
+<script src="CanvasMap/js/CMLayer.js"></script>
+<script src="CanvasMap/js/CMLayerRaster.js"></script>
+<script src="CanvasMap/js/CMLayerDataset.js"></script>
+<script src="CanvasMap/js/CMDatasetPyramid.js"></script>
+<script src="CanvasMap/js/CMTile.js"></script>
+<script src="CanvasMap/js/CMUtilityBezier.js"></script>
+<script src="CanvasMap/js/CMDialogSettings.js"></script>
+<script src="CanvasMap/js/CMScaleBar.js"></script>
+
+<script src="CanvasMap/js/CMProjector.js"></script>
+<script src="CanvasMap/js/CMProjectorGoogleMaps.js"></script>
+
+<script src="CanvasMap/js/CMProjectorUTM.js"></script>
+
+<script src="CanvasMap/js/CMView2D.js"></script>
+
+<script src="CanvasMap/js/CMPanelTool.js"></script>
+<script src="CanvasMap/js/CMPanelTabs.js"></script>
+<script src="CanvasMap/js/CMPanelFooter.js"></script>
+<script src="CanvasMap/js/CMPanelLayerList.js"></script>
+<script src="CanvasMap/js/CMPanelBackgrounds.js"></script>
+<script src="CanvasMap/js/CMPanelSearch.js"></script>
+<script src="CanvasMap/js/CMPanelAttributes.js"></script>
+
+<script src="CanvasMap/js/CMViewItems.js"></script>
+
+<script src="CanvasMap/js/CMItemPoly.js"></script>
+<script src="CanvasMap/js/CMItemPolyArrow.js"></script>
+<script src="CanvasMap/js/CMLayerItems.js"></script>
+<script src="CanvasMap/js/CMPanelTime.js"></script>
+<script src="CanvasMap/js/CMPanelSettings.js"></script>
+
+<script src="CanvasMap/js/CMMainContainer.js"></script>
 
 <script>
 //****************************************************************
@@ -69,15 +104,19 @@
 //**************************************************************** 
 
 // paths for each of the data sets
-var ThePointFilePath="Spatial_Data/Points_Dec9_2016.js";
-//var ThePolylineFilePath="Spatial_Data/Polyline_test.js";
-var ThePolylineFilePath="Spatial_Data/Polylines_Nov29_2016.js";
+var ThePointFilePath="Spatial_Data/Points_Dec_12.js";
+//var ThePointFilePath="Spatial_Data/Points_Nov_13.js";
+
+//var ThePolylineFilePath="Spatial_Data/Polylines_Nov29_2016.js";
+var ThePolylineFilePath="Spatial_Data/Polylines_Dec11_2017.js";
+
 var TheBuildingOverlayFilePath="Spatial_Data/BuildingOverlay_Nov12.js";
-//"Spatial_Data/Buildings_Nov122016_3.js";
+
 // global for the canvas map object
 var TheCanvasMap=null;
-var TileFolderPath="Spatial_Data/Tiles7/";
-//var BuildingNamesFilePath="Spatial_Data/BuildingNames8.js";
+var TileFolderPath="Spatial_Data/Tiles300/";
+var TileFolderPath150="Spatial_Data/Tiles150/";
+var TileFolderPath75="Spatial_Data/Tiles75/";
 var BuildingNamesFilePath="Spatial_Data/BuildingLabels_Dec20_2016.js";
 
 var Layer_Buildings=null;
@@ -298,13 +337,13 @@ function OnLoad()
 	// 2.3.1 Initialize the map and its main elements
 	//***************************************************************************
 	
-	TheCanvasMap=new CanvasMap(); // creates the CanvasMap object
+	TheCanvasMap=new CMMainContainer(); // creates the CanvasMap object
 	
-	TheCanvasMap.SetHorizontalMargin(0);
-	TheCanvasMap.SetMapBottomOffset(0);
-	TheCanvasMap.SetMapRightOffset(0);
+//	TheCanvasMap.SetHorizontalMargin(0);
+//	TheCanvasMap.SetMapBottomOffset(0);
+//	TheCanvasMap.SetMapRightOffset(0);
 	
-	TheCanvasMap.SetImageFolder("CanvasMapImages/");
+	TheCanvasMap.SetImageFolder("CanvasMap/Images/");
 	
 	TheCanvasMap.SimpleMap(); // turn off all the map elements except the canvas container
 	
@@ -327,408 +366,450 @@ function OnLoad()
 	//***************************************************************************
 	
 	// get the container to add items to the map
-	var TheCanvasElement=TheCanvasMap.GetElement(CanvasMap.CANVAS_CONTAINER);
+	var TheCanvasElement=TheCanvasMap.GetElement(CMMainContainer.CANVAS_CONTAINER);
 	
-	//***************************************************************************
-	// add the coordinate element and make it stick to the bottom right corner
-	// This was left for debugging and in case we want to turn it on in the future
 	
-//	TheCanvasMap.SetCoordinateUnits(CanvasMap.COORDINATES_UNITS_METERS);
-/*	
-	var CoordinateBox=document.createElement("DIV");
-	CoordinateBox.className="CM_InfoBox";
-	CoordinateBox.style.zIndex=9999; // make the element appear on top of everything
-	
-	TheCanvasElement.appendChild(CoordinateBox); // add the element to the CanvasContainer
-	
-	CMUtilities.AbsolutePosition(CoordinateBox,100,60,400,30); // give the coordinate a starting position
-	
-	// make the coordinate stick to the bottom and right side of the document window
-	TheCanvasMap.AddBottomSticky(CoordinateBox,true,140);
-	TheCanvasMap.AddRightSticky(CoordinateBox,true,400);
-	
-	// replace the default coordinate element with the one we created
-	TheCanvasMap.SetElement(CanvasMap.MAP_COORDINATES,CoordinateBox);
-*/	
 	//*****************************************************
-	// add the background layers to the map
+	// ADD FIRST SET OF BACKGROUND TILES (300 PPI)
 	
-	var Layer_Campus=new CMLayerPyramid();
+	var Layer_Campus=new CMLayerDataset();
 	
-	TheCanvasMap.AddBackground(Layer_Campus);
+	TheCanvasMap.AddLayer(Layer_Campus);
 	
-	Layer_Campus.SetURL(TileFolderPath,TheCanvasMap.GetView(),false); 
+	Layer_Campus.SetURL(TileFolderPath,false,CMDataset.PYRAMID);
+	Layer_Campus.SetSetting("Layer","MinZoom",2);
+	Layer_Campus.SetSetting("Layer","MaxZoom",2);
 	
-	Layer_Campus.SetName("Campus");
+	Layer_Campus.SetName("Campus0");
+	
+	Checked=""; // reset the checked flag so only the first layer is selected
+	
+	//*****************************************************
+	// ADD FIRST SET OF BACKGROUND TILES (150 PPI)
+	
+	var Layer_Campus2=new CMLayerDataset();
+	
+	TheCanvasMap.AddLayer(Layer_Campus2);
+	
+	Layer_Campus2.SetURL(TileFolderPath150,false,CMDataset.PYRAMID);
+	Layer_Campus2.SetSetting("Layer","MinZoom",1);
+	Layer_Campus2.SetSetting("Layer","MaxZoom",1);
+
+	
+	Layer_Campus2.SetName("Campus2");
+	
+	Checked=""; // reset the checked flag so only the first layer is selected
+	
+	//*****************************************************
+	// ADD FIRST SET OF BACKGROUND TILES (75 PPI)
+	
+	var Layer_Campus3=new CMLayerDataset();
+	
+	TheCanvasMap.AddLayer(Layer_Campus3);
+	
+	Layer_Campus3.SetURL(TileFolderPath75,false,CMDataset.PYRAMID);
+	Layer_Campus3.SetSetting("Layer","MinZoom",0);
+	Layer_Campus3.SetSetting("Layer","MaxZoom",0);
+
+	
+	Layer_Campus3.SetName("Campus3");
 	
 	Checked=""; // reset the checked flag so only the first layer is selected
 	
 	//*****************************************************
 	// Add the forgound layers to the map
 
-	// get the name and URL for the layer
-	var URL=TheBuildingOverlayFilePath;
-	
-	// create and add the layer
-	Layer_Buildings=new CMLayerGeoJSON();
-	Layer_Buildings.SetName("Buildings");
-	Layer_Buildings.SetHTMLAttribute("HTML");
-	
-	Layer_Buildings.SetStyle({ 
-		fillStyle:"rgba(0,0,255,0.0)" ,
-		strokeStyle:"rgba(0,0,255,0.0)" 
-	}); 
-	Layer_Buildings.SetProperty(CMLayer.MOUSE_OVER_STYLE,{
-		fillStyle:"rgba(229,240,211,0.5)",
-		strokeStyle:"rgba(182,83,0,0.65)",
-		lineWidth:2
-	}); 
-	
-	Layer_Buildings.SetProperty(CMLayer.SELECTED_STYLE,{
-		fillStyle:"rgba(229,240,211,0.65)",
-		strokeStyle:"rgba(37,85,27,0.8)",
-		lineWidth:2
-	}); 
-	
-	TheCanvasMap.AddLayer(Layer_Buildings);
-
-	Layer_Buildings.ShowInfoWindow=function(FeatureIndex,TheView,RefX,RefY) 
+	if (true)
 	{
-		var TheFeatures=this.TheData.features;
-	
-		var TheFeature=TheFeatures[FeatureIndex];
+		// get the name and URL for the layerCMLayerGeoJSON
+		var URL=TheBuildingOverlayFilePath;
+
+		// create and add the layer
+		Layer_Buildings=new CMLayerDataset();
+		Layer_Buildings.SetName("Buildings");
+		Layer_Buildings.SetSettingAttribute("Layer","InfoText","HTML"); 
+
+		Layer_Buildings.SetSettingGroup("Style",{ 
+			fillStyle:"rgba(0,0,255,0.0)" ,
+			strokeStyle:"rgba(0,0,255,0.0)" 
+		}); 
+		Layer_Buildings.SetSettingGroup("MouseOverStyle",{
+			fillStyle:"rgba(229,240,211,0.5)",
+			strokeStyle:"rgba(182,83,0,0.65)",
+			lineWidth:2
+		}); 
+
+		Layer_Buildings.SetSettingGroup("SelectedStyle",{
+			fillStyle:"rgba(229,240,211,0.65)",
+			strokeStyle:"rgba(37,85,27,0.8)",
+			lineWidth:2
+		}); 
 		
-		var Properties=TheFeature.properties;
-		
-		var TheHTML=this.GetFeatureProperty(CMLayer.INFO,FeatureIndex,null);
-		
-		if (TheHTML!=null)
+		TheCanvasMap.AddLayer(Layer_Buildings);
+
+		Layer_Buildings.ShowInfoWindow=function(FeatureIndex,TheView,RefX,RefY) 
 		{
-		//	var TheHTML=Properties[this.GetHTMLAttribute()];
-			
-			var InfoWindow=TheView.CreateInfoWindow("CMLayerGeoJSON.InfoWindow",RefX,RefY,this.GetInfoWindowWidth(),30,TheHTML);
-			
-			CanvasMap.SetPopupWindow(InfoWindow);
-		}
-	};
-	
-	Layer_Buildings.SetURL(URL,TheCanvasMap.GetView(),false);
+			var TheFeatures=this.TheData.features;
+
+			var TheFeature=TheFeatures[FeatureIndex];
+
+			var Properties=TheFeature.properties;
+
+			var TheHTML=this.GetFeatureProperty(CMLayer.INFO,FeatureIndex,null);
+
+			if (TheHTML!=null)
+			{
+			//	var TheHTML=Properties[this.GetHTMLAttribute()];
+
+				var InfoWindow=TheView.CreateInfoWindow("CMLayerGeoJSON.InfoWindow",RefX,RefY,this.GetInfoWindowWidth(),30,TheHTML);
+
+				CMMainContainer.SetPopupWindow(InfoWindow);
+			}
+		};
+
+		Layer_Buildings.SetURL(URL,false);
+	}
 	
 	//*****************************************************
 	// Add the forgound layers to the map
 
-	// create and add the layer
-	Layer_BuildingsEAP=new CMLayerGeoJSON();
-	Layer_BuildingsEAP.SetName("Buildings");
-	Layer_BuildingsEAP.SetHTMLAttribute("HTML");
-	
-	Layer_BuildingsEAP.SetStyle({ 
-		fillStyle:"rgba(0,0,255,0.0)" ,
-		strokeStyle:"rgba(0,0,255,0.0)" 
-	}); 
-	Layer_BuildingsEAP.SetProperty(CMLayer.FEATURE_STLE,{fillStyle:"rgba(0,0,0,0)",strokeStyle:"rgba(0,0,0,0)",lineWidth:2}); 
-	
-	TheCanvasMap.AddLayer(Layer_BuildingsEAP);
+	if (true)
+	{
+		// create and add the layer
+		Layer_BuildingsEAP=new CMLayerDataset();
+		Layer_BuildingsEAP.SetName("Buildings");
+		Layer_BuildingsEAP.SetSettingAttribute("Layer","InfoText","HTML"); 
 
-	Layer_BuildingsEAP.SetURL(URL,TheCanvasMap.GetView(),false);
+		Layer_BuildingsEAP.SetSettingGroup("Style",{ 
+			fillStyle:"rgba(0,0,255,0.0)" ,
+			strokeStyle:"rgba(0,0,255,0.0)" 
+		}); 
+		// jjg - not sure what this is, was set to "Feature style"
+		Layer_BuildingsEAP.SetSettingGroup("Style",{fillStyle:"rgba(0,0,0,0)",strokeStyle:"rgba(0,0,0,0)",lineWidth:2}); 
+		
+		TheCanvasMap.AddLayer(Layer_BuildingsEAP);
+
+		Layer_BuildingsEAP.SetURL(URL,false);
+	}
 	
 	//*****************************************************
 	// Add the forgound layers to the map
 
-	// get the name and URL for the layer
-	var URL=ThePolylineFilePath; //
-	
-	// create and add the layer
-	Layer_Polylines=new CMLayerGeoJSON();
-	Layer_Polylines.SetName("Polylines");
-	Layer_Polylines.SetHTMLAttribute("TYPE");
-	
-	Layer_Polylines.MouseMove=function() 
+	if (true)
 	{
-		return(false);
-	}
-	
-	Layer_Polylines.OnLoad=function()
-	{
-		var NumFeatures=this.GetNumAttributeRows();
-		
-		var Types=[];
-		var NumTypes=0;
-		
-		var Subtypes=[]; // array indexed first by TypeIndex
-		var NumSubtypes=[];
-		var Entries=[]; // indexed by TypeIndex and then SubtypeIndex
-		var NumNamedEntries=[]; // indexed by TypeIndex and then SubtypeIndex
-		
-		for (var j=0;j<NumFeatures;j++)
+		// get the name and URL for the layer
+		var URL=ThePolylineFilePath; //
+
+		// create and add the layer
+		Layer_Polylines=new CMLayerDataset();
+		Layer_Polylines.SetName("Polylines");
+		Layer_Polylines.SetSettingAttribute("Layer","InfoText","TYPE");
+
+		Layer_Polylines.MouseMove=function() 
 		{
-			var Name=this.GetAttributeCellByHeading("NAME",j);
-			var Type=this.GetAttributeCellByHeading("TYPE",j);
-			var Subtype=this.GetAttributeCellByHeading("SUBTYPE",j);
-			
-			// setup the legend icon file path
-			var MapIconFileName=this.GetAttributeCellByHeading("ICON",j);
-			
-			var MapIconFilePath="";
-			if (MapIconFileName!="") MapIconFilePath="images/"+MapIconFileName;
-			
-			// set the icon for the point into the layer
-			this.SetFeatureIconImage(j,MapIconFilePath,0,0);
-	
-			// prevent all points from painting		
-			this.SetFeatureProperty(CMLayer.ZOOM_RANGE,j,[1000,-1000]);
-			
-			// setup the style (this is temporary until it's in the file
-			var StrokeStyle=null;
-			if (Type==="BUS ROUTES & STOPS")
-			{
-				if (Subtype=="Red") StrokeStyle={strokeStyle:"rgba(255,0,0,1)",lineWidth:2};
-				else if (Subtype=="Gold")  StrokeStyle={strokeStyle:"rgba(218,165,32,1)",lineWidth:2};
-			}
-			else  StrokeStyle={strokeStyle:"rgba(0,0,255,1)",lineWidth:2};
-			
-			if (StrokeStyle!=null)
-			{
-				this.SetFeatureProperty(CMLayer.FEATURE_STYLE,j,StrokeStyle); 
-			}
-			// setup the icon for the menu
-			var MenuIconFileName=this.GetAttributeCellByHeading("MenuIcon",j);
-			if (MenuIconFileName==undefined) MenuIconFileName=MapIconFileName;
-			
-			var MenuIconFilePath="";
-			if (MenuIconFileName!="")  MenuIconFilePath="images/"+ MenuIconFileName;
-			
-			AddToEntries("Polyline",this,j,Name,Type,Subtype,MenuIconFilePath);
+			return(false);
 		}
-		ReceivedPolylines=true;
-		UpdateAccordion();
-	}			
-	
-	TheCanvasMap.AddLayer(Layer_Polylines);
-	Layer_Polylines.SetURL(URL,TheCanvasMap.GetView(),false);
+
+		Layer_Polylines.OnLoad=function()
+		{
+			var TheDataset=this.GetDataset();
+
+			var NumFeatures=TheDataset.GetNumAttributeRows();
+
+			var Types=[];
+			var NumTypes=0;
+
+			var Subtypes=[]; // array indexed first by TypeIndex
+			var NumSubtypes=[];
+			var Entries=[]; // indexed by TypeIndex and then SubtypeIndex
+			var NumNamedEntries=[]; // indexed by TypeIndex and then SubtypeIndex
+
+			for (var j=0;j<NumFeatures;j++)
+			{
+				var Name=TheDataset.GetAttributeCellByHeading("NAME",j);
+				var Type=TheDataset.GetAttributeCellByHeading("TYPE",j);
+				var Subtype=TheDataset.GetAttributeCellByHeading("SUBTYPE",j);
+
+				// setup the legend icon file path
+				var MapIconFileName=TheDataset.GetAttributeCellByHeading("ICON",j);
+
+				var MapIconFilePath="";
+				if (MapIconFileName!="") MapIconFilePath="images/"+MapIconFileName;
+
+				// set the icon for the point into the layer
+				this.SetFeatureSetting("IconImage","URL",j,MapIconFilePath);
+
+				// prevent all points from painting		
+				this.SetFeatureSetting("Layer","MinZoom",j,1000);
+				this.SetFeatureSetting("Layer","MaxZoom",j,-1000);
+
+				// setup the style (this is temporary until it's in the file
+				var StrokeStyle=null;
+				if (Type==="TRANSPORTATION")
+				{
+					if (Subtype=="Red") 
+					{
+//						StrokeStyle={strokeStyle:"rgba(255,0,0,1)",lineWidth:2};
+						this.SetFeatureSetting("Style","strokeStyle",j,"rgba(255,0,0,1)"); 
+						this.SetFeatureSetting("Style","lineWidth",j,2); 
+					}
+					else if (Subtype=="Gold") 
+					{
+//						StrokeStyle={strokeStyle:"rgba(218,165,32,1)",lineWidth:2};
+						this.SetFeatureSetting("Style","strokeStyle",j,"rgba(218,165,32,1)"); 
+						this.SetFeatureSetting("Style","lineWidth",j,2); 
+					}
+				}
+				else   // probably ADA accessible
+				{
+//					StrokeStyle={strokeStyle:"rgba(0,0,255,1)",lineWidth:2}; // blue
+					this.SetFeatureSetting("Style","strokeStyle",j,"rgba(0,0,255,1)"); 
+					this.SetFeatureSetting("Style","lineWidth",j,2); 
+				}
+
+/*				if (StrokeStyle!=null)
+				{
+					this.SetFeatureSetting("Style","strokeStyle",j,StrokeStyle); 
+				}
+*/				// setup the icon for the menu
+				var MenuIconFileName=TheDataset.GetAttributeCellByHeading("MenuIcon",j);
+				if (MenuIconFileName==undefined) MenuIconFileName=MapIconFileName;
+
+				var MenuIconFilePath="";
+				if (MenuIconFileName!="")  MenuIconFilePath="images/"+ MenuIconFileName;
+
+				AddToEntries("Polyline",this,j,Name,Type,Subtype,MenuIconFilePath);
+			}
+			ReceivedPolylines=true;
+			UpdateAccordion();
+		}			
+
+		TheCanvasMap.AddLayer(Layer_Polylines);
+		Layer_Polylines.SetURL(URL,false);
+	}
 	
 	//*****************************************************
 	// Add the forgound layers to the map
 
-	// get the name and URL for the layer
-	var URL=ThePointFilePath;
-	
-	// create and add the layer
-	Layer_Points=new CMLayerGeoJSON();
-	Layer_Points.SetName("Points");
-	Layer_Points.SetHTMLAttribute("Name");
-	
-	Layer_Points.SetStyle({ 
-		fillStyle:"rgba(0,0,255,0.1)" 
-	}); 
-	
-	Layer_Points.MouseMove=function() 
+	if (true)
 	{
-		return(false);
-	}
-	
-	Layer_Points.OnLoad=function()
-	{
-		var NumFeatures=this.GetNumAttributeRows();
-		
-		for (var j=0;j<NumFeatures;j++)
+		// get the name and URL for the layer
+		var URL=ThePointFilePath;
+
+		// create and add the layer
+		Layer_Points=new CMLayerDataset();
+		Layer_Points.SetName("Points");
+		Layer_Points.SetSettingAttribute("Layer","InfoText","Name");
+
+		Layer_Points.SetSettingGroup("Style",{ 
+			fillStyle:"rgba(0,0,255,0.1)" 
+		}); 
+
+		Layer_Points.MouseMove=function() 
 		{
-			var Name=this.GetAttributeCellByHeading("NAME",j);
-			var Type=this.GetAttributeCellByHeading("TYPE",j);
-			var Subtype=this.GetAttributeCellByHeading("SUBTYPE",j);
-			if (Subtype=="Faculty & Staff")
-			{
-				var thing="hi";
-			}
-			
-			// setup the map icon file path
-			var MapIconFileName=this.GetAttributeCellByHeading("ICON",j);
-			if (MapIconFileName=="FS6.png")
-			{
-				var Test="hi";
-			}
-			
-			var MapIconFilePath="";
-			if (MapIconFileName!="") MapIconFilePath="images/"+MapIconFileName;
-			
-			// setup the icon for the menu
-			var MenuIconFileName=this.GetAttributeCellByHeading("MenuIcon",j);
-			var MenuIconFilePath="";
-			if (MenuIconFileName!="")  MenuIconFilePath="images/"+ MenuIconFileName;
-			
-			// setup the icon for the menu
-			var MenuSubtypeIconFileName=this.GetAttributeCellByHeading("MenuSubtypeIcon",j);
-			var MenuSubtypeIconFilePath="";
-			if (MenuSubtypeIconFileName!="")  MenuSubtypeIconFilePath="images/"+ MenuSubtypeIconFileName;
-			
-			// set the icon for the point into the layer
-			
-			this.SetFeatureIconImage(j,MapIconFilePath,-9,-9);
-	
-			// prevent all points from painting		
-			this.SetFeatureProperty(CMLayer.ZOOM_RANGE,j,[1000,-1000]);
-			
-			AddToEntries("Points",this,j,Name,Type,Subtype,MenuIconFilePath,MenuSubtypeIconFilePath);
+			return(false);
 		}
-		ReceivedPoints=true;
-		
-		UpdateAccordion();
-		
+
+		Layer_Points.OnLoad=function()
+		{
+			var TheDataset=this.GetDataset();
+
+			var NumFeatures=TheDataset.GetNumAttributeRows();
+
+			for (var j=0;j<NumFeatures;j++)
+			{
+				var Name=TheDataset.GetAttributeCellByHeading("NAME",j);
+				var Type=TheDataset.GetAttributeCellByHeading("TYPE",j);
+				var Subtype=TheDataset.GetAttributeCellByHeading("SUBTYPE",j);
+				if (Subtype=="Faculty & Staff")
+				{
+					var thing="hi";
+				}
+
+				// setup the map icon file path
+				var MapIconFileName=TheDataset.GetAttributeCellByHeading("ICON",j);
+				if (MapIconFileName=="FS6.png")
+				{
+					var Test="hi";
+				}
+
+				var MapIconFilePath="";
+				if (MapIconFileName!="") MapIconFilePath="images/"+MapIconFileName;
+
+				// setup the icon for the menu
+				var MenuIconFileName=TheDataset.GetAttributeCellByHeading("MenuIcon",j);
+				var MenuIconFilePath="";
+				if (MenuIconFileName!="")  MenuIconFilePath="images/"+ MenuIconFileName;
+
+				// setup the icon for the menu
+				var MenuSubtypeIconFileName=TheDataset.GetAttributeCellByHeading("MenuSubtypeIcon",j);
+				var MenuSubtypeIconFilePath="";
+				if (MenuSubtypeIconFileName!="")  MenuSubtypeIconFilePath="images/"+ MenuSubtypeIconFileName;
+
+				// set the icon for the point into the layer
+
+				this.SetFeatureIconImage(j,MapIconFilePath,-9,-9);
+
+				// prevent all points from painting		
+				this.SetFeatureSetting("Layer","MinZoom",j,1000);
+				this.SetFeatureSetting("Layer","MaxZoom",j,-1000);
+
+
+				AddToEntries("Points",this,j,Name,Type,Subtype,MenuIconFilePath,MenuSubtypeIconFilePath);
+			}
+			ReceivedPoints=true;
+
+			UpdateAccordion();
+
+		}
+
+		TheCanvasMap.AddLayer(Layer_Points);
+
+		Layer_Points.SetURL(URL,false);
 	}
-	
-	TheCanvasMap.AddLayer(Layer_Points);
-	
-	Layer_Points.SetURL(URL,TheCanvasMap.GetView(),false);
 	
 	//*****************************************************
 	// Add the forgound building name layers to the map
     //*****************************************************
 	
-	// get the name and URL for the layer
 	var URL=BuildingNamesFilePath;
-	
-	//*****************************************************
-	// Add a white halo for the labels for the top step
-	
-	// create and add the layer
-	var Layer_BuildingLabels=new CMLayerGeoJSON();
-	Layer_BuildingLabels.SetName("BuildingLabels");
-	
-	// make the points invisible
-	Layer_BuildingLabels.SetStyle({ 
-		fillStyle:"rgba(0,0,255,0.0)", 
-		strokeStyle:"rgba(0,0,255,0.0)" 
-	}); 
-	
-	// write out the labels with a wide line to make a white halo
-	Layer_BuildingLabels.SetPropertyAttribute(CMLayer.LABEL,"Name"); 
-	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_FONT,"bold 9px Lato");
-	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_STYLE,{
-		fillStyle:"rgba(255,255,255,1)",
-		strokeStyle:"rgba(255,255,255,0.6)",
-        lineWidth:1.5,
-	}); 
-	// make this layer only appear on the top step
-	Layer_BuildingLabels.SetProperty(CMLayer.ZOOM_RANGE,[0,0]);
-	
-	Layer_BuildingLabels.MouseMove=function()  { return(false); }
-	
-	TheCanvasMap.AddLayer(Layer_BuildingLabels);
-	
-	Layer_BuildingLabels.SetURL(URL,TheCanvasMap.GetView(),false);
 
+	if (true)
+	{
+		// get the name and URL for the layer
+		//*****************************************************
+		// Add a white halo for the labels for the top step
+
+		// create and add the layer
+		var Layer_BuildingLabels=new CMLayerDataset();
+		Layer_BuildingLabels.SetName("BuildingLabels");
+
+		// make the points invisible
+		Layer_BuildingLabels.SetSettingGroup("Style",{ 
+			fillStyle:"rgba(0,0,255,0.0)", 
+			strokeStyle:"rgba(0,0,255,0.0)"
+		}); 
+
+		// write out the labels with a wide line to make a white halo
+		Layer_BuildingLabels.SetSettingAttribute("Text","Text","Name"); 
+		Layer_BuildingLabels.SetSettingGroup("Text",{
+			font:"bold 9px Lato",
+			fillStyle:"rgba(0,0,0,1)",
+			strokeStyle:"rgba(255,255,255,0.6)",
+			lineWidth:1.5,
+		}); 
+		// make this layer only appear on the top step
+		Layer_BuildingLabels.SetSetting("Layer","MinZoom",0);
+		Layer_BuildingLabels.SetSetting("Layer","MaxZoom",0);
+		
+		Layer_BuildingLabels.MouseMove=function()  { return(false); }
+
+		TheCanvasMap.AddLayer(Layer_BuildingLabels);
+
+		Layer_BuildingLabels.SetURL(URL,false);
+	}
+	
 	//*****************************************************
 	// Add the labels for the top step
-	
-	// create and add the layer
-	var Layer_BuildingLabels=new CMLayerGeoJSON();
-	Layer_BuildingLabels.SetName("BuildingLabels");
-	
-	// make the points transparent
-	Layer_BuildingLabels.SetStyle({ 
-		fillStyle:"rgba(0,0,255,0.0)", 
-		strokeStyle:"rgba(0,0,255,0.0)" 
-	}); 
-	
-	// setup the labels as black
-	Layer_BuildingLabels.SetPropertyAttribute(CMLayer.LABEL,"Name"); 
-	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_FONT,"bold 9px Lato");
-	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_STYLE,{
-		fillStyle:"rgba(0,0,0,1)",
-		strokeStyle:"rgba(0,0,0,1)",
-		lineWidth:0.5		
-	}); 
-	Layer_BuildingLabels.SetProperty(CMLayer.ZOOM_RANGE,[0,0]);
-	
-	Layer_BuildingLabels.MouseMove=function()  { return(false); }
-	
-	TheCanvasMap.AddLayer(Layer_BuildingLabels);
-	
-	Layer_BuildingLabels.SetURL(URL,TheCanvasMap.GetView(),false);
+	if (true)
+	{
+		// create and add the layer
+		var Layer_BuildingLabels=new CMLayerDataset();
+		Layer_BuildingLabels.SetName("BuildingLabels");
 
-	//*****************************************************
-	// Add the labels for when we are more zoomed in (steps 1 and 2)
+		// make the points invisible
+		Layer_BuildingLabels.SetSettingGroup("Style",{ 
+			fillStyle:"rgba(0,0,255,0.0)", 
+			strokeStyle:"rgba(0,0,255,0.0)" 
+		}); 
+
+		// write out the labels in black above
+		Layer_BuildingLabels.SetSettingAttribute("Text","Text","Name"); 
+		Layer_BuildingLabels.SetSettingGroup("Text",{
+			font:"bold 9px Lato",
+			fillStyle:"rgba(0,0,0,1)",
+			//strokeStyle:"rgba(0,0,0,1)",
+			lineWidth:.2		
+		}); 
+		// make this layer only appear on the top step
+		Layer_BuildingLabels.SetSetting("Layer","MinZoom",0);
+		Layer_BuildingLabels.SetSetting("Layer","MaxZoom",0);
 	
-	// create and add the layer
-	Layer_BuildingLabels=new CMLayerGeoJSON();
-	Layer_BuildingLabels.SetName("BuildingLabels");
-	Layer_BuildingLabels.SetHTMLAttribute("Name");
-	
-	Layer_BuildingLabels.SetStyle({ 
-		fillStyle:"rgba(0,0,255,0.0)", 
-		strokeStyle:"rgba(0,0,255,0.0)" 
-	}); 
-	
-	Layer_BuildingLabels.SetPropertyAttribute(CMLayer.LABEL,"Labels_2"); 
-	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_FONT,"bold 11px Lato");
-	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_STYLE,{
-		fillStyle:"rgba(255,255,255,1)",
-		strokeStyle:"rgba(255,255,255,0.6)",
-        lineWidth:1.5,
-	}); 
-	Layer_BuildingLabels.SetProperty(CMLayer.ZOOM_RANGE,[1,2]);
-	
-	Layer_BuildingLabels.MouseMove=function()  { return(false); }
-	
-	TheCanvasMap.AddLayer(Layer_BuildingLabels);
-	
-	Layer_BuildingLabels.SetURL(URL,TheCanvasMap.GetView(),false);
+		Layer_BuildingLabels.MouseMove=function()  { return(false); }
+
+		TheCanvasMap.AddLayer(Layer_BuildingLabels);
+
+		Layer_BuildingLabels.SetURL(URL,false);
+	}
 	
 	//*****************************************************
 	// Add the labels for when we are more zoomed in (steps 1 and 2)
 	
-	// create and add the layer
-	Layer_BuildingLabels=new CMLayerGeoJSON();
-	Layer_BuildingLabels.SetName("BuildingLabels");
-	Layer_BuildingLabels.SetHTMLAttribute("Name");
-	
-	Layer_BuildingLabels.SetStyle({ 
-		fillStyle:"rgba(0,0,255,0.0)", 
-		strokeStyle:"rgba(0,0,255,0.0)" 
-	}); 
-	
-	Layer_BuildingLabels.SetPropertyAttribute(CMLayer.LABEL,"Labels_2"); 
-	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_FONT,"bold 11px Lato");
-	Layer_BuildingLabels.SetProperty(CMLayer.LABEL_STYLE,{
-		fillStyle:"rgba(0,0,0,1)",
-		strokeStyle:"rgba(0,0,0,1)",		
-		lineWidth:0.5			
-	}); 
-	Layer_BuildingLabels.SetProperty(CMLayer.ZOOM_RANGE,[1,2]);
-	
-	Layer_BuildingLabels.MouseMove=function()  { return(false); }
-	
-	TheCanvasMap.AddLayer(Layer_BuildingLabels);
-	
-	Layer_BuildingLabels.SetURL(URL,TheCanvasMap.GetView(),false);
-	
-	//***************************************************************************
-	// 2.3.4 Add Map Elements
-	//************************************************************************
-	// Make the zoom buttons stick to the right side of the map
-//	var ZoomButtons=document.getElementById("ZoomButtons");
-	
-//	TheCanvasMap.AddRightSticky(ZoomButtons,true,40);
+	if (true)
+	{
+		// create and add the layer
+		Layer_BuildingLabels=new CMLayerDataset();
+		Layer_BuildingLabels.SetName("BuildingLabels");
+		Layer_BuildingLabels.SetSettingAttribute("Layer","InfoText","Name");
 
-	//****************************************************************************
-	// add a scale bar
-/*	
-	// create the scale bar and give it an initial position
-	var TheScaleBar=new CMScaleBar(10,380,200,40);
-//	TheScaleBar.SetUnits(CMScaleBar.UNITS_ENGLISH);
-	TheScaleBar.SetBackgroundStyle({
-		fillStyle:"#ffffff",
-		strokeStyle:"#000000",
-		lineWidth:"2",
-		shadowBlur:"20",
-		shadowColor:"black"
-	});
+		// make the points invisible
+		Layer_BuildingLabels.SetSettingGroup("Style",{ 
+			fillStyle:"rgba(0,0,255,0.0)", 
+			strokeStyle:"rgba(0,0,255,0.0)" ,
+			lineWidth:0.5		
+		}); 
+
+		// 
+		Layer_BuildingLabels.SetSettingAttribute("Text","Text","Labels_2"); 
+		Layer_BuildingLabels.SetSettingGroup("Text",{
+			font:"bold 11px Lato",
+			fillStyle:"rgba(255,255,255,1)",
+			strokeStyle:"rgba(255,255,255,0.6)",
+			lineWidth:1.5,
+		}); 
+		// make this layer only appear on the second and third steps
+		Layer_BuildingLabels.SetSetting("Layer","MinZoom",1);
+		Layer_BuildingLabels.SetSetting("Layer","MaxZoom",2);
 	
-	TheCanvasMap.GetScene().AddMapElement(TheScaleBar);
+		Layer_BuildingLabels.MouseMove=function()  { return(false); }
+
+		TheCanvasMap.AddLayer(Layer_BuildingLabels);
+
+		Layer_BuildingLabels.SetURL(URL,false);
+	}
 	
-	// make the scale bar stick to the bottom of the container
-	TheScaleBar.SetBottomSticky({MoveFlag:true,Offset:10});
-*/	
+	//*****************************************************
+	// Add the labels for when we are more zoomed in (steps 2 and 2)
+	
+	if (true)
+	{
+		// create and add the layer
+		Layer_BuildingLabels=new CMLayerDataset();
+		Layer_BuildingLabels.SetName("BuildingLabels");
+		Layer_BuildingLabels.SetSettingAttribute("Layer","InfoText","Name");
+
+		Layer_BuildingLabels.SetSettingGroup("Style",{ 
+			fillStyle:"rgba(0,0,255,0.0)", 
+			strokeStyle:"rgba(0,0,255,0.0)" 
+		}); 
+
+		Layer_BuildingLabels.SetSettingAttribute("Text","Text","Labels_2"); 
+		Layer_BuildingLabels.SetSettingGroup("Text",{
+			font:"bold 11px Lato",
+			fillStyle:"rgba(0,0,0,1)",
+			strokeStyle:"rgba(0,0,0,1)",		
+			lineWidth:0.5			
+		}); 
+		Layer_BuildingLabels.SetSetting("Layer","MinZoom",1);
+		Layer_BuildingLabels.SetSetting("Layer","MaxZoom",2);
+
+		Layer_BuildingLabels.MouseMove=function()  { return(false); }
+
+		TheCanvasMap.AddLayer(Layer_BuildingLabels);
+
+		Layer_BuildingLabels.SetURL(URL,false);
+	}
+	
 	//***************************************************************************
 	// 2.3.5 Start the map
 	//***************************************************************************
@@ -759,14 +840,24 @@ function OnLoad()
 		YMin: 4524761, // bottom side (usually southern most edge)
 		YMax: 4526248 // top side (usually northern most edge)
 	}
-	TheCanvasMap.TheView.SetMaxBounds(TheBounds)
+	var TheView=TheCanvasMap.GetView();
+	//TheView.SetSetting("View2D","MaxBounds",TheBounds);
+	TheView.SetSetting("View2D","MaxBounds",{
+		Xs:[408016,410572], // min,max
+		Ys:[4524761,4526248] // Min,max
+	});
+	//TheCanvasMap.TheView.SetMaxBounds(TheBounds)OnLoad
 
+	TheView.ZoomToBounds(TheBounds); // 1 to 4 pixels per meter
+	
 	// This is the zoom range that limits the map zoom 
-	TheCanvasMap.TheView.SetZoomRange(0,2); // 1 to 4 pixels per meter
-	TheCanvasMap.TheView.ZoomTo(0); // start at 1 pixel per meter
+	TheView.SetSetting("View2D","MinZoom",0);
+	TheView.SetSetting("View2D","MaxZoom",2);
+	//TheView.SetZoomRange(0,2); // 1 to 4 pixels per meter
+	TheView.ZoomTo(0); // start at 1 pixel per meter
 
 	// get view and then position us off the coast of the US
-	var TheView=TheCanvasMap.GetView();
+	
 	
 	var TheCoordinate=TheProjector.ProjectFromGeographic(-124.0778,40.8755);
 	TheView.SetRefCenter(TheCoordinate.Easting,TheCoordinate.Northing);
@@ -828,6 +919,8 @@ function EntryChanged(TheCheckBox,LayerName,TypeIndex,SubtypeIndex,EntryIndex)
 	
 	var ZoomRange=[-1000,1000];
 	
+	var TheDataset=TheLayer.GetDataset();
+				
 	if (TheCheckBox.checked) // making visible
 	{
 		var FeatureBounds=null;
@@ -836,9 +929,11 @@ function EntryChanged(TheCheckBox,LayerName,TypeIndex,SubtypeIndex,EntryIndex)
 		{
 			var FeatureIndex=Entries[TypeIndex][SubtypeIndex][EntryIndex].FeatureIndex;
 
-			TheLayer.SetFeatureProperty(CMLayer.ZOOM_RANGE,FeatureIndex,[-1000,1000]);
+			//TheLayer.SetFeatureSetting(CMLayer.ZOOM_RANGE,FeatureIndex,[-1000,1000]);
+			TheLayer.SetFeatureSetting("Layer","MinZoom",FeatureIndex,-1000);
+			TheLayer.SetFeatureSetting("Layer","MaxZoom",FeatureIndex,1000);
 			
-			FeatureBounds=TheLayer.FeatureBounds[FeatureIndex];
+			FeatureBounds=TheDataset.GetFeatureBounds(FeatureIndex);
 		}
 		else // a subtype was checked 
 		{
@@ -855,10 +950,11 @@ function EntryChanged(TheCheckBox,LayerName,TypeIndex,SubtypeIndex,EntryIndex)
 				var FeatureIndex=EntriesForSubtype[i].FeatureIndex;
 
 				// make the feature visible
-				TheLayer.SetFeatureProperty(CMLayer.ZOOM_RANGE,FeatureIndex,[-1000,1000]);
+				TheLayer.SetFeatureSetting("Layer","MinZoom",FeatureIndex,-1000);
+				TheLayer.SetFeatureSetting("Layer","MaxZoom",FeatureIndex,1000);
 				
 				// get the features bounds
-				var NewBounds=TheLayer.FeatureBounds[FeatureIndex];
+				var NewBounds=TheDataset.GetFeatureBounds(FeatureIndex);
 				
 				if (FeatureBounds==null)
 				{
@@ -871,8 +967,8 @@ function EntryChanged(TheCheckBox,LayerName,TypeIndex,SubtypeIndex,EntryIndex)
 				}
 				if (LayerName!="Polyline") // must be points 
 				{
-					var EAPID=TheLayer.GetAttributeCellByHeading("EAP_GRP",FeatureIndex);
-					var EAPCOLOR=TheLayer.GetAttributeCellByHeading("EAP_COLOR",FeatureIndex);
+					var EAPID=TheDataset.GetAttributeCellByHeading("EAP_GRP",FeatureIndex); // emergency assembly point (EAP)
+					var EAPCOLOR=TheDataset.GetAttributeCellByHeading("EAP_COLOR",FeatureIndex);
 					
 					if (EAPID!="") // clicked on an EAP entry
 					{
@@ -888,13 +984,13 @@ function EntryChanged(TheCheckBox,LayerName,TypeIndex,SubtypeIndex,EntryIndex)
 						
 						// get all the EAP values from the buildings
 						
-						var TheArray=Layer_BuildingsEAP.GetAttributeArrayByHeading("EAP_GRP");
+						var TheArray=Layer_BuildingsEAP.GetDataset().GetAttributeArrayByHeading("EAP_GRP");
 						
 						for (var j=0;j<TheArray.length;j++) // for each building
 						{
 							if (TheArray[j]===EAPID) // if the buildings EAP matches the 
 							{
-								Layer_Buildings.SetFeatureProperty(CMLayer.FEATURE_STYLE,j,{
+								Layer_Buildings.SetFeatureSettingGroup("Style",j,{
 									strokeStyle:StokeColor,
 									fillStyle:FillColor,
 									lineWidth:3});
@@ -909,11 +1005,12 @@ function EntryChanged(TheCheckBox,LayerName,TypeIndex,SubtypeIndex,EntryIndex)
 	}
 	else // hiding
 	{
-		if (EntryIndex!=-1) // a entry was hidden (unchecked)
+		if (EntryIndex!=-1) // a entry was hidden (unchecked), make it visible
 		{
 			var FeatureIndex=Entries[TypeIndex][SubtypeIndex][EntryIndex].FeatureIndex;
 	
-			TheLayer.SetFeatureProperty(CMLayer.ZOOM_RANGE,FeatureIndex,[1000,-1000]);
+			TheLayer.SetFeatureSetting("Layer","MinZoom",FeatureIndex,1000);
+			TheLayer.SetFeatureSetting("Layer","MaxZoom",FeatureIndex,-1000);
 			
 			TheLayer.Repaint();
 		}
@@ -926,21 +1023,20 @@ function EntryChanged(TheCheckBox,LayerName,TypeIndex,SubtypeIndex,EntryIndex)
 				var FeatureIndex=EntriesForSubtype[i].FeatureIndex;
 
 				// make the feature hidden
-				TheLayer.SetFeatureProperty(CMLayer.ZOOM_RANGE,FeatureIndex,[1000,-1000]);
+				TheLayer.SetFeatureSetting("Layer","MinZoom",FeatureIndex,1000);
+				TheLayer.SetFeatureSetting("Layer","MaxZoom",FeatureIndex,-1000);
 				
 				if (LayerName!="Polyline")
 				{
-					var EAPID=TheLayer.GetAttributeCellByHeading("EAP_GRP",FeatureIndex);
+					var EAPID=TheDataset.GetAttributeCellByHeading("EAP_GRP",FeatureIndex);
 					
 					if (EAPID!="") // chlicked on an EAP entry
 					{
-						var NumBuildings=Layer_Buildings.GetNumAttributeRows();
+						var NumBuildings=TheDataset.GetNumAttributeRows();
 						
 						for (var j=0;j<NumBuildings;j++)
 						{
-							Layer_Buildings.SetFeatureProperty(CMLayer.FEATURE_STYLE,j,{
-								strokeStyle:"rgba(0,0,0,0)"
-							});
+							Layer_Buildings.SetFeatureSetting("Style","strokeStyle",j,"rgba(0,0,0,0)");
 						}
 					}
 				}
@@ -1158,8 +1254,12 @@ function CloseSearch()
 */
 function ClickedOnBuilding(FeatureIndex)
 {
-	var FeatureBounds=Layer_Buildings.FeatureBounds[FeatureIndex];
+	//var FeatureBounds=Layer_Buildings.FeatureBounds[FeatureIndex];
 	
+	var TheDataset=Layer_Buildings.GetDataset();
+	
+	var FeatureBounds=TheDataset.GetFeatureBounds(FeatureIndex);
+
 	var TheView=TheCanvasMap.GetView();
 	
 	TheView.ZoomToBounds(FeatureBounds);
@@ -1193,7 +1293,7 @@ function ClickedOnBuilding(FeatureIndex)
 </nav>
 
 <!-- Map container, CanvasMap will put its elements into this container --->
-<div id="MapContainer_0" style="z-index:0;"> <!--- ;border:solid 2px yellow--->
+<div id="CM_MapContainer_0" style="z-index:0;"> <!--- ;border:solid 2px yellow--->
 </div>
 
 
