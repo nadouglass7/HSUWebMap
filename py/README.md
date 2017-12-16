@@ -75,28 +75,29 @@ OR use the feature_id.py  script to update it automatically
 ## How the scripts work
 
 
-Feature_id.py:
+### Feature_id.py:
 
-	Step 1.
+Step 1.
 checks id_sheet.csv for free or 'available' ID's
-	Step 2.
+Step 2.
 loads selected .js file
 checks for ID property
 If there is no ID property, or the ID property is null, then it assigns it the next available ID
-	Step 3.
+Step 3.
 Update id_sheet.csv to reflect id usage
 
 
-create_csv.py 
+### create_csv.py 
 
-       Since the two most important datasets, in terms of labeling data, are BuildingOverlay.js and BuildingLabels.js, the script runs through each data set and collects information from these properties:
+Since the two most important datasets, in terms of labeling data, are BuildingOverlay.js and BuildingLabels.js, the script runs through each data set and collects information from these properties:
 
 
 
 The script then creates a .csv file that houses this data, all organized by the feature ID
-Update_js.py (UNFINISHED):
 
-	Takes the information from master.csv script and re-maps it back to the appropriate geojson files. The script is not fully working, and needs extra attention. Going through by each ID should yield the correct information, but re-writing a new .js file is the key.
+### Update_js.py (UNFINISHED):
+
+Takes the information from master.csv script and re-maps it back to the appropriate geojson files. The script is not fully working, and needs extra attention. Going through by each ID should yield the correct information, but re-writing a new .js file is the key.
 
 
 
