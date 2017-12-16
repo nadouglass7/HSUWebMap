@@ -1,8 +1,9 @@
 # py folder
 
-## CONTENTS:
-- `js_to_csv.py` (Pull)
-- `csv_to_js.py` (Update)
+### CONTENTS:
+- `feature_id.py` (check and assign id)
+- `create_csv.py` (pull)
+- `Update_js.py`  (push)
     
 	
 	
@@ -14,7 +15,7 @@ BuildingPhraseList.js
 
 Rather than editing these individually, a better method would be to edit a single .csv file (master.csv) which would have columns for all the necessary components, then a script that would take those values and write them to the appropriate dataset. Sounds great, right?! Unfortunately, there were a few hitches and wasn’t able to be released in time. So here’s what was started.
 
-## Requirement
+### Requirement
 
 The scripts found in the HSUMap/py folder contain a series of scripts that were developed on a MAC OS and tested in Bash(Unix Shell), therefore they won’t work immediately on a PC or in Command Line (Windows) 
 
