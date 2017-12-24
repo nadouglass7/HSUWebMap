@@ -5,7 +5,7 @@ var BuildingPhraseList = [
 	["Art B","Art B Building","ArtB"],																								// Art A Building
 	["Baiocchi House","BH"], 																								// Baiocchi House
 	["MultiCultural Center", "Balabanis House", "MCC", "BALH"],																// Balabanis House
-	["Behavioral and Social Sciences", "BSS", "BS", "Math Department", "Social Work Department", "SW"],				// Behavioral and Social Sciences
+	["Behavioral & Social Sciences", "BSS", "BS", "Math Department", "Social Work Department", "SW"],				// Behavioral and Social Sciences
 	["Brero House","BHR", "Indian Tribal and Educational Personnel Program", "ITEPP"],										// Brero House
 	["Bret Harte House", "BHH"],																							// Bret Harte House											
 	["Brookins House","BROH"],																								// Brookins House

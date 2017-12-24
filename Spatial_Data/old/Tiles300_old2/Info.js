@@ -1,0 +1,25 @@
+{ 
+	"Title":"Untitled",
+	"Bounds":{
+		"XMin":407552.0,
+		"XMax":411648.0,
+		"YMin":4524032.0,
+		"YMax":4528128.0
+	},
+	"OriginalBounds":{
+		"XMin":407940.4942483264,
+		"XMax":410708.6578448778,
+		"YMin":4524701.353380601,
+		"YMax":4526295.144542252
+	},
+	"TopZoomLevel":-3,
+	"TileRefWidth":2048.0,
+	"MinColumn":199,
+	"MaxColumn":200,
+	"NumColumns":2,
+	"MinRow":2209,
+	"MaxRow":2210,
+	"NumRows":2,
+	"MinPixelValues":30.0,
+	"MaxPixelValues":255.0
+}

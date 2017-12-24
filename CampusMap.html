@@ -104,17 +104,19 @@
 //**************************************************************** 
 
 // paths for each of the data sets
-var ThePointFilePath="Spatial_Data/Points_Nov_13.js";
-//var ThePolylineFilePath="Spatial_Data/Polyline_test.js";
-var ThePolylineFilePath="Spatial_Data/Polylines_Nov29_2016.js";
-var TheBuildingOverlayFilePath="Spatial_Data/BuildingOverlay_Nov12.js";
+var ThePointFilePath="Spatial_Data/Points_Dec_12.js";
+//var ThePointFilePath="Spatial_Data/Points_Nov_13.js";
+
+//var ThePolylineFilePath="Spatial_Data/Polylines_Nov29_2016.js";
+var ThePolylineFilePath="Spatial_Data/Polylines_Dec11_2017.js";
+
+var TheBuildingOverlayFilePath="Spatial_Data/BuildingOverlay_Dec_14.js";
 
 // global for the canvas map object
 var TheCanvasMap=null;
 var TileFolderPath="Spatial_Data/Tiles300/";
 var TileFolderPath150="Spatial_Data/Tiles150/";
 var TileFolderPath75="Spatial_Data/Tiles75/";
-//var BuildingNamesFilePath="Spatial_Data/BuildingNames8.js";
 var BuildingNamesFilePath="Spatial_Data/BuildingLabels_Dec20_2016.js";
 
 var Layer_Buildings=null;
@@ -350,6 +352,10 @@ function OnLoad()
 	
 	TheCanvasMap.TheScene.IncrementRepaintBlocks();
 	
+	TheCanvasMap.TheScene.SetSettingGroup("Fill",{
+		fillStyle:"rgba(255,255,255,0.5)"
+	}); 
+	
 	//***************************************************************************
 	// 2.3.2 Setup the projector
 	//***************************************************************************
@@ -366,7 +372,7 @@ function OnLoad()
 	// get the container to add items to the map
 	var TheCanvasElement=TheCanvasMap.GetElement(CMMainContainer.CANVAS_CONTAINER);
 	
-	
+
 	//*****************************************************
 	// ADD FIRST SET OF BACKGROUND TILES (300 PPI)
 	
@@ -397,7 +403,7 @@ function OnLoad()
 	Layer_Campus2.SetName("Campus2");
 	
 	Checked=""; // reset the checked flag so only the first layer is selected
-	
+
 	//*****************************************************
 	// ADD FIRST SET OF BACKGROUND TILES (75 PPI)
 	
@@ -413,7 +419,7 @@ function OnLoad()
 	Layer_Campus3.SetName("Campus3");
 	
 	Checked=""; // reset the checked flag so only the first layer is selected
-	
+
 	//*****************************************************
 	// Add the forgound layers to the map
 
@@ -429,18 +435,19 @@ function OnLoad()
 
 		Layer_Buildings.SetSettingGroup("Style",{ 
 			fillStyle:"rgba(0,0,255,0.0)" ,
-			strokeStyle:"rgba(0,0,255,0.0)" 
+			strokeStyle:"rgba(255,0,0,0.0)" 
 		}); 
 		Layer_Buildings.SetSettingGroup("MouseOverStyle",{
 			fillStyle:"rgba(229,240,211,0.5)",
 			strokeStyle:"rgba(182,83,0,0.65)",
-			lineWidth:2
+			lineWidth:1
 		}); 
 
 		Layer_Buildings.SetSettingGroup("SelectedStyle",{
 			fillStyle:"rgba(229,240,211,0.65)",
-			strokeStyle:"rgba(37,85,27,0.8)",
-			lineWidth:2
+			//strokeStyle:"rgba(30,130,76,0.8)",
+			strokeStyle:"rgba(255,0,0,0.8)",
+			lineWidth:1
 		}); 
 		
 		TheCanvasMap.AddLayer(Layer_Buildings);
@@ -543,7 +550,7 @@ function OnLoad()
 
 				// setup the style (this is temporary until it's in the file
 				var StrokeStyle=null;
-				if (Type==="BUS ROUTES & STOPS")
+				if (Type==="TRANSPORTATION")
 				{
 					if (Subtype=="Red") 
 					{
@@ -694,11 +701,13 @@ function OnLoad()
 			font:"bold 9px Lato",
 			fillStyle:"rgba(0,0,0,1)",
 			strokeStyle:"rgba(255,255,255,0.6)",
-			lineWidth:1.5,
+			//lineWidth:1.5,
 		}); 
 		// make this layer only appear on the top step
 		Layer_BuildingLabels.SetSetting("Layer","MinZoom",0);
 		Layer_BuildingLabels.SetSetting("Layer","MaxZoom",0);
+		
+		Layer_BuildingLabels.SetClickable(false);
 		
 		Layer_BuildingLabels.MouseMove=function()  { return(false); }
 
@@ -733,6 +742,8 @@ function OnLoad()
 		Layer_BuildingLabels.SetSetting("Layer","MinZoom",0);
 		Layer_BuildingLabels.SetSetting("Layer","MaxZoom",0);
 	
+		Layer_BuildingLabels.SetClickable(false);
+		
 		Layer_BuildingLabels.MouseMove=function()  { return(false); }
 
 		TheCanvasMap.AddLayer(Layer_BuildingLabels);
@@ -769,6 +780,8 @@ function OnLoad()
 		Layer_BuildingLabels.SetSetting("Layer","MinZoom",1);
 		Layer_BuildingLabels.SetSetting("Layer","MaxZoom",2);
 	
+		Layer_BuildingLabels.SetClickable(false);
+		
 		Layer_BuildingLabels.MouseMove=function()  { return(false); }
 
 		TheCanvasMap.AddLayer(Layer_BuildingLabels);
@@ -801,6 +814,8 @@ function OnLoad()
 		Layer_BuildingLabels.SetSetting("Layer","MinZoom",1);
 		Layer_BuildingLabels.SetSetting("Layer","MaxZoom",2);
 
+		Layer_BuildingLabels.SetClickable(false);
+		
 		Layer_BuildingLabels.MouseMove=function()  { return(false); }
 
 		TheCanvasMap.AddLayer(Layer_BuildingLabels);
@@ -965,7 +980,7 @@ function EntryChanged(TheCheckBox,LayerName,TypeIndex,SubtypeIndex,EntryIndex)
 				}
 				if (LayerName!="Polyline") // must be points 
 				{
-					var EAPID=TheDataset.GetAttributeCellByHeading("EAP_GRP",FeatureIndex);
+					var EAPID=TheDataset.GetAttributeCellByHeading("EAP_GRP",FeatureIndex); // emergency assembly point (EAP)
 					var EAPCOLOR=TheDataset.GetAttributeCellByHeading("EAP_COLOR",FeatureIndex);
 					
 					if (EAPID!="") // clicked on an EAP entry
@@ -988,7 +1003,7 @@ function EntryChanged(TheCheckBox,LayerName,TypeIndex,SubtypeIndex,EntryIndex)
 						{
 							if (TheArray[j]===EAPID) // if the buildings EAP matches the 
 							{
-								Layer_Buildings.SetFeatureProperty(CMLayer.FEATURE_STYLE,j,{
+								Layer_Buildings.SetFeatureSettingGroup("Style",j,{
 									strokeStyle:StokeColor,
 									fillStyle:FillColor,
 									lineWidth:3});
@@ -1030,7 +1045,7 @@ function EntryChanged(TheCheckBox,LayerName,TypeIndex,SubtypeIndex,EntryIndex)
 					
 					if (EAPID!="") // chlicked on an EAP entry
 					{
-						var NumBuildings=Layer_Buildings.GetNumAttributeRows();
+						var NumBuildings=TheDataset.GetNumAttributeRows();
 						
 						for (var j=0;j<NumBuildings;j++)
 						{
@@ -1185,12 +1200,12 @@ function DoSearch()
 	
 	// add partial mateches to exact matches=
 	
-	var NumFeatuers=Layer_Buildings.GetNumAttributeRows();
+	var NumFeatuers=Layer_Buildings.GetDataset().GetNumAttributeRows();
 	var BuildingNames=[];
 	
 	for ( var i=0;i<NumFeatuers;i++)
 	{
-		var Name=Layer_Buildings.GetAttributeCellByHeading("Name",i);
+		var Name=Layer_Buildings.GetDataset().GetAttributeCellByHeading("Name",i);
 		
 		BuildingNames.push(Name);
 	}
@@ -1304,22 +1319,30 @@ function ClickedOnBuilding(FeatureIndex)
 <!-- Footer at the bottom of the page with the Info button –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <div class="footer">
   <div class="control-footer">
-    <button id="InfoButton"  onclick="InfoButton_OnClick()">&#x2630; Info | Give Feedback</button>
+    <button id="InfoButton"  onclick="InfoButton_OnClick()">&#x2630; Info | Credits</button>
   </div>
 </div>
 
 <!-- InfoBox content, hidden on load by its style –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <nav class="SlideBox SlideBox-horizontal SlideBox-bottom" id="SlideBox-s4" style="">
 	<p style="color: white; margin-left: 22px; margin-right: 22px; margin-top: 24px; line-height: normal; font-size: 15px;"><strong style="color: #f6f3af;">ABOUT THE MAP</strong><br>
-		This version of the campus map was updated and completed by Jordan Adnir, Colby Peffer, and Joshua Rodriguez in Fall 2016 under the guidance and direction of Professor James Graham. 
-		Original design and development was by Jordan Adair, Dylan Hills, Monique Gil, and Aaron Taveras in Fall 2015. Please note that the map undergoes periodic updates as buildings and spaces on campus change.<br>
-		<br>
-		<strong style="color: #f6f3af;">BROWSER REQUIREMENTS</strong><br>
-		The map will run on any relatively newer version of Chrome, Firefox and Safari, as long as Javascript is enabled (it is by default.) The map  also runs on Internet Explorer back to  version 8.<br>
-		<br>
+        The purpose of this map is to provide an interactive layout of HSU and various resources as well as points of interest on campus.
+        Please note that this map undergoes periodic updates, as buildings and spaces on campus change.<br>
+        <br>
+        <strong style="color: #f6f3af;">BROWSER REQUIREMENTS</strong><br>
+        Runs best on newest version of Chrome, Firefox, and Safari. Running on Internet Explorer requires using version 8.<br>
+        <br>
+        <strong style="color: #f6f3af;">CREDITS</strong><br>
+        Original design and development done by Jordan Adair, Dylan Hills, Monique Gil, and Aaron Taveras. 
+        Intermit work was done by Colby Peffer, and Joshua Rodriguez. Finalized by Nathaniel Douglass, John Chortenbach, and Kassandra Rodriguez.
+        This map was made possible under the guidance and direction of Professor James Graham.
+        <br>
+		
+		<!-- FEEDBACK section: Out of date link, but could still be used in the future -->
+		<!--
 		<strong style="color: #f6f3af;">GIVE FEEDBACK</strong><br>
 		If you have trouble using the map or if you have any suggestions for improvements, please fill the following 
-		<a class="SurveyLink" href="https://docs.google.com/forms/d/1w-HHtasBZhwJLU2Qe1B5F5vmQ52vp44T6p6epwCT3rA/viewform?usp=send_form" target="_blank">form.</a>
+		<a class="SurveyLink" href="https://docs.google.com/forms/d/1w-HHtasBZhwJLU2Qe1B5F5vmQ52vp44T6p6epwCT3rA/viewform?usp=send_form" target="_blank">form.</a>-->
 	</p>
 </nav>
 
