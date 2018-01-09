@@ -106,7 +106,7 @@ button:focus {
 .CheckBoxTitle {
 	height: 30px;
 	color: #FFF;
-	text-shadow: 2px 2px #000000;
+	/*text-shadow: 2px 2px #000000;*/
 }
 /* accordion it self */
 .accordion {

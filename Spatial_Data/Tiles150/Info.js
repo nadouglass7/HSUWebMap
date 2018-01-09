@@ -7,10 +7,10 @@
 		"YMax":4528128.0
 	},
 	"OriginalBounds":{
-		"XMin":408035.05562103953,
-		"XMax":410592.2274685651,
-		"YMin":4524761.8172194855,
-		"YMax":4526234.213887314
+		"XMin":407940.4942483264,
+		"XMax":410708.6578448778,
+		"YMin":4524701.353380601,
+		"YMax":4526295.144542252
 	},
 	"TopZoomLevel":-3,
 	"TileRefWidth":2048.0,
@@ -20,6 +20,6 @@
 	"MinRow":2209,
 	"MaxRow":2210,
 	"NumRows":2,
-	"MinPixelValues":15.0,
+	"MinPixelValues":11.0,
 	"MaxPixelValues":255.0
 }
