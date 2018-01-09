@@ -770,7 +770,7 @@ CMUtilities.CreateLabelControl=function(Text,Position,X,Y)
 * @param Height - ignored, the tooltip now sizes with it's contents
 * @param Text - the HTML to place int he tooltip
 */
-CMUtilities.CreateInfoWindow=function(ID,MouseX,MouseY,Width,Height,Text,ImageFolder)
+CMUtilities.CreateInfoWindow=function(ID,MouseX,MouseY,Width,Height,Text,TheImageFolder)
 {
 	var Padding=10; // between the balloon and it's contents
 	var TriangleHeight=10; // 
@@ -871,12 +871,12 @@ CMUtilities.CreateInfoWindow=function(ID,MouseX,MouseY,Width,Height,Text,ImageFo
 	if (Above==false)
 	{
 		TheTriangle.style.top=(-TriangleHeight-3)+'px'; // Changed this from top to bottom
-		TheTriangle.innerHTML="<img src='"+ImageFolder+"Triangle_Up.png'></img>";
+		TheTriangle.innerHTML="<img src='"+TheImageFolder+"Triangle_Up.png'></img>";
 	}
 	else
 	{
 		TheTriangle.style.bottom=(-TriangleHeight-3)+'px'; // Changed this from top to bottom
-		TheTriangle.innerHTML="<img src='"+ImageFolder+"Triangle_Down.png'></img>";
+		TheTriangle.innerHTML="<img src='"+TheImageFolder+"Triangle_Down.png'></img>";
 	}
 // Old code to create the triangle using a non-rectangular div tag
 /*	TheTriangle.className="CM_InfoArrow";
