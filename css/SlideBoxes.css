@@ -1,131 +1,15 @@
-/**
-* Stles for the Menu and the Info box
-*/
-
-/* Vertical Menu (General Styles)
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-.MenuBox {
-	background-color: rgba(41, 84, 41, 0.9);
-	position: fixed;
-	width: 380px;
-	/*height: 100%; */
-	top: 120px; 
-	z-index: 1;
-	bottom: 0;
-	display: block;
-
-	left: -380px;
-	height: 100%;  /*auto;*/
-	bottom: 0px;
-	overflow: auto;
-	overflow-x: hidden;
-	display:block;
-	
-	/* for sliding */
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-
+.MenuBox{background-color:rgba(41, 84, 41, 0.9);position:fixed;width:380px;top:120px;z-index:1;bottom:0;display:block;left:-380px;height:100%;bottom:0px;overflow:auto;overflow-x:hidden;display:block;-webkit-transition:all 0.3s ease;-moz-transition:all 0.3s ease;transition:all 0.3s ease;}
+.SlideBox{background-color:rgba(41, 84, 41, 0.9);position:fixed;height:1400px;bottom:0;}
+.SlideBox-vertical{width:380px;height:1400px;top:120px;z-index:1;display:block;overflow-y:scroll;}
+.SlideBox-left{left:-380px;height:1400px;overflow-y:scroll;}
+.SlideBox-left.SlideBox-open{left:0px;height:auto;display:block;overflow:auto;}
+.SlideBox-horizontal{width:340px;height:500px;right:0;z-index:1;overflow-y:hidden;}
+.SlideBox-bottom{bottom:-500px;z-index:1;overflow-y:hidden;}
+.SlideBox-bottom.SlideBox-open{bottom:-500px;z-index:1;height:500px;overflow-y:hidden;}
+#map{z-index:-1;}
+@media screen and (max-width:700px){.SlideBox-horizontal{font-size:75%;height:400px;width:200px;}
+.SlideBox-bottom{bottom:-400px;}
 }
-.SlideBox {
-	background-color: rgba(41, 84, 41, 0.9);
-	position: fixed;
-	height: 1400px;
-	bottom: 0;
-}
-/* .SlideBox a {  This is where the <a> tag turns the text white
-	color: #fff;
-	font-size: 1.1em;
-	font-weight: 300;
-}
-.SlideBox a:hover {
-	color: none;
-}
-.SlideBox a:active {
-	background: none;
-} */
-
-/* Vertical Menu (the "Menu")
-––––––––––––––––––––––––––––––––––––––––– ––––––––– */
-
-.SlideBox-vertical {
-	width: 380px;
-	height: 1400px; /*auto;*/
-	top: 120px;
-	z-index: 1;
-	/*bottom: 0;*/
-	display: block;
-	overflow-y: scroll;
-}
-.SlideBox-left {
-	left: -380px; /* this puts the menu off the left side of the browser */
-	height: 1400px;  /*auto;*/
-/*	bottom: 0;*/
-	overflow-y: scroll;
-}
-.SlideBox-left.SlideBox-open {
-	left: 0px;
-	height: auto;
-/*	bottom: 0;*/
-	display: block;
-	overflow: auto;
-}
-/* Horizontal Menu (nope, this is the "Info" popup window)
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-
-.SlideBox-horizontal {
-	width: 340px;
-	height: 500px;
-	right: 0;
-	z-index: 1;
-	overflow-y: hidden;
-}
-.SlideBox-bottom {
-	bottom: -500px; /* moves the window off the bottom of the web page */
-	z-index: 1;
-	overflow-y:hidden;
-}
-.SlideBox-bottom.SlideBox-open {
-	bottom: -500px; /* was -500 */
-	z-index: 1;
-	height: 500px;
-	overflow-y: hidden;
-}
-/* Transitions (is this the sliding in and out code?)
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-
-/* .SlideBox { */
-	/* -webkit-transition: all 0.3s ease; */
-	/* -moz-transition: all 0.3s ease; */
-	/* transition: all 0.3s ease; */
-/* } */
-
-/* Map
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-
-#map {
-	z-index: -1;
-}
-
-/* Media Queries 
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-/* changes height and width based on smaller devices */
-@media screen and (max-width: 700px) {
-	 .SlideBox-horizontal {
-		 font-size: 75%;
-		 height: 400px;
-		 width: 200px;
-	}
-	 .SlideBox-bottom {
-		 bottom: -400px;
-	}
-}
- @media screen and (max-width: 700px) {
-	.SlideBox-vertical {
-		 font-size: 90%;
-		 width: 280px;
-	}
-	.SlideBox-left,  .SlideBox-push-toleft {
-	 	left: -280px;
-	}
+@media screen and (max-width:700px){.SlideBox-vertical{font-size:90%;width:280px;}
+.SlideBox-left, .SlideBox-push-toleft{left:-280px;}
 }
